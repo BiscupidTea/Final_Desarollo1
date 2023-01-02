@@ -169,7 +169,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\Entity.cpp" />
+    <ClCompile Include="src\objects\Player.cpp" />
+    <ClCompile Include="src\objects\PowerUp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\objects\Entity.h" />
+    <ClInclude Include="src\objects\Player.h" />
+    <ClInclude Include="src\objects\PowerUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
