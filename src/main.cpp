@@ -1,8 +1,7 @@
 #include <iostream>
-
-using namespace std;
+#include "scenes/CurrentScene.h"
 
 int main()
 {
-	cout << "hello world" << endl;
+	InitGame();
 }
