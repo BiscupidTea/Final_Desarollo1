@@ -1,8 +1,9 @@
 #include "Entity.h"
 
-Entity::Entity(Vector2 position, int width, int height)
+Entity::Entity(Vector2 position, Vector2 velocity, int width, int height)
 {
 	this->position = position;
+	this->velocity = velocity;
 	this->width = width;
 	this->height = height;
 }
@@ -20,6 +21,26 @@ void Entity::SetPosition(Vector2 position)
 Vector2 Entity::GetPosition()
 {
 	return position;
+}
+
+void Entity::setVelocityX(int velX)
+{
+	velocity.x = velX;
+}
+
+void Entity::setVelocityY(int velY)
+{
+	velocity.y = velY;
+}
+
+int Entity::getVelocityX()
+{
+	return velocity.x;
+}
+
+int Entity::getVelocityY()
+{
+	return velocity.y;
 }
 
 int Entity::GetX()
