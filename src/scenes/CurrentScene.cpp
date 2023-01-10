@@ -8,7 +8,9 @@ void InitGame()
 	bool IsRunning = true;
 
 	InitWindow(DefaultScreenWidth, DefaultScreenHeight, "WHERE IS MY TIME!?");
-	SetExitKey(KEY_NULL);
+	SetExitKey(NULL);
+
+	gamescene = GameScene::GameLoop;
 
 	while (!WindowShouldClose())
 	{
@@ -23,28 +25,30 @@ void ScreenScene(bool& IsRunning) {
 	switch (gamescene)
 	{
 	case GameScene::Menu:
-		SetExitKey(KEY_ESCAPE);
+
+	if (IsKeyPressed(KEY_ESCAPE))
+	{
+		gamescene = GameScene::Exit;
+	}
 		
 
 		break;
 	case GameScene::GameLoop:
-		SetExitKey(NULL);
-		
+		GameLoopScene();
 
 		break;
 	case GameScene::Rules:
-		SetExitKey(NULL);
 		
 
 		break;
 	case GameScene::Credits:
-		SetExitKey(NULL);
-		
+
 
 		break;
 	case GameScene::Exit:
 		IsRunning = false;
 		break;
+
 	default:
 		break;
 	}

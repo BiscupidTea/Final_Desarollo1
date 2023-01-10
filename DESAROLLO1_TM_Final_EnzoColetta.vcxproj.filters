@@ -40,6 +40,9 @@
     <ClCompile Include="src\scenes\Store.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\tools\tools.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -65,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="src\scenes\Store.h">
       <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\tools.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

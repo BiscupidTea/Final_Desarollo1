@@ -1,5 +1,7 @@
 #include "raylib.h"
 
+#include "scenes/Game.h"
+
 enum class GameScene {
 	Menu,
 	GameLoop,

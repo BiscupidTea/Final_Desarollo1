@@ -13,9 +13,9 @@ Entity::~Entity()
 
 }
 
-void Entity::SetPosition(Vector2 position)
+void Entity::SetPosition(Vector2 newPosition)
 {
-	this->position = position;
+	this->position = newPosition;
 }
 
 Vector2 Entity::GetPosition()
@@ -23,32 +23,32 @@ Vector2 Entity::GetPosition()
 	return position;
 }
 
-void Entity::setVelocityX(int velX)
+void Entity::setVelocityX(float velX)
 {
 	velocity.x = velX;
 }
 
-void Entity::setVelocityY(int velY)
+void Entity::setVelocityY(float velY)
 {
 	velocity.y = velY;
 }
 
-int Entity::getVelocityX()
+float Entity::getVelocityX()
 {
 	return velocity.x;
 }
 
-int Entity::getVelocityY()
+float Entity::getVelocityY()
 {
 	return velocity.y;
 }
 
-int Entity::GetX()
+float Entity::GetX()
 {
 	return position.x;
 }
 
-int Entity::GetY()
+float Entity::GetY()
 {
 	return position.y;
 }

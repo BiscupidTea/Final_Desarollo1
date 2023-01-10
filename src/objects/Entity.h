@@ -15,16 +15,16 @@ public:
 
 	virtual void Draw() = 0;
 
-	void SetPosition(Vector2 position);
+	void SetPosition(Vector2 newPosition);
 	Vector2 GetPosition();
 	
-	void setVelocityX(int velX);
-	void setVelocityY(int velY);
-	int getVelocityX();
-	int getVelocityY();
+	void setVelocityX(float velX);
+	void setVelocityY(float velY);
+	float getVelocityX();
+	float getVelocityY();
 
-	int GetX();
-	int GetY();
+	float GetX();
+	float GetY();
 	int GetWidth();
 	int GetHeight();
 };

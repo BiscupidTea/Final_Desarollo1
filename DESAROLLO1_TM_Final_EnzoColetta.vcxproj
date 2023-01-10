@@ -178,6 +178,7 @@
     <ClCompile Include="src\scenes\Game.cpp" />
     <ClCompile Include="src\scenes\Rules.cpp" />
     <ClCompile Include="src\scenes\Store.cpp" />
+    <ClCompile Include="src\tools\tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\scenes\Game.h" />
     <ClInclude Include="src\scenes\Rules.h" />
     <ClInclude Include="src\scenes\Store.h" />
+    <ClInclude Include="src\tools\tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
