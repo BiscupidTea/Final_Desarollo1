@@ -14,7 +14,7 @@ void InitGame()
 
 	setGameScene(GameScene::Menu);
 
-	while (!WindowShouldClose())
+	while (!WindowShouldClose() && IsRunning)
 	{
 		ScreenScene(IsRunning);
 	}
@@ -41,21 +41,17 @@ void ScreenScene(bool& IsRunning) {
 
 	case GameScene::Rules:
 
-
 		break;
 
 	case GameScene::Options:
-
 
 		break;
 
 	case GameScene::Credits:
 
-
 		break;
 
 	case GameScene::Exit:
-
 		IsRunning = false;
 		break;
 

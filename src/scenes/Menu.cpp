@@ -101,22 +101,21 @@ void CreateButtons(optionsButtons button[])
 		button[i].rectangle.width = GetPercentageScreenWidth(15);
 
 		button[i].color = RED;
+		button[i].selected = false;
 	}
 
-	button[2].rectangle.width = GetPercentageScreenWidth(10);
-	button[2].rectangle.height = GetPercentageScreenWidth(10);
+	button[4].rectangle.width = GetPercentageScreenWidth(10);
+	button[4].rectangle.height = GetPercentageScreenWidth(10);
 
 	button[0].rectangle.x = GetPercentageScreenWidth(15);
 	button[1].rectangle.x = GetPercentageScreenWidth(15);
+	button[2].rectangle.x = GetPercentageScreenWidth(15);
 	button[3].rectangle.x = GetPercentageScreenWidth(15);
-	button[4].rectangle.x = GetPercentageScreenWidth(15);
-
-	button[2].rectangle.x = GetPercentageScreenWidth(85);
+	button[4].rectangle.x = GetPercentageScreenWidth(85);
 
 	button[0].rectangle.y = GetPercentageScreenHeight(25);
 	button[1].rectangle.y = GetPercentageScreenHeight(40);
-	button[3].rectangle.y = GetPercentageScreenWidth(55);
-
+	button[2].rectangle.y = GetPercentageScreenHeight(55);
+	button[3].rectangle.y = GetPercentageScreenWidth(70);
 	button[4].rectangle.y = GetPercentageScreenHeight(85);
-	button[2].rectangle.y = GetPercentageScreenHeight(85);
 }
