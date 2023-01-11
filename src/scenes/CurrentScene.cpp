@@ -1,5 +1,7 @@
 #include "CurrentScene.h"
 
+GameScene gameScene;
+
 void InitGame()
 {
 	int DefaultScreenWidth = 800;
@@ -10,11 +12,10 @@ void InitGame()
 	InitWindow(DefaultScreenWidth, DefaultScreenHeight, "WHERE IS MY TIME!?");
 	SetExitKey(NULL);
 
-	gamescene = GameScene::GameLoop;
+	setGameScene(GameScene::Menu);
 
 	while (!WindowShouldClose())
 	{
-		ClearBackground(BLACK);
 		ScreenScene(IsRunning);
 	}
 
@@ -22,30 +23,39 @@ void InitGame()
 }
 
 void ScreenScene(bool& IsRunning) {
-	switch (gamescene)
+	switch (gameScene)
 	{
 	case GameScene::Menu:
 
-	if (IsKeyPressed(KEY_ESCAPE))
-	{
-		gamescene = GameScene::Exit;
-	}
-		
+		if (IsKeyPressed(KEY_ESCAPE))
+		{
+			gameScene = GameScene::Exit;
+		}
 
+		MenuScene();
 		break;
+
 	case GameScene::GameLoop:
 		GameLoopScene();
-
 		break;
+
 	case GameScene::Rules:
-		
+
 
 		break;
+
+	case GameScene::Options:
+
+
+		break;
+
 	case GameScene::Credits:
 
 
 		break;
+
 	case GameScene::Exit:
+
 		IsRunning = false;
 		break;
 

@@ -13,3 +13,9 @@ float GetPercentageScreenWidth(
 void DrawLinesScreen(
 
 );
+
+///////////////////////colitions
+
+bool CheckMouseRectangleColition(
+	Rectangle rectangle
+);

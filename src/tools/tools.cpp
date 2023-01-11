@@ -32,3 +32,14 @@ void DrawLinesScreen()
 	DrawLine(static_cast<int>(GetPercentageScreenWidth(50)), 0, static_cast<int>(GetPercentageScreenWidth(50)), GetScreenHeight(), RED);
 	DrawLine(0, static_cast<int>(GetPercentageScreenHeight(50)), GetScreenWidth(), static_cast<int>(GetPercentageScreenHeight(50)), RED);
 }
+
+bool CheckMouseRectangleColition(Rectangle rectangle)
+{
+	if (GetMouseX() >= rectangle.x &&        
+		GetMouseX() <= rectangle.x + rectangle.width &&
+		GetMouseY() >= rectangle.y &&
+		GetMouseY() <= rectangle.y + rectangle.height) {
+		return true;
+	}
+	return false;
+}

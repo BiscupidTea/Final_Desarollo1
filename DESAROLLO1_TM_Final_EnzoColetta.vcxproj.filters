@@ -43,6 +43,15 @@
     <ClCompile Include="src\tools\tools.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\Menu.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\SceneSetter.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\Options.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -71,6 +80,15 @@
     </ClInclude>
     <ClInclude Include="src\tools\tools.h">
       <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\Menu.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\SceneSetter.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\Options.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
