@@ -40,15 +40,15 @@ void ScreenScene(bool& IsRunning) {
 		break;
 
 	case GameScene::Rules:
-
+		setGameScene(GameScene::Menu);
 		break;
 
 	case GameScene::Options:
-
+		setGameScene(GameScene::Menu);
 		break;
 
 	case GameScene::Credits:
-
+		setGameScene(GameScene::Menu);
 		break;
 
 	case GameScene::Exit:

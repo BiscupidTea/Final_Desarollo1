@@ -3,6 +3,7 @@
 #include "tools/tools.h"
 
 #include "scenes/SceneSetter.h"
+#include "Game.h"
 
 static bool buttonsCreated = false;
 static int totButtons = 5;

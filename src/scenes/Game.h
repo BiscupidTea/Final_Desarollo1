@@ -8,3 +8,5 @@ void GameLoopScene();
 void DrawGame();
 
 void UpdateGame();
+
+void InitPlayer();

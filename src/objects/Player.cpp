@@ -9,6 +9,8 @@ Player::Player(Vector2 position, Vector2 velocity, int width, int height, int di
 	this->distanceMade = distanceMade;
 	this->points = points;
 	this->alive = alive;
+	ground = false;
+	jump = false;
 }
 
 Player::~Player()
@@ -23,14 +25,53 @@ void Player::Draw()
 
 void Player::Movement()
 {
+	if (!ground && !jump)
+	{
+		velocity.y += 200 * GetFrameTime();
+	}
+	else if (!ground && jump)
+	{
+		if (velocity.y > -300)
+		{
+			velocity.y -= 450 * GetFrameTime();
+		}
+	}
+	else if (ground && jump)
+	{
+		ground = false;
+		velocity.y = -200;
+	}
+	else if (ground)
+	{
+		velocity.y = 0;
+	}
+
 	position.y += velocity.y * GetFrameTime();
+}
+
+void Player::IsPlayerGround()
+{
+	float florDistance = GetPercentageScreenHeight(85.0f);
+
+	if (position.y + height < florDistance)
+	{
+		ground = false;
+	}
+	else
+	{
+		ground = true;
+	}
 }
 
 void Player::Input()
 {
 	if (IsKeyDown(KEY_SPACE))
 	{
-		velocity.y = -10;
+		jump = true;
+	}
+	else
+	{
+		jump = false;
 	}
 }
 

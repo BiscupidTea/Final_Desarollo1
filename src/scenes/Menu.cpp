@@ -17,13 +17,14 @@ void UpdateMenu(optionsButtons button[])
 		if (CheckMouseRectangleColition(button[i].rectangle))
 		{
 			button[i].color = WHITE;
-			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckMouseRectangleColition(button[i].rectangle))
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 			{
 				button[i].selected = true;
 
 				if (button[0].selected)
 				{
 					setGameScene(GameScene::GameLoop);
+					InitPlayer();
 				}
 				else if (button[1].selected)
 				{
