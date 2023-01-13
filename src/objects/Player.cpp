@@ -27,7 +27,7 @@ void Player::Movement()
 {
 	if (!ground && !jump)
 	{
-		velocity.y += 200 * GetFrameTime();
+		velocity.y += 300 * GetFrameTime();
 	}
 	else if (!ground && jump)
 	{
@@ -44,6 +44,12 @@ void Player::Movement()
 	else if (ground)
 	{
 		velocity.y = 0;
+	}
+
+	if (position.y < 0)
+	{
+		velocity.y = 0;
+		position.y = 0;
 	}
 
 	position.y += velocity.y * GetFrameTime();

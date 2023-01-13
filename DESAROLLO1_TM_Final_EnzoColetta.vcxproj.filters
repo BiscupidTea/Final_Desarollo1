@@ -52,6 +52,9 @@
     <ClCompile Include="src\scenes\Options.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\objects\Paralax.cpp">
+      <Filter>src\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -89,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="src\scenes\Options.h">
       <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\Paralax.h">
+      <Filter>src\objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
