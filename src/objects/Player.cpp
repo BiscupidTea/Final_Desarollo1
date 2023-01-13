@@ -20,7 +20,7 @@ Player::~Player()
 
 void Player::Draw()
 {
-	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), RED);
+	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
 }
 
 void Player::Movement()

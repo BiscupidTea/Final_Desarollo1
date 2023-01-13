@@ -5,13 +5,14 @@
 
 class Player : public Entity
 {
-public:
+private:
 	int points;
 	int distanceMade;
 	bool alive;
 	bool ground;
 	bool jump;
 
+public:
 	Player(Vector2 position, Vector2 velocity, int width, int height, int distanceMade, int points, bool alive);
 	~Player();
 

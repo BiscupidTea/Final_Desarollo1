@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\objects\Entity.cpp" />
+    <ClCompile Include="src\objects\Obstacle.cpp" />
     <ClCompile Include="src\objects\Paralax.cpp" />
     <ClCompile Include="src\objects\Player.cpp" />
     <ClCompile Include="src\objects\PowerUp.cpp" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h" />
+    <ClInclude Include="src\objects\Obstacle.h" />
     <ClInclude Include="src\objects\Paralax.h" />
     <ClInclude Include="src\objects\Player.h" />
     <ClInclude Include="src\objects\PowerUp.h" />
