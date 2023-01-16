@@ -20,5 +20,15 @@ void Obstacle::Draw()
 
 void Obstacle::Movement()
 {
+	position.x -= velocity.x * GetFrameTime();
+}
 
+bool Obstacle::OutOfLimits()
+{
+	if (GetX() < 0)
+	{
+		return true;
+	}
+
+	return false;
 }

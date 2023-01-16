@@ -15,4 +15,6 @@ public:
 	void Draw();
 
 	void Movement();
+
+	bool OutOfLimits();
 };

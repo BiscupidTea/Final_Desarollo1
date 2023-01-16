@@ -62,3 +62,17 @@ int Entity::GetHeight()
 {
 	return this->height;
 }
+
+bool Entity::CheckColition(Vector2 EPosition, int Ewidth, int Eheight)
+{
+	if (position.x + width >= EPosition.x &&
+		position.x <= EPosition.x + Ewidth &&
+		position.y + height >= EPosition.y &&
+		position.y <= EPosition.y + Eheight)
+	{
+		return true;
+	}
+
+	return false;
+
+}

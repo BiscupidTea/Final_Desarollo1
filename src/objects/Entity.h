@@ -27,6 +27,8 @@ public:
 	float GetY();
 	int GetWidth();
 	int GetHeight();
+
+	bool CheckColition(Vector2 EPosition, int Ewidth, int Eheight);
 };
 
 
