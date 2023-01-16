@@ -25,7 +25,7 @@ void Obstacle::Movement()
 
 bool Obstacle::OutOfLimits()
 {
-	if (GetX() < 0)
+	if (GetX() + width < 0)
 	{
 		return true;
 	}

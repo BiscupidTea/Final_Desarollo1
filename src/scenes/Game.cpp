@@ -1,7 +1,20 @@
 #include "Game.h"
 
-Player* player1 = new Player({ 0, 0 }, { 0, 50 }, 40, 60, 0, 0, true);
-Obstacle* obstacle1 = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60);
+static const int maxObstacles = 5;
+
+Player* player1;
+Obstacle* arrayobstacle[maxObstacles];
+
+void InitGameLoop()
+{
+	player1 = new Player({ 0, 0 }, { 0, 50 }, 40, 60, 0, 0, true);
+	for (int i = 0; i < maxObstacles; i++)
+	{
+		arrayobstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60);
+	}
+
+	InitPlayer();
+}
 
 void GameLoopScene()
 {
@@ -15,7 +28,11 @@ void DrawGame()
 	BeginDrawing();
 	ClearBackground(BLACK);
 	player1->Draw();
-	obstacle1->Draw();
+
+	for (int i = 0; i < maxObstacles; i++)
+	{
+		arrayobstacle[i]->Draw();
+	}
 
 	DrawRectangle(0,
 		static_cast<int>(GetPercentageScreenHeight(85.0f)),
@@ -34,7 +51,10 @@ void UpdateGame()
 	player1->Movement();
 
 	InitObstacle();
-	obstacle1->Movement();
+	for (int i = 0; i < maxObstacles; i++)
+	{
+		arrayobstacle[i]->Movement();
+	}
 
 	CheckColitions();
 }
@@ -46,24 +66,31 @@ void InitPlayer()
 
 void InitObstacle()
 {
-	if (obstacle1->OutOfLimits())
+	for (int i = 0; i < maxObstacles; i++)
 	{
-		obstacle1->SetPosition({
-			GetPercentageScreenWidth(100.0f),
-			static_cast<float>(GetRandomValue(0, (static_cast<int>(GetPercentageScreenHeight(85.0f)) - (obstacle1->GetHeight()))))
-		});
-		cout << obstacle1->GetY() << endl;
+		if (arrayobstacle[i]->OutOfLimits())
+		{
+			arrayobstacle[i]->SetPosition({
+				GetPercentageScreenWidth(100.0f),
+				static_cast<float>(GetRandomValue(0, (static_cast<int>(GetPercentageScreenHeight(85.0f)) - (arrayobstacle[i]->GetHeight()))))
+				});
+			cout << arrayobstacle[i]->GetY() << endl;
+		}
 	}
 }
 
 void CheckColitions()
 {
-	if (player1->CheckColition(obstacle1->GetPosition(), obstacle1->GetWidth(), obstacle1->GetHeight()))
+	for (int i = 0; i < maxObstacles; i++)
 	{
-		setGameScene(GameScene::Menu);
-		obstacle1->SetPosition({
-	GetPercentageScreenWidth(100.0f),
-	static_cast<float>(GetRandomValue(0, (static_cast<int>(GetPercentageScreenHeight(85.0f)) - (obstacle1->GetHeight())))) });
-		cout << obstacle1->GetY() << endl;
+		if (player1->CheckColition(arrayobstacle[i]->GetPosition(), arrayobstacle[i]->GetWidth(), arrayobstacle[i]->GetHeight()))
+		{
+			setGameScene(GameScene::Menu);
+			arrayobstacle[i]->SetPosition({
+		GetPercentageScreenWidth(100.0f),
+		static_cast<float>(GetRandomValue(0, (static_cast<int>(GetPercentageScreenHeight(85.0f)) - (arrayobstacle[i]->GetHeight())))) });
+
+			cout << arrayobstacle[i]->GetY() << endl;
+		}
 	}
 }

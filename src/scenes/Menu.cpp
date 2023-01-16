@@ -24,7 +24,7 @@ void UpdateMenu(optionsButtons button[])
 				if (button[0].selected)
 				{
 					setGameScene(GameScene::GameLoop);
-					InitPlayer();
+					InitGameLoop();
 				}
 				else if (button[1].selected)
 				{

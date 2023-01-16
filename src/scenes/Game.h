@@ -9,6 +9,8 @@
 
 using namespace std;
 
+void InitGameLoop();
+
 void GameLoopScene();
 
 void DrawGame();
