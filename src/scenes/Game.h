@@ -19,6 +19,10 @@ void UpdateGame();
 
 void InitPlayer();
 
-void InitObstacle();
+void ResetObstacle();
+
+void ResetObstacleOutOfLimits();
+
+void SetObstaclePattern();
 
 void CheckColitions();
