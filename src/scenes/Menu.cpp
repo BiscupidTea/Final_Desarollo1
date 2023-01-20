@@ -90,6 +90,9 @@ void DrawMenu(optionsButtons button[])
 			break;
 		}
 	}
+
+	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
+
 	EndDrawing();
 }
 
