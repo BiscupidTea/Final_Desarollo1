@@ -22,7 +22,7 @@ public:
 
 	void IsPlayerGround();
 
-	void Input();
+	void Input(bool& isPaused);
 
 	bool IsAlive();
 

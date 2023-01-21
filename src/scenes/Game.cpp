@@ -4,6 +4,7 @@ static const int maxObstacles = 12;
 static int objectsToMove;
 static float objectFrameDetector;
 static bool firtRun;
+static bool isGamePause = false;
 
 enum class ObjectsPatterns
 {
@@ -37,9 +38,9 @@ void InitGameLoop()
 
 void GameLoopScene()
 {
-	DrawGame();
-
 	UpdateGame();
+
+	DrawGame();
 }
 
 void DrawGame()
@@ -62,23 +63,38 @@ void DrawGame()
 
 	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
 
+	if (isGamePause)
+	{
+		DrawRectangle(
+			static_cast<int>(GetPercentageScreenWidth(15)),
+			static_cast<int>(GetPercentageScreenHeight(15)),
+			static_cast<int>(GetPercentageScreenWidth(70)),
+			static_cast<int>(GetPercentageScreenHeight(70)),
+			WHITE
+		);
+	}
+
 	EndDrawing();
 }
 
 void UpdateGame()
 {
-	player1->Input();
-	player1->IsPlayerGround();
-	player1->Movement();
+	player1->Input(isGamePause);
 
-	ResetObstacleOutOfLimits();
-
-	for (int i = 0; i < maxObstacles; i++)
+	if (!isGamePause)
 	{
-		arrayobstacle[i]->Movement();
-	}
+		player1->IsPlayerGround();
+		player1->Movement();
 
-	CheckColitions();
+		ResetObstacleOutOfLimits();
+
+		for (int i = 0; i < maxObstacles; i++)
+		{
+			arrayobstacle[i]->Movement();
+		}
+
+		CheckColitions();
+	}
 }
 
 void InitPlayer()
@@ -114,7 +130,7 @@ void ResetObstacleOutOfLimits()
 	if (firtRun)
 	{
 		firtRun = false;
-		objectFrameDetector = static_cast<float>(GetScreenWidth()*2);
+		objectFrameDetector = static_cast<float>(GetScreenWidth() * 2);
 	}
 	else
 	{

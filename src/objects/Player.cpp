@@ -69,15 +69,30 @@ void Player::IsPlayerGround()
 	}
 }
 
-void Player::Input()
+void Player::Input(bool& isPaused)
 {
-	if (IsKeyDown(KEY_SPACE))
+	if (isPaused)
 	{
-		jump = true;
+		if (IsKeyPressed(KEY_ESCAPE))
+		{
+			isPaused = false;
+		}
 	}
 	else
 	{
-		jump = false;
+		if (IsKeyDown(KEY_SPACE))
+		{
+			jump = true;
+		}
+		else
+		{
+			jump = false;
+		}
+
+		if (IsKeyPressed(KEY_ESCAPE))
+		{
+			isPaused = true;
+		}
 	}
 }
 
