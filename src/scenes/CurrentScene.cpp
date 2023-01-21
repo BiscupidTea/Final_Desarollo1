@@ -26,12 +26,6 @@ void ScreenScene(bool& IsRunning) {
 	switch (gameScene)
 	{
 	case GameScene::Menu:
-
-		if (IsKeyPressed(KEY_ESCAPE))
-		{
-			gameScene = GameScene::Exit;
-		}
-
 		MenuScene();
 		break;
 
@@ -48,7 +42,7 @@ void ScreenScene(bool& IsRunning) {
 		break;
 
 	case GameScene::Credits:
-		setGameScene(GameScene::Menu);
+		CreditsScene();
 		break;
 
 	case GameScene::Exit:
