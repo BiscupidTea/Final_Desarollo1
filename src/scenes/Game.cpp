@@ -5,8 +5,10 @@ static int objectsToMove;
 static float objectFrameDetector;
 static bool firtRun;
 static bool isGamePause = false;
+static bool aliveButtons = false;
 
 Buttons* buttonResume;
+Buttons* buttonRestart;
 Buttons* buttonBackToMenu;
 Buttons* buttonUpVolume;
 Buttons* buttonDownVolume;
@@ -33,6 +35,8 @@ void InitGameLoop()
 	{
 		arrayobstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60);
 	}
+
+	isGamePause = false;
 
 	objectsToMove = 0;
 	objectFrameDetector = static_cast<float>(GetScreenWidth());
@@ -68,9 +72,7 @@ void DrawGame()
 		GREEN
 	);
 
-	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
-
-	if (isGamePause)
+	if (isGamePause && player1->IsAlive())
 	{
 		DrawRectangle(
 			static_cast<int>(GetPercentageScreenWidth(15)),
@@ -86,6 +88,25 @@ void DrawGame()
 		buttonDownVolume->DrawButton();
 	}
 
+	if (!player1->IsAlive())
+	{
+		DrawRectangle(
+			static_cast<int>(GetPercentageScreenWidth(15)),
+			static_cast<int>(GetPercentageScreenHeight(15)),
+			static_cast<int>(GetPercentageScreenWidth(70)),
+			static_cast<int>(GetPercentageScreenHeight(70)),
+			WHITE
+		);
+
+		DrawText("Game Over", 
+			static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Game Over", 40)/2), 
+			static_cast<int>(GetPercentageScreenHeight(20)), 40, RED);
+
+		buttonRestart->DrawButton();
+		buttonBackToMenu->DrawButton();
+	}
+
+	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
 	EndDrawing();
 }
 
@@ -93,7 +114,7 @@ void UpdateGame()
 {
 	player1->Input(isGamePause);
 
-	if (!isGamePause)
+	if (!isGamePause && player1->IsAlive())
 	{
 		player1->IsPlayerGround();
 		player1->Movement();
@@ -107,6 +128,10 @@ void UpdateGame()
 
 		CheckColitions();
 	}
+	else if (!player1->IsAlive())
+	{
+		DeathScreen();
+	}
 	else
 	{
 		if (buttonResume->IsButtonPressed())
@@ -116,7 +141,6 @@ void UpdateGame()
 
 		if (buttonBackToMenu->IsButtonPressed())
 		{
-			isGamePause = false;
 			setGameScene(GameScene::Menu);
 		}
 
@@ -251,31 +275,65 @@ void CheckColitions()
 	{
 		if (player1->CheckColition(arrayobstacle[i]->GetPosition(), arrayobstacle[i]->GetWidth(), arrayobstacle[i]->GetHeight()))
 		{
-			setGameScene(GameScene::Menu);
+			player1->SetIsAlive(false);
 		}
 	}
 }
 
 void CreateGameButtons()
 {
-	buttonResume = new Buttons(
-		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(30),
-		GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
-		RED, "Resume", 25);
+	if (player1->IsAlive())
+	{
+		buttonResume = new Buttons(
+			{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(30),
+			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+			RED, "Resume", 25);
 
-	buttonBackToMenu = new Buttons(
-		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
-		GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
-		RED, "Back to Menu", 25);
+		buttonRestart = new Buttons(
+			{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(55),
+			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+			RED, "Restart", 25);
 
-	buttonDownVolume = new Buttons(
-		{ GetPercentageScreenWidth(40) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
-		GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
-		RED, "-", 25);
+		buttonBackToMenu = new Buttons(
+			{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
+			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+			RED, "Back to Menu", 25);
 
-	buttonUpVolume = new Buttons(
-		{ GetPercentageScreenWidth(60) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
-		GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
-		RED, "+", 25);
+		buttonDownVolume = new Buttons(
+			{ GetPercentageScreenWidth(40) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
+			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+			RED, "-", 25);
 
+		buttonUpVolume = new Buttons(
+			{ GetPercentageScreenWidth(60) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
+			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+			RED, "+", 25);
+	}
+	else
+	{
+
+		buttonBackToMenu = new Buttons(
+			{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
+			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+			RED, "Back to Menu", 25);
+	}
+
+}
+
+void DeathScreen()
+{
+	if (!aliveButtons)
+	{
+		CreateGameButtons();
+	}
+
+	if (buttonBackToMenu->IsButtonPressed())
+	{
+		setGameScene(GameScene::Menu);
+	}
+	
+	if (buttonRestart->IsButtonPressed())
+	{
+		InitGameLoop();
+	}
 }

@@ -29,3 +29,5 @@ void SetObstaclePattern();
 void CheckColitions();
 
 void CreateGameButtons();
+
+void DeathScreen();
