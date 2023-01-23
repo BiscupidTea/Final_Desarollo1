@@ -101,6 +101,11 @@ bool Player::IsAlive()
 	return alive;
 }
 
+void Player::SetIsAlive(bool aliveState)
+{
+	alive = aliveState;
+}
+
 int Player::GetPoints()
 {
 	return points;

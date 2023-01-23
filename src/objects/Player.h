@@ -25,6 +25,7 @@ public:
 	void Input(bool& isPaused);
 
 	bool IsAlive();
+	void SetIsAlive(bool aliveState);
 
 	int GetPoints();
 	void AddPoint(int sumPoints);
