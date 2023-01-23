@@ -11,6 +11,7 @@ private:
 	Rectangle rectangle;
 	Color baseColor;
 	Color color;
+	Color textColor;
 	string text;
 	int fontSize;
 

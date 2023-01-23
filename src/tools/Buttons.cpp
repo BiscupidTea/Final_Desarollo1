@@ -21,11 +21,12 @@ void Buttons::DrawButton()
 		color = baseColor;
 	}
 
-	DrawRectangleRec(rectangle,color);
-	DrawText(text.c_str(), 
-		rectangle.x - MeasureText(text.c_str(), fontSize)/2,
-		rectangle.y - MeasureText(text.c_str(), fontSize),
-		fontSize, color);
+	DrawRectangleRec(rectangle, color);
+
+	DrawText(text.c_str(),
+		static_cast<int>(rectangle.x + (rectangle.width / 2) - ((MeasureText(text.c_str(), fontSize)) / 2)),
+		static_cast<int>(rectangle.y + (rectangle.height / 2) - (fontSize / 2)),
+		fontSize, GREEN);
 }
 
 bool Buttons::IsButtonPressed()

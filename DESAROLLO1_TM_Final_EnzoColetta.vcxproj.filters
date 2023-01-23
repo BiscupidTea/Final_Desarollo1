@@ -58,6 +58,9 @@
     <ClCompile Include="src\objects\Obstacle.cpp">
       <Filter>src\objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\tools\Buttons.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="src\objects\Obstacle.h">
       <Filter>src\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Buttons.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
