@@ -1,25 +1,17 @@
 #pragma once
 #include "raylib.h"
 #include "tools/tools.h"
+#include "tools/Buttons.h"
 
 #include "scenes/SceneSetter.h"
 #include "Game.h"
 
-static bool buttonsCreated = false;
-static int totButtons = 5;
-
-struct optionsButtons
-{
-	Rectangle rectangle;
-	Color color;
-	bool selected;
-};
-
+static bool isButtonsCreated = false;
 
 void MenuScene();
 
-void UpdateMenu(optionsButtons button[]);
+void UpdateMenu();
 
-void DrawMenu(optionsButtons button[]);
+void DrawMenu();
 
-void CreateButtons(optionsButtons button[]);
+void CreateButtons();

@@ -1,55 +1,54 @@
 #include "scenes/Menu.h"
 
+Buttons* buttonPlay;
+
+Buttons* buttonRules;
+
+Buttons* buttonOptions;
+
+Buttons* buttonCredits;
+
+Buttons* buttonExit;
+
 void MenuScene()
 {
-	optionsButtons button[5];
-	CreateButtons(button);
+	if (!isButtonsCreated)
+	{
+		CreateButtons();
+		isButtonsCreated = true;
+	}
 
-	UpdateMenu(button);
+	UpdateMenu();
 
-	DrawMenu(button);
+	DrawMenu();
 }
 
-void UpdateMenu(optionsButtons button[])
+void UpdateMenu()
 {
-	for (int i = 0; i < totButtons; i++)
+	if (buttonPlay->IsButtonPressed())
 	{
-		if (CheckMouseRectangleColition(button[i].rectangle))
-		{
-			button[i].color = WHITE;
-			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-			{
-				button[i].selected = true;
-
-				if (button[0].selected)
-				{
-					setGameScene(GameScene::GameLoop);
-					InitGameLoop();
-				}
-				else if (button[1].selected)
-				{
-					setGameScene(GameScene::Rules);
-				}
-				else if (button[2].selected)
-				{
-					setGameScene(GameScene::Options);
-				}
-				else if (button[3].selected)
-				{
-					setGameScene(GameScene::Credits);
-				}
-				else if (button[4].selected)
-				{
-					setGameScene(GameScene::Exit);
-				}
-
-				button[i].selected = false;
-			}
-		}
+		setGameScene(GameScene::GameLoop);
+		InitGameLoop();
+	}
+	else if(buttonRules->IsButtonPressed())
+	{
+		setGameScene(GameScene::Rules);
+	}
+	else if (buttonOptions->IsButtonPressed())
+	{
+		setGameScene(GameScene::Options);
+	}
+	else if (buttonCredits->IsButtonPressed())
+	{
+		setGameScene(GameScene::Credits);
+	}
+	else if (buttonExit->IsButtonPressed())
+	{
+		setGameScene(GameScene::Exit);
 	}
 }
 
-void DrawMenu(optionsButtons button[])
+void DrawMenu()
 {
 	BeginDrawing();
 	ClearBackground(BLACK);
@@ -59,67 +58,41 @@ void DrawMenu(optionsButtons button[])
 		static_cast<int>(GetPercentageScreenHeight(10)),
 		50, GREEN);
 
-	for (int i = 0; i < totButtons; i++)
-	{
-
-		DrawRectangle(
-			static_cast<int>(button[i].rectangle.x),
-			static_cast<int>(button[i].rectangle.y),
-			static_cast<int>(button[i].rectangle.width),
-			static_cast<int>(button[i].rectangle.height),
-			button[i].color);
-
-		switch (i)
-		{
-		case 0:
-			DrawText("Play", static_cast<int>(button[i].rectangle.x), static_cast<int>(button[i].rectangle.y), 30, GREEN);
-			break;
-		case 1:
-			DrawText("Rules", static_cast<int>(button[i].rectangle.x), static_cast<int>(button[i].rectangle.y), 30, GREEN);
-			break;
-		case 2:
-			DrawText("Options", static_cast<int>(button[i].rectangle.x), static_cast<int>(button[i].rectangle.y), 30, GREEN);
-			break;
-		case 3:
-			DrawText("Credits", static_cast<int>(button[i].rectangle.x), static_cast<int>(button[i].rectangle.y), 30, GREEN);
-			break;
-		case 4:
-			DrawText("Exit", static_cast<int>(button[i].rectangle.x), static_cast<int>(button[i].rectangle.y), 30, GREEN);
-			break;
-		default:
-			break;
-		}
-	}
+	buttonPlay->DrawButton();
+	buttonRules->DrawButton();
+	buttonOptions->DrawButton();
+	buttonCredits->DrawButton();
+	buttonExit->DrawButton();
 
 	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
 
 	EndDrawing();
 }
 
-void CreateButtons(optionsButtons button[])
+void CreateButtons()
 {
+	buttonPlay = new Buttons(
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(25),
+		GetPercentageScreenWidth(15), GetPercentageScreenHeight(7) },
+		RED, "play", 30);
 
-	for (int i = 0; i < totButtons; i++)
-	{
-		button[i].rectangle.height = GetPercentageScreenHeight(7);
-		button[i].rectangle.width = GetPercentageScreenWidth(15);
+	buttonRules = new Buttons(
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(40),
+		GetPercentageScreenWidth(15), GetPercentageScreenHeight(7) },
+		RED, "Rules", 30);
 
-		button[i].color = RED;
-		button[i].selected = false;
-	}
+	buttonOptions = new Buttons(
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(55),
+		GetPercentageScreenWidth(15), GetPercentageScreenHeight(7) },
+		RED, "Options", 30);
 
-	button[4].rectangle.width = GetPercentageScreenWidth(10);
-	button[4].rectangle.height = GetPercentageScreenWidth(10);
+	buttonCredits = new Buttons(
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(70),
+		GetPercentageScreenWidth(15), GetPercentageScreenHeight(7) },
+		RED, "Credits", 30);
 
-	button[0].rectangle.x = GetPercentageScreenWidth(15);
-	button[1].rectangle.x = GetPercentageScreenWidth(15);
-	button[2].rectangle.x = GetPercentageScreenWidth(15);
-	button[3].rectangle.x = GetPercentageScreenWidth(15);
-	button[4].rectangle.x = GetPercentageScreenWidth(85);
-
-	button[0].rectangle.y = GetPercentageScreenHeight(25);
-	button[1].rectangle.y = GetPercentageScreenHeight(40);
-	button[2].rectangle.y = GetPercentageScreenHeight(55);
-	button[3].rectangle.y = GetPercentageScreenWidth(70);
-	button[4].rectangle.y = GetPercentageScreenHeight(85);
+	buttonExit = new Buttons(
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(85),
+		GetPercentageScreenWidth(10), GetPercentageScreenHeight(10) },
+		RED, "Exit", 30);
 }
