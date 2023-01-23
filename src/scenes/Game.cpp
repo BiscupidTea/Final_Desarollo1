@@ -57,53 +57,17 @@ void GameLoopScene()
 void DrawGame()
 {
 	BeginDrawing();
-	ClearBackground(BLACK);
-	player1->Draw();
 
-	for (int i = 0; i < maxObstacles; i++)
-	{
-		arrayobstacle[i]->Draw();
-	}
-
-	DrawRectangle(0,
-		static_cast<int>(GetPercentageScreenHeight(85.0f)),
-		GetScreenWidth(),
-		static_cast<int>(GetPercentageScreenHeight(15.0f)),
-		GREEN
-	);
+	GameplayDraw();
 
 	if (isGamePause && player1->IsAlive())
 	{
-		DrawRectangle(
-			static_cast<int>(GetPercentageScreenWidth(15)),
-			static_cast<int>(GetPercentageScreenHeight(15)),
-			static_cast<int>(GetPercentageScreenWidth(70)),
-			static_cast<int>(GetPercentageScreenHeight(70)),
-			WHITE
-		);
-
-		buttonResume->DrawButton();
-		buttonBackToMenu->DrawButton();
-		buttonUpVolume->DrawButton();
-		buttonDownVolume->DrawButton();
+		PauseDraw();
 	}
 
 	if (!player1->IsAlive())
 	{
-		DrawRectangle(
-			static_cast<int>(GetPercentageScreenWidth(15)),
-			static_cast<int>(GetPercentageScreenHeight(15)),
-			static_cast<int>(GetPercentageScreenWidth(70)),
-			static_cast<int>(GetPercentageScreenHeight(70)),
-			WHITE
-		);
-
-		DrawText("Game Over", 
-			static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Game Over", 40)/2), 
-			static_cast<int>(GetPercentageScreenHeight(20)), 40, RED);
-
-		buttonRestart->DrawButton();
-		buttonBackToMenu->DrawButton();
+		DeathScreenDraw();
 	}
 
 	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
@@ -116,36 +80,15 @@ void UpdateGame()
 
 	if (!isGamePause && player1->IsAlive())
 	{
-		player1->IsPlayerGround();
-		player1->Movement();
-
-		ResetObstacleOutOfLimits();
-
-		for (int i = 0; i < maxObstacles; i++)
-		{
-			arrayobstacle[i]->Movement();
-		}
-
-		CheckColitions();
+		GameplayUpdate();
 	}
 	else if (!player1->IsAlive())
 	{
-		DeathScreen();
+		DeathScreenUpdate();
 	}
 	else
 	{
-		if (buttonResume->IsButtonPressed())
-		{
-			isGamePause = false;
-		}
-
-		if (buttonBackToMenu->IsButtonPressed())
-		{
-			setGameScene(GameScene::Menu);
-		}
-
-		//buttonUpVolume->IsButtonPressed();
-		//buttonDownVolume->IsButtonPressed();
+		PauseUpdate();
 	}
 }
 
@@ -320,7 +263,72 @@ void CreateGameButtons()
 
 }
 
-void DeathScreen()
+void GameplayUpdate()
+{
+	player1->IsPlayerGround();
+	player1->Movement();
+
+	ResetObstacleOutOfLimits();
+
+	for (int i = 0; i < maxObstacles; i++)
+	{
+		arrayobstacle[i]->Movement();
+	}
+
+	CheckColitions();
+}
+
+void GameplayDraw()
+{
+	ClearBackground(BLACK);
+	player1->Draw();
+
+	for (int i = 0; i < maxObstacles; i++)
+	{
+		arrayobstacle[i]->Draw();
+	}
+
+	DrawRectangle(0,
+		static_cast<int>(GetPercentageScreenHeight(85.0f)),
+		GetScreenWidth(),
+		static_cast<int>(GetPercentageScreenHeight(15.0f)),
+		GREEN
+	);
+}
+
+void PauseUpdate()
+{
+	if (buttonResume->IsButtonPressed())
+	{
+		isGamePause = false;
+	}
+
+	if (buttonBackToMenu->IsButtonPressed())
+	{
+		setGameScene(GameScene::Menu);
+	}
+
+	//buttonUpVolume->IsButtonPressed();
+	//buttonDownVolume->IsButtonPressed();
+}
+
+void PauseDraw()
+{
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(15)),
+		static_cast<int>(GetPercentageScreenHeight(15)),
+		static_cast<int>(GetPercentageScreenWidth(70)),
+		static_cast<int>(GetPercentageScreenHeight(70)),
+		WHITE
+	);
+
+	buttonResume->DrawButton();
+	buttonBackToMenu->DrawButton();
+	buttonUpVolume->DrawButton();
+	buttonDownVolume->DrawButton();
+}
+
+void DeathScreenUpdate()
 {
 	if (!aliveButtons)
 	{
@@ -336,4 +344,22 @@ void DeathScreen()
 	{
 		InitGameLoop();
 	}
+}
+
+void DeathScreenDraw()
+{
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(15)),
+		static_cast<int>(GetPercentageScreenHeight(15)),
+		static_cast<int>(GetPercentageScreenWidth(70)),
+		static_cast<int>(GetPercentageScreenHeight(70)),
+		WHITE
+	);
+
+	DrawText("Game Over",
+		static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Game Over", 40) / 2),
+		static_cast<int>(GetPercentageScreenHeight(20)), 40, RED);
+
+	buttonRestart->DrawButton();
+	buttonBackToMenu->DrawButton();
 }

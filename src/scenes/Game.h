@@ -30,4 +30,14 @@ void CheckColitions();
 
 void CreateGameButtons();
 
-void DeathScreen();
+void GameplayUpdate();
+
+void GameplayDraw();
+
+void PauseUpdate();
+
+void PauseDraw();
+
+void DeathScreenUpdate();
+
+void DeathScreenDraw();
