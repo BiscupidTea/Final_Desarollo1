@@ -1,6 +1,7 @@
 #include <iostream>
 #include "raylib.h"
 #include "tools/tools.h"
+#include "tools/Buttons.h"
 
 #include "scenes/SceneSetter.h"
 
@@ -26,3 +27,5 @@ void ResetObstacleOutOfLimits();
 void SetObstaclePattern();
 
 void CheckColitions();
+
+void CreateGameButtons();

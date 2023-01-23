@@ -6,6 +6,11 @@ static float objectFrameDetector;
 static bool firtRun;
 static bool isGamePause = false;
 
+Buttons* buttonResume;
+Buttons* buttonBackToMenu;
+Buttons* buttonUpVolume;
+Buttons* buttonDownVolume;
+
 enum class ObjectsPatterns
 {
 	StairFloor = 1,
@@ -29,9 +34,11 @@ void InitGameLoop()
 		arrayobstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60);
 	}
 
+	objectsToMove = 0;
 	objectFrameDetector = static_cast<float>(GetScreenWidth());
 	firtRun = true;
 
+	CreateGameButtons();
 	InitPlayer();
 	ResetObstacle();
 }
@@ -72,6 +79,11 @@ void DrawGame()
 			static_cast<int>(GetPercentageScreenHeight(70)),
 			WHITE
 		);
+
+		buttonResume->DrawButton();
+		buttonBackToMenu->DrawButton();
+		buttonUpVolume->DrawButton();
+		buttonDownVolume->DrawButton();
 	}
 
 	EndDrawing();
@@ -94,6 +106,22 @@ void UpdateGame()
 		}
 
 		CheckColitions();
+	}
+	else
+	{
+		if (buttonResume->IsButtonPressed())
+		{
+			isGamePause = false;
+		}
+
+		if (buttonBackToMenu->IsButtonPressed())
+		{
+			isGamePause = false;
+			setGameScene(GameScene::Menu);
+		}
+
+		//buttonUpVolume->IsButtonPressed();
+		//buttonDownVolume->IsButtonPressed();
 	}
 }
 
@@ -226,4 +254,28 @@ void CheckColitions()
 			setGameScene(GameScene::Menu);
 		}
 	}
+}
+
+void CreateGameButtons()
+{
+	buttonResume = new Buttons(
+		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(30),
+		GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+		RED, "Resume", 25);
+
+	buttonBackToMenu = new Buttons(
+		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
+		GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+		RED, "Back to Menu", 25);
+
+	buttonDownVolume = new Buttons(
+		{ GetPercentageScreenWidth(40) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
+		GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+		RED, "-", 25);
+
+	buttonUpVolume = new Buttons(
+		{ GetPercentageScreenWidth(60) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
+		GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+		RED, "+", 25);
+
 }
