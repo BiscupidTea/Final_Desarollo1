@@ -25,6 +25,7 @@ enum class ObjectsPatterns
 };
 
 Player* player1;
+Timer* deathTimer;
 Obstacle* arrayobstacle[maxObstacles];
 
 void InitGameLoop()
@@ -41,6 +42,8 @@ void InitGameLoop()
 	objectsToMove = 0;
 	objectFrameDetector = static_cast<float>(GetScreenWidth());
 	firtRun = true;
+
+	deathTimer = new Timer(30);
 
 	CreateGameButtons();
 	InitPlayer();
@@ -275,6 +278,17 @@ void GameplayUpdate()
 		arrayobstacle[i]->Movement();
 	}
 
+
+	if (deathTimer->GetIsTimeEnd())
+	{
+		player1->SetIsAlive(false);
+	}
+	else
+	{
+		deathTimer->UpdateTimer();
+		cout << deathTimer->GetTimer() << endl;
+	}
+
 	CheckColitions();
 }
 
@@ -294,6 +308,40 @@ void GameplayDraw()
 		static_cast<int>(GetPercentageScreenHeight(15.0f)),
 		GREEN
 	);
+
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(9) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(3)),
+		static_cast<int>(GetPercentageScreenWidth(9)),
+		static_cast<int>(GetPercentageScreenHeight(6)),
+		WHITE
+	);
+
+	if (deathTimer->GetTimer() > 20)
+	{
+		DrawText(
+			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("00", 50) / 2)),
+			static_cast<int>(GetPercentageScreenHeight(3)),
+			50, GREEN);
+	}
+	else if (deathTimer->GetTimer() > 10)
+	{
+		DrawText(
+			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("10", 50) / 2)),
+			static_cast<int>(GetPercentageScreenHeight(3)),
+			50, GREEN);
+	}
+	else
+	{
+		DrawText(
+			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("0", 50) / 2)),
+			static_cast<int>(GetPercentageScreenHeight(3)),
+			50, GREEN);
+	}
+
 }
 
 void PauseUpdate()
@@ -339,7 +387,7 @@ void DeathScreenUpdate()
 	{
 		setGameScene(GameScene::Menu);
 	}
-	
+
 	if (buttonRestart->IsButtonPressed())
 	{
 		InitGameLoop();
