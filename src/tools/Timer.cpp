@@ -1,9 +1,8 @@
 #include "Timer.h"
 
-Timer::Timer(float timerEnd)
+Timer::Timer(float timerValue)
 {
-	this->timerPass = 0;
-	this->timerEnd = timerEnd;
+	this->timerPass = timerValue;
 	this->IsEnded = false;
 	this->IsPaused = false;
 }
@@ -13,12 +12,26 @@ Timer::~Timer()
 
 }
 
-void Timer::AddTime(float addTime)
+void Timer::UpdateTimer()
 {
 	if (!IsPaused)
 	{
-		timerPass += addTime;
+		timerPass -= GetFrameTime();
 	}
+
+	if (timerPass <= 0)
+	{
+		if (!IsEnded)
+		{
+			IsEnded = true;
+			timerPass = 0;
+		}
+	}
+}
+
+float Timer::GetTimer()
+{
+	return timerPass;
 }
 
 bool Timer::GetIsTimeEnd()
@@ -34,10 +47,4 @@ void Timer::SetIsPaused(bool setPause)
 bool Timer::GetIsPaused()
 {
 	return IsPaused;
-}
-
-void Timer::RestartTimer()
-{
-	timerPass = 0;
-	IsEnded = false;
 }
