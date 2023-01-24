@@ -17,5 +17,6 @@ public:
 	void SetIsPaused(bool setPause);
 	bool GetIsPaused();
 
+	void RestartTimer();
 };
 

@@ -33,5 +33,11 @@ void Timer::SetIsPaused(bool setPause)
 
 bool Timer::GetIsPaused()
 {
-	return 
+	return IsPaused;
+}
+
+void Timer::RestartTimer()
+{
+	timerPass = 0;
+	IsEnded = false;
 }
