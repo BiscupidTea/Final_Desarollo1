@@ -64,7 +64,7 @@ void DrawMenu()
 	buttonCredits->DrawButton();
 	buttonExit->DrawButton();
 
-	DrawText("0.2", GetScreenWidth() - MeasureText("0.2", 40), GetScreenHeight() - MeasureText("0.2", 20), 20, WHITE);
+	DrawText("0.3", GetScreenWidth() - MeasureText("0.3", 40), GetScreenHeight() - MeasureText("0.3", 20), 20, WHITE);
 
 	EndDrawing();
 }
