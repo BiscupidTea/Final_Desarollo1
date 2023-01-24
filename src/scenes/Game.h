@@ -1,7 +1,9 @@
 #include <iostream>
 #include "raylib.h"
+
 #include "tools/tools.h"
 #include "tools/Buttons.h"
+#include "tools/Timer.h"
 
 #include "scenes/SceneSetter.h"
 
