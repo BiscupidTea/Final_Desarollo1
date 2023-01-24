@@ -61,6 +61,9 @@
     <ClCompile Include="src\tools\Buttons.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="src\tools\Timer.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -106,6 +109,9 @@
       <Filter>src\objects</Filter>
     </ClInclude>
     <ClInclude Include="src\tools\Buttons.h">
+      <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Timer.h">
       <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
