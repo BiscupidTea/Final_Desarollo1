@@ -16,13 +16,16 @@ TimerItem::~TimerItem()
 
 void TimerItem::Draw()
 {
-	DrawRectangle(position.x, position.y, width, height, RED);
+	DrawRectangle(
+		static_cast<int>(position.x), 
+		static_cast<int>(position.y),
+		width, height, RED);
 }
 
 void TimerItem::UpdateItem()
 {
 	position.x -= velocity.x * GetFrameTime();
-	position.y -= sin(position.x/10) * GetFrameTime() * velocity.x;
+	//position.y -= static_cast<float>(sin(position.x/10) * GetFrameTime() * velocity.x);
 }
 
 float TimerItem::GettimeAdd()
