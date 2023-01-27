@@ -29,4 +29,7 @@ public:
 
 	int GetPoints();
 	void AddPoint(int sumPoints);
+
+	int GetDistanceMade();
+	void AddDistanceMade(int sumDistance);
 };

@@ -115,3 +115,13 @@ void Player::AddPoint(int sumPoints)
 {
 	points += sumPoints;
 }
+
+int Player::GetDistanceMade()
+{
+	return distanceMade;
+}
+
+void Player::AddDistanceMade(int sumDistance)
+{
+	distanceMade += sumDistance;
+}
