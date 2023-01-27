@@ -20,5 +20,7 @@ public:
 
 	void SetIsPaused(bool setPause);
 	bool GetIsPaused();
+
+	void AddTime(float timeAdded);
 };
 

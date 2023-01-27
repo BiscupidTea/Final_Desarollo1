@@ -48,3 +48,8 @@ bool Timer::GetIsPaused()
 {
 	return IsPaused;
 }
+
+void Timer::AddTime(float timeAdded)
+{
+	timerPass += timeAdded;
+}
