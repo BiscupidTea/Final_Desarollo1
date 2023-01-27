@@ -19,13 +19,18 @@ void TimerItem::Draw()
 	DrawRectangle(
 		static_cast<int>(position.x), 
 		static_cast<int>(position.y),
-		width, height, RED);
+		width, height, YELLOW);
 }
 
 void TimerItem::UpdateItem()
 {
 	position.x -= velocity.x * GetFrameTime();
 	//position.y -= static_cast<float>(sin(position.x/10) * GetFrameTime() * velocity.x);
+
+	if (position.x + width < 0)
+	{
+		position.x = static_cast<float>(GetScreenWidth());
+	}
 }
 
 float TimerItem::GettimeAdd()
