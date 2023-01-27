@@ -9,6 +9,7 @@
 
 #include "objects/Player.h"
 #include "objects/Obstacle.h"
+#include "objects/TimerItem.h"
 
 using namespace std;
 
