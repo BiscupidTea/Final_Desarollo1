@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(Vector2 position, Vector2 velocity, int width, int height, int distanceMade, int points, bool alive) : Entity(position, velocity, width, height)
+Player::Player(Vector2 position, Vector2 velocity, int width, int height, float distanceMade, int points, bool alive) : Entity(position, velocity, width, height)
 {
 	this->position = position;
 	this->velocity = velocity;
@@ -116,12 +116,12 @@ void Player::AddPoint(int sumPoints)
 	points += sumPoints;
 }
 
-int Player::GetDistanceMade()
+float Player::GetDistanceMade()
 {
 	return distanceMade;
 }
 
-void Player::AddDistanceMade(int sumDistance)
+void Player::AddDistanceMade(float sumDistance)
 {
 	distanceMade += sumDistance;
 }
