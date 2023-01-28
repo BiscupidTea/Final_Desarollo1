@@ -281,6 +281,7 @@ void GameplayUpdate()
 {
 	player1->IsPlayerGround();
 	player1->Movement();
+	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX()/100 * GetFrameTime());
 
 	itemTimer->UpdateItem();
 
@@ -299,7 +300,6 @@ void GameplayUpdate()
 	else
 	{
 		deathTimer->UpdateTimer();
-		cout << deathTimer->GetTimer() << endl;
 	}
 
 	CheckColitions();
@@ -355,6 +355,20 @@ void GameplayDraw()
 			static_cast<int>(GetPercentageScreenHeight(3)),
 			50, GREEN);
 	}
+
+	DrawText(
+		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
+		static_cast<int>(GetPercentageScreenWidth(3)),
+		static_cast<int>(GetPercentageScreenHeight(3)),
+		30, WHITE
+	);
+
+	DrawText(
+		"m",
+		static_cast<int>(GetPercentageScreenWidth(4) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))),
+		static_cast<int>(GetPercentageScreenHeight(3)),
+		30, WHITE
+	);
 
 }
 
@@ -421,6 +435,24 @@ void DeathScreenDraw()
 	DrawText("Game Over",
 		static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Game Over", 40) / 2),
 		static_cast<int>(GetPercentageScreenHeight(20)), 40, RED);
+
+	DrawText("Total Distance :",
+		static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Total Distance :", 30) / 2),
+		static_cast<int>(GetPercentageScreenHeight(30)), 30, RED);
+
+	DrawText(
+		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
+		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))/2)),
+		static_cast<int>(GetPercentageScreenHeight(40)),
+		30, RED
+	);
+
+	DrawText(
+		"m",
+		static_cast<int>(GetPercentageScreenWidth(51) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(40)),
+		30, RED
+	);
 
 	buttonRestart->DrawButton();
 	buttonBackToMenu->DrawButton();
