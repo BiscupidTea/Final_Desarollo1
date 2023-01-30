@@ -32,6 +32,7 @@ void Bullet::ShootBullet(Vector2 positionsBullet)
 {
 	position = positionsBullet;
 	isShooted = true;
+	isPicked = false;
 }
 
 void Bullet::ResetPosition()
@@ -56,4 +57,14 @@ bool Bullet::IsShootedNow()
 bool Bullet::IsPickedNow()
 {
 	return isPicked;
+}
+
+void Bullet::SetIsPicked(bool setter)
+{
+	isPicked = setter;
+}
+
+void Bullet::SetIsShooted(bool setter)
+{
+	isShooted = setter;
 }

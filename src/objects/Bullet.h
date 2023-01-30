@@ -28,5 +28,9 @@ public:
 	bool IsShootedNow();
 
 	bool IsPickedNow();
+
+	void SetIsPicked(bool setter);
+
+	void SetIsShooted(bool setter);
 };
 
