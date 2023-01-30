@@ -47,3 +47,13 @@ bool Bullet::OutOfLimits()
 		ResetPosition();
 	}
 }
+
+bool Bullet::IsShootedNow()
+{
+	return isShooted;
+}
+
+bool Bullet::IsPickedNow()
+{
+	return isPicked;
+}

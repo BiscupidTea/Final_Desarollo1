@@ -24,5 +24,9 @@ public:
 	void ResetPosition();
 
 	bool OutOfLimits();
+
+	bool IsShootedNow();
+
+	bool IsPickedNow();
 };
 
