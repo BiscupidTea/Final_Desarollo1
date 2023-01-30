@@ -45,11 +45,13 @@ void InitGameLoop()
 	firtRun = true;
 
 	itemTimer = new TimerItem(
-		{ static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(50)},
-		{175 ,0}, 15, 15, 10);
+		{ static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(25) },
+		{ 175 , 200 }, 15, 15, 10,
+		GetPercentageScreenHeight(21.25), GetPercentageScreenHeight(83.75));
 
 	deathTimer = new Timer(30);
 
+	itemTimer->ResetRandPosition();
 	CreateGameButtons();
 	InitPlayer();
 	ResetObstacle();
@@ -233,7 +235,7 @@ void CheckColitions()
 	if (player1->CheckColition(itemTimer->GetPosition(), itemTimer->GetWidth(), itemTimer->GetHeight()))
 	{
 		deathTimer->AddTime(itemTimer->GettimeAdd());
-		itemTimer->SetPosition({static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(50)});
+		itemTimer->ResetRandPosition();
 	}
 }
 
@@ -281,7 +283,7 @@ void GameplayUpdate()
 {
 	player1->IsPlayerGround();
 	player1->Movement();
-	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX()/100 * GetFrameTime());
+	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
 	itemTimer->UpdateItem();
 
@@ -442,7 +444,7 @@ void DeathScreenDraw()
 
 	DrawText(
 		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
-		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))/2)),
+		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
 		static_cast<int>(GetPercentageScreenHeight(40)),
 		30, RED
 	);
