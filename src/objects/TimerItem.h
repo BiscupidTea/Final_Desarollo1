@@ -9,8 +9,7 @@ class TimerItem : public Entity
 {
 private:
 	float timeAdd;
-	float positionA;
-	float positionB;
+	float initPosition;
 	float minSpace;
 	float maxSpace;
 
@@ -20,8 +19,7 @@ public:
 	TimerItem(
 		Vector2 position, Vector2 velocity, 
 		int width, int height,
-		float timeAdd,
-		float positionA, float positionB);
+		float timeAdd, float initPosition);
 	~TimerItem();
 
 	void Draw();

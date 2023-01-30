@@ -47,8 +47,8 @@ void InitGameLoop()
 
 	itemTimer = new TimerItem(
 		{ static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(25) },
-		{ 150 , 300 }, 15, 15, 10,
-		GetPercentageScreenHeight(21.25), GetPercentageScreenHeight(83.75));
+		{ 150 , 400 }, 15, 15, 10,
+		GetPercentageScreenHeight(42.5));
 
 	deathTimer = new Timer(30);
 	spawnItemTimer = new Timer(5);
