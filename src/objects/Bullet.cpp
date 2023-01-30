@@ -1,12 +1,13 @@
 #include "Bullet.h"
 
-Bullet::Bullet(Vector2 position, Vector2 velocity, int width, int height, bool isShooted) : Entity(position, velocity, width, height)
+Bullet::Bullet(Vector2 position, Vector2 velocity, int width, int height, bool isPicked) : Entity(position, velocity, width, height)
 {
 	this->position = position;
 	this->velocity = velocity;
 	this->width = width;
 	this->height = height;
-	this->isShooted = isShooted;
+	this->isPicked = isPicked;
+	this->isShooted = false;
 }
 
 Bullet::~Bullet()

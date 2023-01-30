@@ -7,11 +7,12 @@ class Bullet : public Entity
 {
 private:
 	bool isShooted;
+	bool isPicked;
 
 public:
 	Bullet(
 		Vector2 position, Vector2 velocity, 
-		int width, int height, bool isShooted);
+		int width, int height, bool isPicked);
 	~Bullet();
 
 	void Draw();
