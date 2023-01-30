@@ -67,6 +67,9 @@
     <ClCompile Include="src\objects\TimerItem.cpp">
       <Filter>src\objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\objects\Bullet.cpp">
+      <Filter>src\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -118,6 +121,9 @@
       <Filter>src\tools</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\TimerItem.h">
+      <Filter>src\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\Bullet.h">
       <Filter>src\objects</Filter>
     </ClInclude>
   </ItemGroup>

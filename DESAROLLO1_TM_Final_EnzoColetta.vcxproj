@@ -170,6 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\Bullet.cpp" />
     <ClCompile Include="src\objects\Entity.cpp" />
     <ClCompile Include="src\objects\Obstacle.cpp" />
     <ClCompile Include="src\objects\Paralax.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="src\tools\Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\objects\Bullet.h" />
     <ClInclude Include="src\objects\Entity.h" />
     <ClInclude Include="src\objects\Obstacle.h" />
     <ClInclude Include="src\objects\Paralax.h" />
