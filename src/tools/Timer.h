@@ -22,5 +22,6 @@ public:
 	bool GetIsPaused();
 
 	void AddTime(float timeAdded);
+	void SetTime(float timeSetted);
 };
 

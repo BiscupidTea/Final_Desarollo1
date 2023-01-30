@@ -53,3 +53,8 @@ void Timer::AddTime(float timeAdded)
 {
 	timerPass += timeAdded;
 }
+
+void Timer::SetTime(float timeSetted)
+{
+	timerPass = timeSetted;
+}
