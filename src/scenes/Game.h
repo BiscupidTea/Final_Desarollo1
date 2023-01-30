@@ -10,6 +10,7 @@
 #include "objects/Player.h"
 #include "objects/Obstacle.h"
 #include "objects/TimerItem.h"
+#include "objects/Bullet.h"
 
 using namespace std;
 

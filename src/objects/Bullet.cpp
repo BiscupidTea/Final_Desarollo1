@@ -17,7 +17,7 @@ Bullet::~Bullet()
 
 void Bullet::Draw()
 {
-	DrawRectangle(position.x, position.y, width, height, BROWN);
+	DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), width, height, BROWN);
 }
 
 void Bullet::UpdateBullet()
@@ -41,7 +41,7 @@ void Bullet::ResetPosition()
 	position.y = GetPercentageScreenHeight(-50);
 }
 
-bool Bullet::OutOfLimits()
+void Bullet::OutOfLimits()
 {
 	if (position.x > GetScreenWidth())
 	{

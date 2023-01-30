@@ -23,7 +23,7 @@ public:
 
 	void ResetPosition();
 
-	bool OutOfLimits();
+	void OutOfLimits();
 
 	bool IsShootedNow();
 

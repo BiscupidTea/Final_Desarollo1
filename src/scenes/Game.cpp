@@ -1,6 +1,7 @@
 #include "Game.h"
 
 static const int maxObstacles = 12;
+static const int maxBullets = 5;
 static int objectsToMove;
 static float objectFrameDetector;
 static bool firtRun;
@@ -30,6 +31,7 @@ TimerItem* itemTimer;
 Timer* deathTimer;
 Timer* spawnItemTimer;
 Obstacle* arrayObstacle[maxObstacles];
+Bullet* arrayBullets[maxBullets];
 
 void InitGameLoop()
 {
@@ -38,6 +40,11 @@ void InitGameLoop()
 	for (int i = 0; i < maxObstacles; i++)
 	{
 		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60);
+	}
+
+	for (int i = 0; i < maxBullets; i++)
+	{
+		arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true);
 	}
 
 	isGamePause = false;
@@ -294,6 +301,19 @@ void GameplayUpdate()
 	player1->Movement();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
+	if (IsKeyPressed(KEY_F))
+	{
+		for (int i = 0; i < maxBullets; i++)
+		{
+			if (arrayBullets[i]->IsPickedNow())
+			{
+				arrayBullets[i]->ShootBullet(player1->GetPosition());
+				cout << "fire" << endl;
+				break;
+			}
+		}
+	}
+
 	if (spawnItemTimer->GetTimer() <= 0)
 	{
 		itemTimer->UpdateItem();
@@ -308,7 +328,6 @@ void GameplayUpdate()
 	{
 		spawnItemTimer->UpdateTimer();
 	}
-	cout << spawnItemTimer->GetTimer() << endl;
 
 	ResetObstacleOutOfLimits();
 
@@ -329,6 +348,16 @@ void GameplayUpdate()
 		}
 	}
 
+	for (int i = 0; i < maxBullets; i++)
+	{
+		if (arrayBullets[i]->IsShootedNow())
+		{
+			arrayBullets[i]->UpdateBullet();
+		}
+
+		arrayBullets[i]->OutOfLimits();
+	}
+
 	CheckColitions();
 }
 
@@ -341,6 +370,14 @@ void GameplayDraw()
 	for (int i = 0; i < maxObstacles; i++)
 	{
 		arrayObstacle[i]->Draw();
+	}
+
+	for (int i = 0; i < maxBullets; i++)
+	{
+		if (arrayBullets[i]->IsShootedNow())
+		{
+			arrayBullets[i]->Draw();
+		}
 	}
 
 	DrawRectangle(0,
@@ -358,6 +395,7 @@ void GameplayDraw()
 		WHITE
 	);
 
+	//timer
 	if (deathTimer->GetTimer() > 20)
 	{
 		DrawText(
@@ -383,6 +421,7 @@ void GameplayDraw()
 			50, GREEN);
 	}
 
+	//meters
 	DrawText(
 		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
 		static_cast<int>(GetPercentageScreenWidth(3)),
@@ -394,6 +433,36 @@ void GameplayDraw()
 		"m",
 		static_cast<int>(GetPercentageScreenWidth(4) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))),
 		static_cast<int>(GetPercentageScreenHeight(3)),
+		30, WHITE
+	);
+
+	//bullets
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(3)),
+		static_cast<int>(GetPercentageScreenHeight(6) + arrayBullets[0]->GetHeight()),
+		arrayBullets[0]->GetWidth(), arrayBullets[0]->GetHeight(), BROWN
+	);
+
+	DrawText(
+		" = ",
+		static_cast<int>(GetPercentageScreenWidth(3) + arrayBullets[0]->GetWidth()),
+		static_cast<int>(GetPercentageScreenHeight(6) + arrayBullets[0]->GetHeight()),
+		30, WHITE
+	);
+
+	int bulletsPicked = 0;
+	for (int i = 0; i < maxBullets; i++)
+	{
+		if (arrayBullets[i]->IsPickedNow())
+		{
+			bulletsPicked += 1;
+		}
+	}
+
+	DrawText(
+		TextFormat("%01i", static_cast<int>(bulletsPicked)),
+		static_cast<int>(GetPercentageScreenWidth(3) + arrayBullets[0]->GetWidth() + (MeasureText(" = ", 30))),
+		static_cast<int>(GetPercentageScreenHeight(6) + arrayBullets[0]->GetHeight()),
 		30, WHITE
 	);
 
@@ -494,7 +563,7 @@ void AccelerateGame()
 			arrayObstacle[i]->setVelocityX(400);
 		}
 	}
-	
+
 	if (player1->GetDistanceMade() >= 300)
 	{
 		for (int i = 0; i < maxObstacles; i++)
@@ -502,7 +571,7 @@ void AccelerateGame()
 			arrayObstacle[i]->setVelocityX(500);
 		}
 	}
-	
+
 	if (player1->GetDistanceMade() >= 600)
 	{
 		for (int i = 0; i < maxObstacles; i++)
@@ -510,7 +579,7 @@ void AccelerateGame()
 			arrayObstacle[i]->setVelocityX(600);
 		}
 	}
-	
+
 	if (player1->GetDistanceMade() >= 800)
 	{
 		for (int i = 0; i < maxObstacles; i++)
@@ -518,7 +587,7 @@ void AccelerateGame()
 			arrayObstacle[i]->setVelocityX(700);
 		}
 	}
-	
+
 	if (player1->GetDistanceMade() >= 1000)
 	{
 		for (int i = 0; i < maxObstacles; i++)
