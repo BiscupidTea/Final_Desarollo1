@@ -6,6 +6,7 @@ static float objectFrameDetector;
 static bool firtRun;
 static bool isGamePause = false;
 static bool aliveButtons = false;
+static bool cheats = true;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -226,11 +227,14 @@ void SetObstaclePattern()
 
 void CheckColitions()
 {
-	for (int i = 0; i < maxObstacles; i++)
+	if (!cheats)
 	{
-		if (player1->CheckColition(arrayObstacle[i]->GetPosition(), arrayObstacle[i]->GetWidth(), arrayObstacle[i]->GetHeight()))
+		for (int i = 0; i < maxObstacles; i++)
 		{
-			player1->SetIsAlive(false);
+			if (player1->CheckColition(arrayObstacle[i]->GetPosition(), arrayObstacle[i]->GetWidth(), arrayObstacle[i]->GetHeight()))
+			{
+				player1->SetIsAlive(false);
+			}
 		}
 	}
 
@@ -284,6 +288,8 @@ void CreateGameButtons()
 
 void GameplayUpdate()
 {
+	AccelerateGame();
+
 	player1->IsPlayerGround();
 	player1->Movement();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
@@ -311,14 +317,16 @@ void GameplayUpdate()
 		arrayObstacle[i]->Movement();
 	}
 
-
-	if (deathTimer->GetIsTimeEnd())
+	if (!cheats)
 	{
-		player1->SetIsAlive(false);
-	}
-	else
-	{
-		deathTimer->UpdateTimer();
+		if (deathTimer->GetIsTimeEnd())
+		{
+			player1->SetIsAlive(false);
+		}
+		else
+		{
+			deathTimer->UpdateTimer();
+		}
 	}
 
 	CheckColitions();
@@ -475,4 +483,47 @@ void DeathScreenDraw()
 
 	buttonRestart->DrawButton();
 	buttonBackToMenu->DrawButton();
+}
+
+void AccelerateGame()
+{
+	if (player1->GetDistanceMade() >= 100)
+	{
+		for (int i = 0; i < maxObstacles; i++)
+		{
+			arrayObstacle[i]->setVelocityX(400);
+		}
+	}
+	
+	if (player1->GetDistanceMade() >= 300)
+	{
+		for (int i = 0; i < maxObstacles; i++)
+		{
+			arrayObstacle[i]->setVelocityX(500);
+		}
+	}
+	
+	if (player1->GetDistanceMade() >= 600)
+	{
+		for (int i = 0; i < maxObstacles; i++)
+		{
+			arrayObstacle[i]->setVelocityX(600);
+		}
+	}
+	
+	if (player1->GetDistanceMade() >= 800)
+	{
+		for (int i = 0; i < maxObstacles; i++)
+		{
+			arrayObstacle[i]->setVelocityX(700);
+		}
+	}
+	
+	if (player1->GetDistanceMade() >= 1000)
+	{
+		for (int i = 0; i < maxObstacles; i++)
+		{
+			arrayObstacle[i]->setVelocityX(800);
+		}
+	}
 }

@@ -44,3 +44,5 @@ void PauseDraw();
 void DeathScreenUpdate();
 
 void DeathScreenDraw();
+
+void AccelerateGame();
