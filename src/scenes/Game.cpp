@@ -6,7 +6,7 @@ static float objectFrameDetector;
 static bool firtRun;
 static bool isGamePause = false;
 static bool aliveButtons = false;
-static bool cheats = true;
+static bool cheats = false;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -83,7 +83,7 @@ void DrawGame()
 		DeathScreenDraw();
 	}
 
-	DrawText("0.3", GetScreenWidth() - MeasureText("0.3", 40), GetScreenHeight() - MeasureText("0.3", 20), 20, WHITE);
+	DrawText("0.4", GetScreenWidth() - MeasureText("0.4", 40), GetScreenHeight() - MeasureText("0.4", 20), 20, WHITE);
 	EndDrawing();
 }
 
