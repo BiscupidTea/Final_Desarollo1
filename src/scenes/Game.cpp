@@ -27,6 +27,7 @@ enum class ObjectsPatterns
 Player* player1;
 TimerItem* itemTimer;
 Timer* deathTimer;
+Timer* spawnItemTimer;
 Obstacle* arrayObstacle[maxObstacles];
 
 void InitGameLoop()
@@ -46,10 +47,11 @@ void InitGameLoop()
 
 	itemTimer = new TimerItem(
 		{ static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(25) },
-		{ 175 , 200 }, 15, 15, 10,
+		{ 150 , 300 }, 15, 15, 10,
 		GetPercentageScreenHeight(21.25), GetPercentageScreenHeight(83.75));
 
 	deathTimer = new Timer(30);
+	spawnItemTimer = new Timer(5);
 
 	itemTimer->ResetRandPosition();
 	CreateGameButtons();
@@ -236,6 +238,7 @@ void CheckColitions()
 	{
 		deathTimer->AddTime(itemTimer->GettimeAdd());
 		itemTimer->ResetRandPosition();
+		spawnItemTimer->SetTime(5);
 	}
 }
 
@@ -285,7 +288,21 @@ void GameplayUpdate()
 	player1->Movement();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
-	itemTimer->UpdateItem();
+	if (spawnItemTimer->GetTimer() <= 0)
+	{
+		itemTimer->UpdateItem();
+
+		if (itemTimer->GetX() - itemTimer->GetWidth() < 0)
+		{
+			spawnItemTimer->SetTime(5);
+			itemTimer->ResetRandPosition();
+		}
+	}
+	else
+	{
+		spawnItemTimer->UpdateTimer();
+	}
+	cout << spawnItemTimer->GetTimer() << endl;
 
 	ResetObstacleOutOfLimits();
 
