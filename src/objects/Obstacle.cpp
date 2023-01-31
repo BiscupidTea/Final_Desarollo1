@@ -6,6 +6,7 @@ Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height) : 
 	this->velocity = velocity;
 	this->width = width;
 	this->height = height;
+	this->destroyed = false;
 }
 
 Obstacle::~Obstacle()
@@ -31,4 +32,14 @@ bool Obstacle::OutOfLimits()
 	}
 
 	return false;
+}
+
+void Obstacle::SetDestroyed(bool setter)
+{
+	destroyed = setter;
+}
+
+bool Obstacle::IsDestroyed()
+{
+	return destroyed;
 }

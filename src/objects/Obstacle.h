@@ -6,7 +6,7 @@
 class Obstacle : public Entity
 {
 private:
-
+	bool destroyed;
 
 public:
 	Obstacle(Vector2 position, Vector2 velocity, int width, int height);
@@ -17,4 +17,7 @@ public:
 	void Movement();
 
 	bool OutOfLimits();
+
+	void SetDestroyed(bool setter);
+	bool IsDestroyed();
 };
