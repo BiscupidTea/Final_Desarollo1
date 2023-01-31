@@ -238,9 +238,28 @@ void CheckColitions()
 	{
 		for (int i = 0; i < maxObstacles; i++)
 		{
-			if (player1->CheckColition(arrayObstacle[i]->GetPosition(), arrayObstacle[i]->GetWidth(), arrayObstacle[i]->GetHeight()))
+			if (player1->CheckColition(arrayObstacle[i]->GetPosition(),
+				arrayObstacle[i]->GetWidth(), arrayObstacle[i]->GetHeight())
+				&& !arrayObstacle[i]->IsDestroyed())
 			{
 				player1->SetIsAlive(false);
+			}
+		}
+	}
+
+	for (int i = 0; i < maxBullets; i++)
+	{
+		if (arrayBullets[i]->IsShootedNow())
+		{
+			for (int j = 0; j < maxObstacles; j++)
+			{
+				if (arrayBullets[i]->CheckColition(arrayObstacle[j]->GetPosition(),
+					arrayObstacle[j]->GetWidth(), arrayObstacle[j]->GetHeight())
+					&& !arrayObstacle[i]->IsDestroyed())
+				{
+					arrayObstacle[j]->SetDestroyed(true);
+
+				}
 			}
 		}
 	}
@@ -369,7 +388,20 @@ void GameplayDraw()
 
 	for (int i = 0; i < maxObstacles; i++)
 	{
-		arrayObstacle[i]->Draw();
+		if (!arrayObstacle[i]->IsDestroyed())
+		{
+			arrayObstacle[i]->Draw();
+		}
+		else
+		{
+			DrawRectangleLines(
+				static_cast<int>(arrayObstacle[i]->GetX()),
+				static_cast<int>(arrayObstacle[i]->GetY()),
+				arrayObstacle[i]->GetWidth(),
+				arrayObstacle[i]->GetHeight(),
+				RED
+			);
+		}
 	}
 
 	for (int i = 0; i < maxBullets; i++)
