@@ -216,6 +216,11 @@ void SetObstaclePattern()
 		break;
 	}
 
+	arrayObstacle[objectsToMove]->SetDestroyed(false);
+	arrayObstacle[objectsToMove + 1]->SetDestroyed(false);
+	arrayObstacle[objectsToMove + 2]->SetDestroyed(false);
+	arrayObstacle[objectsToMove + 3]->SetDestroyed(false);
+
 	objectsToMove += 4;
 
 	if (objectsToMove >= 12)
@@ -248,11 +253,9 @@ void CheckColitions()
 			for (int j = 0; j < maxObstacles; j++)
 			{
 				if (player1->arrayBullets[i]->CheckColition(arrayObstacle[j]->GetPosition(),
-					arrayObstacle[j]->GetWidth(), arrayObstacle[j]->GetHeight())
-					&& !arrayObstacle[i]->IsDestroyed())
+					arrayObstacle[j]->GetWidth(), arrayObstacle[j]->GetHeight()))
 				{
 					arrayObstacle[j]->SetDestroyed(true);
-
 				}
 			}
 		}
