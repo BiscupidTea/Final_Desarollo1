@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 
+#include "Bullet.h"
+
 class Player : public Entity
 {
 private:
@@ -12,7 +14,10 @@ private:
 	bool ground;
 	bool jump;
 
+
 public:
+	Bullet* arrayBullets[5];
+
 	Player(
 		Vector2 position, Vector2 velocity,
 		int width, int height, 

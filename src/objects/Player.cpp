@@ -11,6 +11,11 @@ Player::Player(Vector2 position, Vector2 velocity, int width, int height, float 
 	this->alive = alive;
 	ground = false;
 	jump = false;
+
+	for (int i = 0; i < 5; i++)
+	{
+		arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true);
+	}
 }
 
 Player::~Player()
