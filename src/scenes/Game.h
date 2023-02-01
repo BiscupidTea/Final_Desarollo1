@@ -46,3 +46,5 @@ void DeathScreenUpdate();
 void DeathScreenDraw();
 
 void AccelerateGame();
+
+void DrawHud();

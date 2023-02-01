@@ -380,6 +380,7 @@ void GameplayDraw()
 	player1->Draw();
 	itemTimer->Draw();
 
+	//draw obstacles
 	for (int i = 0; i < maxObstacles; i++)
 	{
 		if (!arrayObstacle[i]->IsDestroyed())
@@ -398,6 +399,7 @@ void GameplayDraw()
 		}
 	}
 
+	//draw bullets
 	for (int i = 0; i < maxBullets; i++)
 	{
 		if (player1->arrayBullets[i]->IsShootedNow())
@@ -413,85 +415,7 @@ void GameplayDraw()
 		GREEN
 	);
 
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(9) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(3)),
-		static_cast<int>(GetPercentageScreenWidth(9)),
-		static_cast<int>(GetPercentageScreenHeight(6)),
-		WHITE
-	);
-
-	//timer
-	if (deathTimer->GetTimer() > 20)
-	{
-		DrawText(
-			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
-			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("00", 50) / 2)),
-			static_cast<int>(GetPercentageScreenHeight(3)),
-			50, GREEN);
-	}
-	else if (deathTimer->GetTimer() > 10)
-	{
-		DrawText(
-			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
-			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("10", 50) / 2)),
-			static_cast<int>(GetPercentageScreenHeight(3)),
-			50, GREEN);
-	}
-	else
-	{
-		DrawText(
-			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
-			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("0", 50) / 2)),
-			static_cast<int>(GetPercentageScreenHeight(3)),
-			50, GREEN);
-	}
-
-	//meters
-	DrawText(
-		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
-		static_cast<int>(GetPercentageScreenWidth(3)),
-		static_cast<int>(GetPercentageScreenHeight(3)),
-		30, WHITE
-	);
-
-	DrawText(
-		"m",
-		static_cast<int>(GetPercentageScreenWidth(4) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))),
-		static_cast<int>(GetPercentageScreenHeight(3)),
-		30, WHITE
-	);
-
-	//bullets
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(3)),
-		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-		player1->arrayBullets[0]->GetWidth(), player1->arrayBullets[0]->GetHeight(), BROWN
-	);
-
-	DrawText(
-		" = ",
-		static_cast<int>(GetPercentageScreenWidth(3) + player1->arrayBullets[0]->GetWidth()),
-		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-		30, WHITE
-	);
-
-	int bulletsPicked = 0;
-	for (int i = 0; i < maxBullets; i++)
-	{
-		if (player1->arrayBullets[i]->IsPickedNow())
-		{
-			bulletsPicked += 1;
-		}
-	}
-
-	DrawText(
-		TextFormat("%01i", static_cast<int>(bulletsPicked)),
-		static_cast<int>(GetPercentageScreenWidth(3) + player1->arrayBullets[0]->GetWidth() + (MeasureText(" = ", 30))),
-		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-		30, WHITE
-	);
-
+	DrawHud();
 }
 
 void PauseUpdate()
@@ -621,4 +545,86 @@ void AccelerateGame()
 			arrayObstacle[i]->setVelocityX(800);
 		}
 	}
+}
+
+void DrawHud()
+{
+	//timer
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(9) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(3)),
+		static_cast<int>(GetPercentageScreenWidth(9)),
+		static_cast<int>(GetPercentageScreenHeight(6)),
+		WHITE
+	);
+
+	if (deathTimer->GetTimer() > 20)
+	{
+		DrawText(
+			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("00", 50) / 2)),
+			static_cast<int>(GetPercentageScreenHeight(3)),
+			50, GREEN);
+	}
+	else if (deathTimer->GetTimer() > 10)
+	{
+		DrawText(
+			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("10", 50) / 2)),
+			static_cast<int>(GetPercentageScreenHeight(3)),
+			50, GREEN);
+	}
+	else
+	{
+		DrawText(
+			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("0", 50) / 2)),
+			static_cast<int>(GetPercentageScreenHeight(3)),
+			50, GREEN);
+	}
+
+	//meters
+	DrawText(
+		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
+		static_cast<int>(GetPercentageScreenWidth(3)),
+		static_cast<int>(GetPercentageScreenHeight(3)),
+		30, WHITE
+	);
+
+	DrawText(
+		"m",
+		static_cast<int>(GetPercentageScreenWidth(4) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))),
+		static_cast<int>(GetPercentageScreenHeight(3)),
+		30, WHITE
+	);
+
+	//bullets
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(3)),
+		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
+		player1->arrayBullets[0]->GetWidth(), player1->arrayBullets[0]->GetHeight(), BROWN
+	);
+
+	DrawText(
+		" = ",
+		static_cast<int>(GetPercentageScreenWidth(3) + player1->arrayBullets[0]->GetWidth()),
+		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
+		30, WHITE
+	);
+
+	int bulletsPicked = 0;
+	for (int i = 0; i < maxBullets; i++)
+	{
+		if (player1->arrayBullets[i]->IsPickedNow())
+		{
+			bulletsPicked += 1;
+		}
+	}
+
+	DrawText(
+		TextFormat("%01i", static_cast<int>(bulletsPicked)),
+		static_cast<int>(GetPercentageScreenWidth(3) + player1->arrayBullets[0]->GetWidth() + (MeasureText(" = ", 30))),
+		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
+		30, WHITE
+	);
 }
