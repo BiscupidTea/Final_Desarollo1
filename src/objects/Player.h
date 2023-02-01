@@ -1,9 +1,11 @@
 #pragma once
+#include <iostream>
 #include "tools/tools.h"
 
 #include "Entity.h"
 
 #include "Bullet.h"
+using namespace std;
 
 class Player : public Entity
 {
@@ -13,10 +15,10 @@ private:
 	bool alive;
 	bool ground;
 	bool jump;
-
+	static const int maxBullets = 5;
 
 public:
-	Bullet* arrayBullets[5];
+	Bullet* arrayBullets[maxBullets];
 
 	Player(
 		Vector2 position, Vector2 velocity,

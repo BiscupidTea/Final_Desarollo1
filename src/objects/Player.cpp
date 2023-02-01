@@ -12,7 +12,7 @@ Player::Player(Vector2 position, Vector2 velocity, int width, int height, float 
 	ground = false;
 	jump = false;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < maxBullets; i++)
 	{
 		arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true);
 	}
@@ -97,6 +97,19 @@ void Player::Input(bool& isPaused)
 		if (IsKeyPressed(KEY_ESCAPE))
 		{
 			isPaused = true;
+		}
+
+		if (IsKeyPressed(KEY_F))
+		{
+			for (int i = 0; i < maxBullets; i++)
+			{
+				if (arrayBullets[i]->IsPickedNow())
+				{
+					arrayBullets[i]->ShootBullet(GetPosition());
+					cout << "fire" << endl;
+					break;
+				}
+			}
 		}
 	}
 }

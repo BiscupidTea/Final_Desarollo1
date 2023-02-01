@@ -314,19 +314,6 @@ void GameplayUpdate()
 	player1->Movement();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
-	if (IsKeyPressed(KEY_F))
-	{
-		for (int i = 0; i < maxBullets; i++)
-		{
-			if (player1->arrayBullets[i]->IsPickedNow())
-			{
-				player1->arrayBullets[i]->ShootBullet(player1->GetPosition());
-				cout << "fire" << endl;
-				break;
-			}
-		}
-	}
-
 	if (spawnItemTimer->GetTimer() <= 0)
 	{
 		itemTimer->UpdateItem();
