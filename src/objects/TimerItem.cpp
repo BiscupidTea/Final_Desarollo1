@@ -13,6 +13,8 @@ TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, 
 	this->minSpace = 0;
 
 	this->goingUp = true;
+
+	this->ItemTimer = new Timer(5);
 }
 
 TimerItem::~TimerItem()
