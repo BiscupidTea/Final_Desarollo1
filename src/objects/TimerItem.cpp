@@ -14,7 +14,7 @@ TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, 
 
 	this->goingUp = true;
 
-	this->ItemTimer = new Timer(5);
+	this->holdTimer = new Timer(5);
 }
 
 TimerItem::~TimerItem()

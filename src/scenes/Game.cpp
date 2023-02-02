@@ -263,7 +263,7 @@ void CheckColitions()
 	{
 		deathTimer->AddTime(itemTimer->GettimeAdd());
 		itemTimer->ResetRandPosition();
-		itemTimer->ItemTimer->SetTime(5);
+		itemTimer->holdTimer->SetTime(5);
 	}
 }
 
@@ -315,19 +315,19 @@ void GameplayUpdate()
 	player1->Movement();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
-	if (itemTimer->ItemTimer->GetTimer() <= 0)
+	if (itemTimer->holdTimer->GetTimer() <= 0)
 	{
 		itemTimer->UpdateItem();
 
 		if (itemTimer->GetX() - itemTimer->GetWidth() < 0)
 		{
-			itemTimer->ItemTimer->SetTime(5);
+			itemTimer->holdTimer->SetTime(5);
 			itemTimer->ResetRandPosition();
 		}
 	}
 	else
 	{
-		itemTimer->ItemTimer->UpdateTimer();
+		itemTimer->holdTimer->UpdateTimer();
 	}
 
 	ResetObstacleOutOfLimits();

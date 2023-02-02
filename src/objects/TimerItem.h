@@ -17,7 +17,7 @@ private:
 	bool goingUp;
 
 public:
-	Timer* ItemTimer;
+	Timer* holdTimer;
 
 	TimerItem(
 		Vector2 position, Vector2 velocity, 
