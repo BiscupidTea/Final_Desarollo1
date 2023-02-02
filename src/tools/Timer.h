@@ -23,5 +23,6 @@ public:
 
 	void AddTime(float timeAdded);
 	void SetTime(float timeSetted);
+	void ResetTime();
 };
 

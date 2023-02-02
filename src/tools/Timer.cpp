@@ -2,6 +2,7 @@
 
 Timer::Timer(float timerValue)
 {
+	this->timerValue = timerValue;
 	this->timerPass = timerValue;
 	this->IsEnded = false;
 	this->IsPaused = false;
@@ -57,4 +58,9 @@ void Timer::AddTime(float timeAdded)
 void Timer::SetTime(float timeSetted)
 {
 	timerPass = timeSetted;
+}
+
+void Timer::ResetTime()
+{
+	timerPass = timerValue;
 }
