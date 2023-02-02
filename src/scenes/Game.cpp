@@ -342,8 +342,13 @@ void CreateGameButtons()
 	else
 	{
 
+		buttonRestart = new Buttons(
+			{ GetPercentageScreenWidth(35) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
+			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
+			RED, "Restart", 25);
+
 		buttonBackToMenu = new Buttons(
-			{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
+			{ GetPercentageScreenWidth(65) - (GetPercentageScreenWidth(25) / 2), GetPercentageScreenHeight(70),
 			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
 			RED, "Back to Menu", 25);
 	}
@@ -550,35 +555,64 @@ void DeathScreenDraw()
 		static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Game Over", 40) / 2),
 		static_cast<int>(GetPercentageScreenHeight(20)), 40, RED);
 
-	DrawText("Total Distance :",
-		static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Total Distance :", 30) / 2),
-		static_cast<int>(GetPercentageScreenHeight(30)), 30, RED);
+	float high1 = 35;
+	float high2 = 45;
+	float high3 = 55;
+
+	//total distance made
+	DrawText("Distance Runned :",
+		static_cast<int>(GetPercentageScreenWidth(20)),
+		static_cast<int>(GetPercentageScreenHeight(high1)), 30, RED);
 
 	DrawText(
 		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
-		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(35)),
+		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)/2)),
+		static_cast<int>(GetPercentageScreenHeight(high1)),
 		30, RED
 	);
 
 	DrawText(
 		"m",
-		static_cast<int>(GetPercentageScreenWidth(51) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(35)),
+		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 40)/2)),
+		static_cast<int>(GetPercentageScreenHeight(high1)),
 		30, RED
 	);
+
+	//high score
+	DrawText("High score :",
+		static_cast<int>(GetPercentageScreenWidth(20)),
+		static_cast<int>(GetPercentageScreenHeight(high2)), 30, RED);
 
 	DrawText(
 		TextFormat("%01i", highScore),
-		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(40)),
+		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", highScore), 30) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(high2)),
 		30, RED
 	);
 
 	DrawText(
+		"m",
+		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", highScore), 40) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(high2)),
+		30, RED
+	);
+
+	//total distance save distance
+	DrawText("Total Distance :",
+		static_cast<int>(GetPercentageScreenWidth(20)),
+		static_cast<int>(GetPercentageScreenHeight(high3)), 30, RED);
+
+	DrawText(
 		TextFormat("%01i", totalDistance),
-		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(45)),
+		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", totalDistance), 30) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(high3)),
+		30, RED
+	);
+
+	DrawText(
+		"m",
+		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", totalDistance), 40) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(high3)),
 		30, RED
 	);
 
