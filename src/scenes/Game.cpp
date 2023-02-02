@@ -8,6 +8,8 @@ static bool firtRun;
 static bool isGamePause = false;
 static bool aliveButtons = false;
 static bool cheats = false;
+static int highScore = 0;
+static int totalDistance = 0;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -26,6 +28,7 @@ enum class ObjectsPatterns
 	MidLine,
 };
 
+
 Player* player1;
 TimerItem* itemTimer;
 PowerUp* itemPowerUp;
@@ -34,6 +37,24 @@ Obstacle* arrayObstacle[maxObstacles];
 
 void InitGameLoop()
 {
+	if (LoadStorageValue(0) != 0)
+	{
+		highScore = LoadStorageValue(0);
+	}
+	else
+	{
+		highScore = 0;
+	}
+
+	if (LoadStorageValue(1) != 0)
+	{
+		totalDistance = LoadStorageValue(1);
+	}
+	else
+	{
+		totalDistance = 0;
+	}
+
 	player1 = new Player({ 0, 0 }, { 0, 50 }, 40, 60, 0, 0, true);
 
 	for (int i = 0; i < maxObstacles; i++)
@@ -250,7 +271,7 @@ void CheckColitions()
 				}
 				else
 				{
-					player1->SetIsAlive(false);
+					KillPlayer();
 				}
 			}
 		}
@@ -380,7 +401,7 @@ void GameplayUpdate()
 	{
 		if (deathTimer->GetIsTimeEnd())
 		{
-			player1->SetIsAlive(false);
+			KillPlayer();
 		}
 		else
 		{
@@ -498,6 +519,12 @@ void DeathScreenUpdate()
 		CreateGameButtons();
 	}
 
+	if (static_cast<int>(player1->GetDistanceMade()) > highScore)
+	{
+		highScore = static_cast<int>(player1->GetDistanceMade());
+		SaveStorageValue(0, highScore);
+	}
+
 	if (buttonBackToMenu->IsButtonPressed())
 	{
 		setGameScene(GameScene::Menu);
@@ -530,14 +557,28 @@ void DeathScreenDraw()
 	DrawText(
 		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
 		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(40)),
+		static_cast<int>(GetPercentageScreenHeight(35)),
 		30, RED
 	);
 
 	DrawText(
 		"m",
 		static_cast<int>(GetPercentageScreenWidth(51) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(35)),
+		30, RED
+	);
+
+	DrawText(
+		TextFormat("%01i", highScore),
+		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
 		static_cast<int>(GetPercentageScreenHeight(40)),
+		30, RED
+	);
+
+	DrawText(
+		TextFormat("%01i", totalDistance),
+		static_cast<int>(GetPercentageScreenWidth(50) - ((MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)) / 2)),
+		static_cast<int>(GetPercentageScreenHeight(45)),
 		30, RED
 	);
 
@@ -668,4 +709,11 @@ void DrawHud()
 		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
 		30, WHITE
 	);
+}
+
+void KillPlayer()
+{
+	player1->SetIsAlive(false);
+	totalDistance += static_cast<int>(player1->GetDistanceMade());
+	SaveStorageValue(1, totalDistance);
 }
