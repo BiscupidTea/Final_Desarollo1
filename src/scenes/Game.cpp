@@ -52,7 +52,7 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 30);
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 5);
 	itemPowerUp->ResetRandPosition();
 
 	deathTimer = new Timer(30);
@@ -243,7 +243,15 @@ void CheckColitions()
 				arrayObstacle[i]->GetWidth(), arrayObstacle[i]->GetHeight())
 				&& !arrayObstacle[i]->IsDestroyed())
 			{
-				player1->SetIsAlive(false);
+				if (itemPowerUp->IsPicked())
+				{
+					itemPowerUp->SetPicked(false);
+					arrayObstacle[i]->SetDestroyed(true);
+				}
+				else
+				{
+					player1->SetIsAlive(false);
+				}
 			}
 		}
 	}
@@ -270,10 +278,14 @@ void CheckColitions()
 		itemTimer->holdTimer->ResetTime();
 	}
 
-	if (player1->CheckColition(itemPowerUp->GetPosition(), itemPowerUp->GetWidth(), itemPowerUp->GetHeight()))
+	if (!itemPowerUp->IsPicked())
 	{
-		itemPowerUp->ResetRandPosition();
-		itemPowerUp->spawnItem->ResetTime();
+		if (player1->CheckColition(itemPowerUp->GetPosition(), itemPowerUp->GetWidth(), itemPowerUp->GetHeight()))
+		{
+			itemPowerUp->ResetRandPosition();
+			itemPowerUp->spawnItem->ResetTime();
+			itemPowerUp->SetPicked(true);
+		}
 	}
 }
 
@@ -393,7 +405,17 @@ void GameplayUpdate()
 void GameplayDraw()
 {
 	ClearBackground(BLACK);
+
+	if (itemPowerUp->IsPicked())
+	{
+		DrawCircle(
+			static_cast<int>(player1->GetX() + player1->GetWidth()/2),
+			static_cast<int>(player1->GetY() + player1->GetHeight()/2),
+			static_cast<float>(player1->GetWidth()), RED);
+	}
+
 	player1->Draw();
+
 
 	//draw items
 	itemTimer->Draw();
