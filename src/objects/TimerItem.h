@@ -35,5 +35,7 @@ public:
 	void ResetRandPosition();
 
 	float GetTimeToSpawn();
+
+	bool OutOfLimits();
 };
 

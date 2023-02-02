@@ -89,3 +89,13 @@ float TimerItem::GetTimeToSpawn()
 {
 	return timeToSpawn;
 }
+
+bool TimerItem::OutOfLimits()
+{
+	if (GetX() + width < 0)
+	{
+		return true;
+	}
+
+	return false;
+}
