@@ -52,7 +52,8 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5);
 
 	itemPowerUp = new PowerUp(
-		{ static_cast<float>(GetScreenWidth()), 0 }, { 150 , 0 }, 15, 15, 30);
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 30);
+	itemPowerUp->ResetRandPosition();
 
 	deathTimer = new Timer(30);
 
@@ -266,7 +267,13 @@ void CheckColitions()
 	{
 		deathTimer->AddTime(itemTimer->GettimeAdd());
 		itemTimer->ResetRandPosition();
-		itemTimer->holdTimer->SetTime(5);
+		itemTimer->holdTimer->ResetTime();
+	}
+
+	if (player1->CheckColition(itemPowerUp->GetPosition(), itemPowerUp->GetWidth(), itemPowerUp->GetHeight()))
+	{
+		itemPowerUp->ResetRandPosition();
+		itemPowerUp->spawnItem->ResetTime();
 	}
 }
 
@@ -318,11 +325,12 @@ void GameplayUpdate()
 	player1->Movement();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
+	//item logic
 	if (itemTimer->holdTimer->GetTimer() <= 0)
 	{
 		itemTimer->UpdateItem();
 
-		if (itemTimer->GetX() - itemTimer->GetWidth() < 0)
+		if (itemTimer->OutOfLimits())
 		{
 			itemTimer->ResetRandPosition();
 		}
@@ -332,8 +340,22 @@ void GameplayUpdate()
 		itemTimer->holdTimer->UpdateTimer();
 	}
 
+	if (itemPowerUp->spawnItem->GetTimer() <= 0)
+	{
+		itemPowerUp->UpdateItem();
 
+		if (itemPowerUp->OutOfLimits())
+		{
+			itemPowerUp->ResetRandPosition();
+		}
+	}
+	else
+	{
+		itemPowerUp->spawnItem->UpdateTimer();
+	}
+	cout << itemPowerUp->spawnItem->GetTimer() << endl;
 
+	//obstacles logic
 	ResetObstacleOutOfLimits();
 
 	for (int i = 0; i < maxObstacles; i++)
@@ -341,6 +363,7 @@ void GameplayUpdate()
 		arrayObstacle[i]->Movement();
 	}
 
+	//deathTimer logic
 	if (!cheats)
 	{
 		if (deathTimer->GetIsTimeEnd())
@@ -353,6 +376,7 @@ void GameplayUpdate()
 		}
 	}
 
+	//bullets logic
 	for (int i = 0; i < maxBullets; i++)
 	{
 		if (player1->arrayBullets[i]->IsShootedNow())
@@ -370,7 +394,10 @@ void GameplayDraw()
 {
 	ClearBackground(BLACK);
 	player1->Draw();
+
+	//draw items
 	itemTimer->Draw();
+	itemPowerUp->Draw();
 
 	//draw obstacles
 	for (int i = 0; i < maxObstacles; i++)
