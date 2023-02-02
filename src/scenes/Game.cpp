@@ -86,7 +86,7 @@ void DrawGame()
 		DeathScreenDraw();
 	}
 
-	DrawText("0.4", GetScreenWidth() - MeasureText("0.4", 40), GetScreenHeight() - MeasureText("0.4", 20), 20, WHITE);
+	DrawText("0.5", GetScreenWidth() - MeasureText("0.5", 40), GetScreenHeight() - MeasureText("0.5", 20), 20, WHITE);
 	EndDrawing();
 }
 
