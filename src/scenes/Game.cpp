@@ -52,7 +52,7 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 5);
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 30);
 	itemPowerUp->ResetRandPosition();
 
 	deathTimer = new Timer(30);
