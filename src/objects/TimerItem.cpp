@@ -1,6 +1,6 @@
 #include "TimerItem.h"
 
-TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, float timeAdd, float initPosition) : Entity(position, velocity, width, height)
+TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, float timeAdd, float initPosition, float timeToSpawn) : Entity(position, velocity, width, height)
 {
 	this->position = position;
 	this->velocity = velocity;
@@ -14,7 +14,8 @@ TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, 
 
 	this->goingUp = true;
 
-	this->holdTimer = new Timer(5);
+	this->timeToSpawn = timeToSpawn;
+	this->holdTimer = new Timer(timeToSpawn);
 }
 
 TimerItem::~TimerItem()
@@ -81,4 +82,10 @@ void TimerItem::ResetRandPosition()
 	}
 
 	position.x = static_cast<float>(GetScreenWidth());
+	holdTimer->ResetTime();
+}
+
+float TimerItem::GetTimeToSpawn()
+{
+	return timeToSpawn;
 }

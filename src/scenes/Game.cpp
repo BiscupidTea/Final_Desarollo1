@@ -28,6 +28,7 @@ enum class ObjectsPatterns
 
 Player* player1;
 TimerItem* itemTimer;
+PowerUp* itemPowerUp;
 Timer* deathTimer;
 Obstacle* arrayObstacle[maxObstacles];
 
@@ -48,8 +49,10 @@ void InitGameLoop()
 
 	itemTimer = new TimerItem(
 		{ static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(25) },
-		{ 150 , 400 }, 15, 15, 10,
-		GetPercentageScreenHeight(42.5));
+		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5);
+
+	itemPowerUp = new PowerUp(
+		{ static_cast<float>(GetScreenWidth()), 0 }, { 150 , 0 }, 15, 15, 30);
 
 	deathTimer = new Timer(30);
 
@@ -321,7 +324,6 @@ void GameplayUpdate()
 
 		if (itemTimer->GetX() - itemTimer->GetWidth() < 0)
 		{
-			itemTimer->holdTimer->SetTime(5);
 			itemTimer->ResetRandPosition();
 		}
 	}
@@ -329,6 +331,8 @@ void GameplayUpdate()
 	{
 		itemTimer->holdTimer->UpdateTimer();
 	}
+
+
 
 	ResetObstacleOutOfLimits();
 

@@ -10,6 +10,7 @@
 #include "objects/Player.h"
 #include "objects/Obstacle.h"
 #include "objects/TimerItem.h"
+#include "objects/PowerUp.h"
 
 using namespace std;
 

@@ -10,6 +10,7 @@ class TimerItem : public Entity
 {
 private:
 	float timeAdd;
+	float timeToSpawn;
 	float initPosition;
 	float minSpace;
 	float maxSpace;
@@ -22,7 +23,7 @@ public:
 	TimerItem(
 		Vector2 position, Vector2 velocity, 
 		int width, int height,
-		float timeAdd, float initPosition);
+		float timeAdd, float initPosition, float timeToSpawn);
 	~TimerItem();
 
 	void Draw();
@@ -32,5 +33,7 @@ public:
 	float GettimeAdd();
 		
 	void ResetRandPosition();
+
+	float GetTimeToSpawn();
 };
 
