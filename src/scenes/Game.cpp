@@ -174,7 +174,6 @@ void ResetObstacleOutOfLimits()
 	{
 		if (objectFrameDetector <= 0)
 		{
-			cout << "The next position is : ";
 			SetObstaclePattern();
 			objectFrameDetector = static_cast<float>(GetScreenWidth());
 		}
@@ -197,49 +196,49 @@ void SetObstaclePattern()
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(40)), GetPercentageScreenHeight(75) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(50)), GetPercentageScreenHeight(65) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(60)), GetPercentageScreenHeight(55) - arrayObstacle[objectsToMove]->GetHeight() });
-		cout << "StairFloor" << endl;
+		//cout << "StairFloor" << endl;
 		break;
 	case ObjectsPatterns::StariCeiling:
 		arrayObstacle[objectsToMove]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(30)), 0 });
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(40)), GetPercentageScreenHeight(10) });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(50)), GetPercentageScreenHeight(20) });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(60)), GetPercentageScreenHeight(30) });
-		cout << "StariCeiling" << endl;
+		//cout << "StariCeiling" << endl;
 		break;
 	case ObjectsPatterns::WallFloor:
 		arrayObstacle[objectsToMove]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(85) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(75) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(65) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(55) - arrayObstacle[objectsToMove]->GetHeight() });
-		cout << "WallFloor" << endl;
+		//cout << "WallFloor" << endl;
 		break;
 	case ObjectsPatterns::WallCeiling:
 		arrayObstacle[objectsToMove]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), 0 });
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(10) });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(20) });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetScreenWidth() / 2), GetPercentageScreenHeight(30) });
-		cout << "WallCeiling" << endl;
+		//cout << "WallCeiling" << endl;
 		break;
 	case ObjectsPatterns::MountainFloor:
 		arrayObstacle[objectsToMove]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(30)), GetPercentageScreenHeight(85) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(40), GetPercentageScreenHeight(75) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(50), GetPercentageScreenHeight(75) - arrayObstacle[objectsToMove]->GetHeight() });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(60), GetPercentageScreenHeight(85) - arrayObstacle[objectsToMove]->GetHeight() });
-		cout << "MountainFloor" << endl;
+		//cout << "MountainFloor" << endl;
 		break;
 	case ObjectsPatterns::MountainCeiling:
 		arrayObstacle[objectsToMove]->SetPosition({ static_cast<float>(GetScreenWidth() * 2 + GetPercentageScreenWidth(30)), 0 });
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(40), GetPercentageScreenHeight(10) });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(50), GetPercentageScreenHeight(10) });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(60), 0 });
-		cout << "MountainCeiling" << endl;
+		//cout << "MountainCeiling" << endl;
 		break;
 	case ObjectsPatterns::MidLine:
 		arrayObstacle[objectsToMove]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(30), GetPercentageScreenHeight(85) / 2 });
 		arrayObstacle[objectsToMove + 1]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(40), GetPercentageScreenHeight(85) / 2 });
 		arrayObstacle[objectsToMove + 2]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(50), GetPercentageScreenHeight(85) / 2 });
 		arrayObstacle[objectsToMove + 3]->SetPosition({ static_cast<float>(GetScreenWidth() * 2) + GetPercentageScreenWidth(60), GetPercentageScreenHeight(85) / 2 });
-		cout << "MidLine" << endl;
+		//cout << "MidLine" << endl;
 		break;
 	default:
 		break;
@@ -256,8 +255,6 @@ void SetObstaclePattern()
 	{
 		objectsToMove = 0;
 	}
-
-	cout << objectsToMove << endl;
 }
 
 void CheckColitions()

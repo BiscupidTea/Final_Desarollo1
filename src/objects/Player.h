@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "tools/tools.h"
+#include "tools/Timer.h"
 
 #include "Entity.h"
 
@@ -16,7 +17,10 @@ private:
 	bool ground;
 	bool jump;
 	static const int maxBullets = 5;
+
+	Timer* changeFrame;
 	Texture2D texturePlayer;
+	int actualFrame;
 
 public:
 	Bullet* arrayBullets[maxBullets];

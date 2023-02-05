@@ -7,7 +7,7 @@ Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int point
 
 	this->texturePlayer = texturePlayer;
 
-	this->width = texturePlayer.width / 6;
+	this->width = texturePlayer.width / 9;
 	this->height = texturePlayer.height;
 
 	this->distanceMade = distanceMade;
@@ -15,6 +15,10 @@ Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int point
 	this->alive = alive;
 	ground = false;
 	jump = false;
+
+	this->actualFrame = 0;
+
+	changeFrame = new Timer(0.3f);
 
 	for (int i = 0; i < maxBullets; i++)
 	{
@@ -29,10 +33,62 @@ Player::~Player()
 
 void Player::Draw()
 {
+	//logic texture
+	changeFrame->UpdateTimer();
+	cout << changeFrame->GetTimer() << endl;
+
+	if (ground)
+	{
+		if (actualFrame < 5)
+		{
+			actualFrame = 5;
+		}
+
+		if (changeFrame->GetIsTimeEnd())
+		{
+			actualFrame += 1;
+
+			if (actualFrame >= 9)
+			{
+				actualFrame = 5;
+			}
+
+			changeFrame->ResetTime();
+		}
+	}
+
+	if (jump)
+	{
+		if (actualFrame < 1 && actualFrame > 4)
+		{
+			actualFrame = 1;
+		}
+
+		if (changeFrame->GetIsTimeEnd())
+		{
+			actualFrame += 1;
+
+			if (actualFrame >= 5)
+			{
+				actualFrame = 1;
+			}
+
+			changeFrame->ResetTime();
+		}
+	}
+	
+	if (!jump && !ground)
+	{
+		actualFrame = 0;
+	}
+
+	float sumSource = static_cast<float>(0 + (64 * actualFrame));
+
+	//draw hitbox and texture
 	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
 	DrawTexturePro(texturePlayer,
-		{ 0, 0, 64, 64, },
-		{ position.x,position.y, 64, 64, },
+		{ sumSource, 0, 64, 64 },
+		{ position.x,position.y, 64, 64 },
 		{ 0,	0, },
 		0, WHITE);
 }

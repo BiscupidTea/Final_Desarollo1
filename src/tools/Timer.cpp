@@ -63,4 +63,5 @@ void Timer::SetTime(float timeSetted)
 void Timer::ResetTime()
 {
 	timerPass = timerValue;
+	IsEnded = false;
 }
