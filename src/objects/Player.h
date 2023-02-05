@@ -27,8 +27,8 @@ public:
 
 	Player(
 		Vector2 position, Vector2 velocity, 
-		float distanceMade, int points,
-		bool alive, Texture2D texturePlayer);
+		float distanceMade, int points, bool alive, 
+		Texture2D texturePlayer, Texture2D textureBullet);
 
 	~Player();
 

@@ -9,10 +9,13 @@ private:
 	bool isShooted;
 	bool isPicked;
 
+	Texture2D textureBullet;
+
 public:
 	Bullet(
 		Vector2 position, Vector2 velocity, 
-		int width, int height, bool isPicked);
+		int width, int height, bool isPicked,
+		Texture2D textureBullet);
 	~Bullet();
 
 	void Draw();

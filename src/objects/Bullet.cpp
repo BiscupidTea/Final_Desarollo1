@@ -1,11 +1,13 @@
 #include "Bullet.h"
 
-Bullet::Bullet(Vector2 position, Vector2 velocity, int width, int height, bool isPicked) : Entity(position, velocity, width, height)
+Bullet::Bullet(Vector2 position, Vector2 velocity, int width, int height, bool isPicked, Texture2D textureBullet) : Entity(position, velocity, width, height)
 {
+	this->textureBullet = textureBullet;
+	this->width = textureBullet.width;
+	this->height = textureBullet.height / 2;
+
 	this->position = position;
 	this->velocity = velocity;
-	this->width = width;
-	this->height = height;
 	this->isPicked = isPicked;
 	this->isShooted = false;
 }
@@ -18,6 +20,11 @@ Bullet::~Bullet()
 void Bullet::Draw()
 {
 	DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), width, height, BROWN);
+	DrawTexturePro(textureBullet,
+		{ 0, 0, 64, 64 },
+		{ position.x,position.y-height/2, 64, 64 },
+		{ 0,	0, },
+		0, WHITE);
 }
 
 void Bullet::UpdateBullet()

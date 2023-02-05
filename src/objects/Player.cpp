@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int points, bool alive, Texture2D texturePlayer) : Entity(position, velocity, width, height)
+Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int points, bool alive, Texture2D texturePlayer, Texture2D textureBullet) : Entity(position, velocity, width, height)
 {
 	this->position = position;
 	this->velocity = velocity;
@@ -22,7 +22,7 @@ Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int point
 
 	for (int i = 0; i < maxBullets; i++)
 	{
-		arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true);
+		arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true, textureBullet);
 	}
 }
 

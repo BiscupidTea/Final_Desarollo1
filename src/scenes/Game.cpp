@@ -16,6 +16,7 @@ static Texture2D textureShieldItem;
 static Texture2D texturePlayer;
 static Texture2D textureTimer;
 static Texture2D textureObstacle;
+static Texture2D textureBullet;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -63,7 +64,7 @@ void InitGameLoop()
 		totalDistance = 0;
 	}
 
-	player1 = new Player({ 0, 0 }, { 0, 50 }, 1000, 0, true, texturePlayer);
+	player1 = new Player({ 0, 0 }, { 0, 50 }, 0, 0, true, texturePlayer, textureBullet);
 
 	for (int i = 0; i < maxObstacles; i++)
 	{
@@ -720,11 +721,19 @@ void DrawHud()
 	);
 
 	//bullets
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(3)),
-		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-		player1->arrayBullets[0]->GetWidth(), player1->arrayBullets[0]->GetHeight(), BROWN
-	);
+	//DrawRectangle(
+	//	static_cast<int>(GetPercentageScreenWidth(3)),
+	//	static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
+	//	player1->arrayBullets[0]->GetWidth(), player1->arrayBullets[0]->GetHeight(), BROWN
+	//);
+
+	DrawTexturePro(textureBullet,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(3),
+		GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight() / 2,
+		64, 64 },
+		{ 0,	0, },
+		0, WHITE);
 
 	DrawText(
 		" = ",
@@ -765,6 +774,7 @@ void LoadResources()
 		textureShieldItem = LoadTexture("res/textures/shield-item.png");
 		textureTimer = LoadTexture("res/textures/Timer-Item.png");
 		textureObstacle = LoadTexture("res/textures/obstacle.png");
+		textureBullet = LoadTexture("res/textures/bullet.png");
 	}
 
 	isResoucesLoad = true;
@@ -776,5 +786,6 @@ void UnloadResources()
 	UnloadTexture(textureShieldItem);
 	UnloadTexture(textureTimer);
 	UnloadTexture(textureObstacle);
+	UnloadTexture(textureBullet);
 	isResoucesLoad = false;
 }
