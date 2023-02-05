@@ -773,4 +773,5 @@ void UnloadResources()
 {
 	UnloadTexture(textureShieldItem);
 	UnloadTexture(texturePlayer);
+	isResoucesLoad = false;
 }
