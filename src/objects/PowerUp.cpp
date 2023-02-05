@@ -3,12 +3,11 @@
 PowerUp::PowerUp(Vector2 position, Vector2 velocity, int width, int height, float spawnTime, Texture2D shieldTexture) : Entity(position, velocity, width, height)
 {
 	this->shieldTexture = shieldTexture;
+	this->width = shieldTexture.width;
+	this->height = shieldTexture.height;
 	
 	this->position = position;
-	this->velocity = velocity;
-	
-	this->width = width;
-	this->height = height;
+	this->velocity = velocity;	
 	
 	this->picked = false;
 
@@ -23,7 +22,11 @@ PowerUp::~PowerUp()
 void PowerUp::Draw()
 {
 	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), width, height, SKYBLUE);
-	DrawTexture(shieldTexture, static_cast<int>(GetX()), static_cast<int>(GetY()), WHITE);
+	DrawTexturePro(shieldTexture,
+		{ 0, 0, 64, 64 },
+		{ position.x,position.y, 64, 64 },
+		{ 0,	0, },
+		0, WHITE);
 }
 
 void PowerUp::UpdateItem()

@@ -14,6 +14,8 @@ static bool isResoucesLoad = false;
 
 static Texture2D textureShieldItem;
 static Texture2D texturePlayer;
+static Texture2D textureTimer;
+static Texture2D textureObstacle;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -61,11 +63,11 @@ void InitGameLoop()
 		totalDistance = 0;
 	}
 
-	player1 = new Player({ 0, 0 }, { 0, 50 }, 0, 0, true, texturePlayer);
+	player1 = new Player({ 0, 0 }, { 0, 50 }, 1000, 0, true, texturePlayer);
 
 	for (int i = 0; i < maxObstacles; i++)
 	{
-		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60);
+		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60, textureObstacle);
 	}
 
 	isGamePause = false;
@@ -76,10 +78,10 @@ void InitGameLoop()
 
 	itemTimer = new TimerItem(
 		{ static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(25) },
-		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5);
+		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5, textureTimer);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 5, textureShieldItem);
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 30, textureShieldItem);
 	itemPowerUp->ResetRandPosition();
 
 	deathTimer = new Timer(30);
@@ -439,7 +441,7 @@ void GameplayDraw()
 		DrawCircle(
 			static_cast<int>(player1->GetX() + player1->GetWidth() / 2),
 			static_cast<int>(player1->GetY() + player1->GetHeight() / 2),
-			static_cast<float>(player1->GetWidth()), RED);
+			static_cast<float>(player1->GetWidth()/2), RED);
 	}
 
 	player1->Draw();
@@ -759,8 +761,10 @@ void LoadResources()
 {
 	if (!isResoucesLoad)
 	{
-		textureShieldItem = LoadTexture("res/textures/shield-item.png");
 		texturePlayer = LoadTexture("res/textures/PlayerTexture.png");
+		textureShieldItem = LoadTexture("res/textures/shield-item.png");
+		textureTimer = LoadTexture("res/textures/Timer-Item.png");
+		textureObstacle = LoadTexture("res/textures/obstacle.png");
 	}
 
 	isResoucesLoad = true;
@@ -768,7 +772,9 @@ void LoadResources()
 
 void UnloadResources()
 {
-	UnloadTexture(textureShieldItem);
 	UnloadTexture(texturePlayer);
+	UnloadTexture(textureShieldItem);
+	UnloadTexture(textureTimer);
+	UnloadTexture(textureObstacle);
 	isResoucesLoad = false;
 }

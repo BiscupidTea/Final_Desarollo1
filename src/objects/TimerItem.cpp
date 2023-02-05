@@ -1,11 +1,14 @@
 #include "TimerItem.h"
 
-TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, float timeAdd, float initPosition, float timeToSpawn) : Entity(position, velocity, width, height)
+TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, float timeAdd, float initPosition, float timeToSpawn, Texture2D textureTimer) : Entity(position, velocity, width, height)
 {
 	this->position = position;
 	this->velocity = velocity;
-	this->width = width;
-	this->height = height;
+
+	this->textureTimer = textureTimer;
+	this->width = textureTimer.width;
+	this->height = textureTimer.height;
+	
 	this->timeAdd = timeAdd;
 	this->initPosition = initPosition;
 
@@ -16,6 +19,7 @@ TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, 
 
 	this->timeToSpawn = timeToSpawn;
 	this->holdTimer = new Timer(timeToSpawn);
+
 }
 
 TimerItem::~TimerItem()
@@ -25,10 +29,12 @@ TimerItem::~TimerItem()
 
 void TimerItem::Draw()
 {
-	DrawRectangle(
-		static_cast<int>(position.x),
-		static_cast<int>(position.y),
-		width, height, YELLOW);
+	DrawRectangle(static_cast<int>(position.x),static_cast<int>(position.y),width, height, YELLOW);
+	DrawTexturePro(textureTimer,
+		{ 0, 0, 64, 64 },
+		{ position.x,position.y, 64, 64 },
+		{ 0,	0, },
+		0, WHITE);
 }
 
 void TimerItem::UpdateItem()

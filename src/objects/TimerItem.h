@@ -17,13 +17,17 @@ private:
 
 	bool goingUp;
 
+	Texture2D textureTimer;
+
 public:
 	Timer* holdTimer;
 
 	TimerItem(
 		Vector2 position, Vector2 velocity, 
 		int width, int height,
-		float timeAdd, float initPosition, float timeToSpawn);
+		float timeAdd, float initPosition, 
+		float timeToSpawn,
+		Texture2D textureTimer);
 	~TimerItem();
 
 	void Draw();
