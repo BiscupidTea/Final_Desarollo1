@@ -1,11 +1,15 @@
 #include "Player.h"
 
-Player::Player(Vector2 position, Vector2 velocity, int width, int height, float distanceMade, int points, bool alive) : Entity(position, velocity, width, height)
+Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int points, bool alive, Texture2D texturePlayer) : Entity(position, velocity, width, height)
 {
 	this->position = position;
 	this->velocity = velocity;
-	this->width = width;
-	this->height = height;
+
+	this->texturePlayer = texturePlayer;
+
+	this->width = texturePlayer.width / 6;
+	this->height = texturePlayer.height;
+
 	this->distanceMade = distanceMade;
 	this->points = points;
 	this->alive = alive;
@@ -26,6 +30,11 @@ Player::~Player()
 void Player::Draw()
 {
 	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
+	DrawTexturePro(texturePlayer,
+		{ 0, 0, 64, 64, },
+		{ position.x,position.y, 64, 64, },
+		{ 0,	0, },
+		0, WHITE);
 }
 
 void Player::Movement()

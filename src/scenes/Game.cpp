@@ -10,6 +10,10 @@ static bool aliveButtons = false;
 static bool cheats = false;
 static int highScore = 0;
 static int totalDistance = 0;
+static bool isResoucesLoad = false;
+
+static Texture2D textureShieldItem;
+static Texture2D texturePlayer;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -37,6 +41,8 @@ Obstacle* arrayObstacle[maxObstacles];
 
 void InitGameLoop()
 {
+	LoadResources();
+
 	if (LoadStorageValue(0) != 0)
 	{
 		highScore = LoadStorageValue(0);
@@ -55,7 +61,7 @@ void InitGameLoop()
 		totalDistance = 0;
 	}
 
-	player1 = new Player({ 0, 0 }, { 0, 50 }, 40, 60, 0, 0, true);
+	player1 = new Player({ 0, 0 }, { 0, 50 }, 0, 0, true, texturePlayer);
 
 	for (int i = 0; i < maxObstacles; i++)
 	{
@@ -73,7 +79,7 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 30);
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 5, textureShieldItem);
 	itemPowerUp->ResetRandPosition();
 
 	deathTimer = new Timer(30);
@@ -391,7 +397,6 @@ void GameplayUpdate()
 	{
 		itemPowerUp->spawnItem->UpdateTimer();
 	}
-	cout << itemPowerUp->spawnItem->GetTimer() << endl;
 
 	//obstacles logic
 	ResetObstacleOutOfLimits();
@@ -435,8 +440,8 @@ void GameplayDraw()
 	if (itemPowerUp->IsPicked())
 	{
 		DrawCircle(
-			static_cast<int>(player1->GetX() + player1->GetWidth()/2),
-			static_cast<int>(player1->GetY() + player1->GetHeight()/2),
+			static_cast<int>(player1->GetX() + player1->GetWidth() / 2),
+			static_cast<int>(player1->GetY() + player1->GetHeight() / 2),
 			static_cast<float>(player1->GetWidth()), RED);
 	}
 
@@ -532,6 +537,7 @@ void DeathScreenUpdate()
 
 	if (buttonBackToMenu->IsButtonPressed())
 	{
+		UnloadResources();
 		setGameScene(GameScene::Menu);
 	}
 
@@ -566,14 +572,14 @@ void DeathScreenDraw()
 
 	DrawText(
 		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
-		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30)/2)),
+		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30) / 2)),
 		static_cast<int>(GetPercentageScreenHeight(high1)),
 		30, RED
 	);
 
 	DrawText(
 		"m",
-		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 40)/2)),
+		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 40) / 2)),
 		static_cast<int>(GetPercentageScreenHeight(high1)),
 		30, RED
 	);
@@ -750,4 +756,21 @@ void KillPlayer()
 	player1->SetIsAlive(false);
 	totalDistance += static_cast<int>(player1->GetDistanceMade());
 	SaveStorageValue(1, totalDistance);
+}
+
+void LoadResources()
+{
+	if (!isResoucesLoad)
+	{
+		textureShieldItem = LoadTexture("res/textures/shield-item.png");
+		texturePlayer = LoadTexture("res/textures/PlayerTexture.png");
+	}
+
+	isResoucesLoad = true;
+}
+
+void UnloadResources()
+{
+	UnloadTexture(textureShieldItem);
+	UnloadTexture(texturePlayer);
 }

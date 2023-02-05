@@ -16,15 +16,15 @@ private:
 	bool ground;
 	bool jump;
 	static const int maxBullets = 5;
+	Texture2D texturePlayer;
 
 public:
 	Bullet* arrayBullets[maxBullets];
 
 	Player(
-		Vector2 position, Vector2 velocity,
-		int width, int height, 
+		Vector2 position, Vector2 velocity, 
 		float distanceMade, int points,
-		bool alive);
+		bool alive, Texture2D texturePlayer);
 
 	~Player();
 

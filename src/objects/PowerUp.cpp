@@ -1,11 +1,15 @@
 #include "PowerUp.h"
 
-PowerUp::PowerUp(Vector2 position, Vector2 velocity, int width, int height, float spawnTime) : Entity(position, velocity, width, height)
+PowerUp::PowerUp(Vector2 position, Vector2 velocity, int width, int height, float spawnTime, Texture2D shieldTexture) : Entity(position, velocity, width, height)
 {
+	this->shieldTexture = shieldTexture;
+	
 	this->position = position;
 	this->velocity = velocity;
+	
 	this->width = width;
 	this->height = height;
+	
 	this->picked = false;
 
 	this->spawnItem = new Timer(spawnTime);
@@ -19,6 +23,7 @@ PowerUp::~PowerUp()
 void PowerUp::Draw()
 {
 	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), width, height, SKYBLUE);
+	DrawTexture(shieldTexture, static_cast<int>(GetX()), static_cast<int>(GetY()), WHITE);
 }
 
 void PowerUp::UpdateItem()

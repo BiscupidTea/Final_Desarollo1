@@ -51,3 +51,7 @@ void AccelerateGame();
 void DrawHud();
 
 void KillPlayer();
+
+void LoadResources();
+
+void UnloadResources();
