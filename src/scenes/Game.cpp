@@ -773,7 +773,7 @@ void LoadResources()
 		texturePlayer = LoadTexture("res/textures/PlayerTexture.png");
 		textureShieldItem = LoadTexture("res/textures/shield-item.png");
 		textureTimer = LoadTexture("res/textures/Timer-Item.png");
-		textureObstacle = LoadTexture("res/textures/obstacle.png");
+		textureObstacle = LoadTexture("res/textures/ObstacleTexture.png");
 		textureBullet = LoadTexture("res/textures/bullet.png");
 	}
 

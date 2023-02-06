@@ -1,5 +1,6 @@
 #pragma once
 #include "tools/tools.h"
+#include "tools/Timer.h"
 
 #include "Entity.h"
 
@@ -7,7 +8,10 @@ class Obstacle : public Entity
 {
 private:
 	bool destroyed;
+
+	Timer* changeFrame;
 	Texture2D textureObstacle;
+	int actualFrame;
 
 public:
 	Obstacle(
