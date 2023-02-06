@@ -7,7 +7,7 @@ Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int point
 
 	this->texturePlayer = texturePlayer;
 
-	this->width = texturePlayer.width / 9;
+	this->width = texturePlayer.width / 13;
 	this->height = texturePlayer.height;
 
 	this->distanceMade = distanceMade;
@@ -18,7 +18,7 @@ Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int point
 
 	this->actualFrame = 0;
 
-	changeFrame = new Timer(0.3f);
+	changeFrame = new Timer(0.2f);
 
 	for (int i = 0; i < maxBullets; i++)
 	{
@@ -80,6 +80,7 @@ void Player::Draw()
 	if (!jump && !ground)
 	{
 		actualFrame = 0;
+		changeFrame->ResetTime();
 	}
 
 	float sumSource = static_cast<float>(0 + (64 * actualFrame));
@@ -88,7 +89,7 @@ void Player::Draw()
 	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
 	DrawTexturePro(texturePlayer,
 		{ sumSource, 0, 64, 64 },
-		{ position.x,position.y, 64, 64 },
+		{ position.x - (texturePlayer.width / 72),position.y, 64, 64 },
 		{ 0,	0, },
 		0, WHITE);
 }
