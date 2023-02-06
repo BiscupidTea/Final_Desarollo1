@@ -6,10 +6,11 @@ Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height, Te
 	this->velocity = velocity;
 
 	this->textureObstacle = textureObstacle;
-	this->width = textureObstacle.width / 5;
+	this->width = textureObstacle.width / 6;
 	this->height = textureObstacle.height;
 
 	this->destroyed = false;
+	this->actualFrame = 0;
 
 	changeFrame = new Timer(0.2f);
 
@@ -22,7 +23,17 @@ Obstacle::~Obstacle()
 
 void Obstacle::Draw()
 {
-	//logic texture
+	float sumSource = static_cast<float>(0 + (64 * actualFrame));
+	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), WHITE);
+	DrawTexturePro(textureObstacle,
+		{ sumSource, 0, 64, 64 },
+		{ position.x - (textureObstacle.width / 70),position.y, 64, 64 },
+		{ 0,	0, },
+		0, WHITE);
+}
+
+void Obstacle::UpdateDraw()
+{
 	changeFrame->UpdateTimer();
 
 	if (changeFrame->GetIsTimeEnd())
@@ -36,16 +47,6 @@ void Obstacle::Draw()
 
 		changeFrame->ResetTime();
 	}
-
-	float sumSource = static_cast<float>(0 + (64 * actualFrame));
-
-	//draw hitbox and texture
-	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), RED);
-	DrawTexturePro(textureObstacle,
-		{ sumSource, 0, 64, 64 },
-		{ position.x,position.y, 64, 64 },
-		{ 0,	0, },
-		0, WHITE);
 }
 
 void Obstacle::Movement()

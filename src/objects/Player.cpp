@@ -33,7 +33,17 @@ Player::~Player()
 
 void Player::Draw()
 {
-	//logic texture
+	float sumSource = static_cast<float>(0 + (64 * actualFrame));
+	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
+	DrawTexturePro(texturePlayer,
+		{ sumSource, 0, 64, 64 },
+		{ position.x - (texturePlayer.width / 72),position.y, 64, 64 },
+		{ 0,	0, },
+		0, WHITE);
+}
+
+void Player::UpdateDraw()
+{
 	changeFrame->UpdateTimer();
 	cout << changeFrame->GetTimer() << endl;
 
@@ -76,22 +86,12 @@ void Player::Draw()
 			changeFrame->ResetTime();
 		}
 	}
-	
+
 	if (!jump && !ground)
 	{
 		actualFrame = 0;
 		changeFrame->ResetTime();
 	}
-
-	float sumSource = static_cast<float>(0 + (64 * actualFrame));
-
-	//draw hitbox and texture
-	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
-	DrawTexturePro(texturePlayer,
-		{ sumSource, 0, 64, 64 },
-		{ position.x - (texturePlayer.width / 72),position.y, 64, 64 },
-		{ 0,	0, },
-		0, WHITE);
 }
 
 void Player::Movement()

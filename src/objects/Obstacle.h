@@ -22,6 +22,8 @@ public:
 
 	void Draw();
 
+	void UpdateDraw();
+
 	void Movement();
 
 	bool OutOfLimits();
