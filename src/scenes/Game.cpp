@@ -19,6 +19,8 @@ static Texture2D textureObstacle;
 static Texture2D textureBullet;
 static Texture2D textureFloor;
 static Texture2D textureWall1;
+static Texture2D textureWall2;
+static Texture2D textureWindow1;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -73,7 +75,7 @@ void InitGameLoop()
 		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60, textureObstacle);
 	}
 
-	paralax1 = new Paralax(300, textureFloor, textureWall1, textureWall1);
+	paralax1 = new Paralax(300, textureFloor, textureWall1, textureWall2, textureWindow1);
 
 	isGamePause = false;
 
@@ -369,7 +371,7 @@ void GameplayUpdate()
 {
 	AccelerateGame();
 
-	//paralax1->UpdateParalax();
+	paralax1->UpdateParalax(arrayObstacle[0]->getVelocityX());
 
 	player1->IsPlayerGround();
 	player1->Movement();
@@ -443,7 +445,7 @@ void GameplayUpdate()
 
 void GameplayDraw()
 {
-	ClearBackground(BLACK);
+	ClearBackground(Color{ 71,70,70, 255 });
 
 	//DrawRectangle(0,
 	//	static_cast<int>(GetPercentageScreenHeight(85.0f)),
@@ -791,6 +793,8 @@ void LoadResources()
 		textureBullet = LoadTexture("res/textures/bullet.png");
 		textureFloor = LoadTexture("res/textures/floor.png");
 		textureWall1 = LoadTexture("res/textures/wall1.png");
+		textureWall2 = LoadTexture("res/textures/wall2.png");
+		textureWindow1 = LoadTexture("res/textures/window1.png");
 	}
 
 	isResoucesLoad = true;
@@ -805,5 +809,7 @@ void UnloadResources()
 	UnloadTexture(textureBullet);
 	UnloadTexture(textureFloor);
 	UnloadTexture(textureWall1);
+	UnloadTexture(textureWall2);
+	UnloadTexture(textureWindow1);
 	isResoucesLoad = false;
 }

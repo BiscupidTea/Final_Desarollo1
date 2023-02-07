@@ -1,22 +1,25 @@
 #include "Paralax.h"
 
-Paralax::Paralax(float velocityFloors, Texture2D textureFloor, Texture2D textureWall1, Texture2D textureWindow1)
+Paralax::Paralax(float velocityFloors, 
+	Texture2D textureFloor, Texture2D textureWall1, Texture2D textureWall2, Texture2D textureWindow1)
 {
-	this->positionFloor1 = { 0, GetPercentageScreenHeight(85) };
-	this->positionFloor2 = { static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(85) };
-
-	this->positionWall1 = { 0, 0 };
-	this->positionWall2 = { static_cast<float>(GetScreenWidth()), 0 };
-
-	this->positionWindow = { GetPercentageScreenWidth(15) , GetPercentageScreenHeight(15) };
-	this->tipeWindow = GetRandomValue(1, 6);
-
+	this->positionFloorY = GetPercentageScreenHeight(85);
+	this->ScrollingFloor = 0;
 	this->velocityFloors = velocityFloors;
+
+	this->positionWallY = 0;
+	this->ScrollingWall1 = 0;
+	this->ScrollingWall2 = (textureWall1.width * 6.25f) + ScrollingWall1;
 	this->velocityWalls = velocityFloors / 4;
+
+	
+	this->positionWindow = { GetPercentageScreenWidth(12) , GetPercentageScreenHeight(17) };
+	this->tipeWindow = GetRandomValue(1, 6);
 	this->velocityWindow = velocityWalls / 2;
 
 	this->textureFloor = textureFloor;
 	this->textureWall1 = textureWall1;
+	this->textureWall2 = textureWall2;
 	this->textureWindow1 = textureWindow1;
 }
 
@@ -34,17 +37,17 @@ void Paralax::DrawParalax()
 
 void Paralax::DrawFloor()
 {
-	//DrawTexture(textureFloor,
-	//	static_cast<int>(positionFloor1.x),
-	//	static_cast<int>(positionFloor1.y), WHITE);
-
-	//DrawTexture(textureFloor,
-	//	static_cast<int>(positionFloor2.x),
-	//	static_cast<int>(positionFloor2.y), WHITE);
+	DrawTexturePro(textureFloor,
+		{ 0,0, 128, 19 },
+		{ ScrollingFloor ,  positionFloorY,
+		static_cast<float>(800), static_cast<float>(120) },
+		{ 0,0 },
+		0, WHITE
+	);
 
 	DrawTexturePro(textureFloor,
 		{ 0,0, 128, 19 },
-		{ positionFloor1.x ,positionFloor1.y ,
+		{ (textureFloor.width * 6.25f)  + ScrollingFloor ,positionFloorY ,
 		static_cast<float>(800), static_cast<float>(120) },
 		{ 0,0 },
 		0, WHITE
@@ -56,66 +59,73 @@ void Paralax::DrawWall()
 {
 	DrawTexturePro(textureWall1,
 		{ 0,0, 128, 109 },
-		{ positionWall1.x ,positionWall1.y ,
-		static_cast<float>(800), static_cast<float>(680) },
+		{ ScrollingWall1 ,  positionWallY,
+		textureFloor.width * 6.25f, static_cast<float>(680) },
 		{ 0,0 },
 		0, WHITE
 	);
 
-	//DrawTexture(textureWall1,
-	//	static_cast<int>(positionWall2.x),
-	//	static_cast<int>(positionWall2.y), WHITE);
+	DrawTexturePro(textureWall2,
+		{ 0,0, 128, 109 },
+		{ ScrollingWall2 ,positionWallY ,
+		textureFloor.width * 6.25f, static_cast<float>(680) },
+		{ 0,0 },
+		0, WHITE
+	);
 }
 
 void Paralax::DrawWindow()
 {
-	//DrawTexture(textureWindow1,
+	DrawTexturePro(textureWindow1,
+		{ 0,0, 100, 64 },
+		{ positionWindow.x ,positionWindow.y ,
+		textureWindow1.width * 6.25f, textureWindow1.height * 6.25f },
+		{ 0,0 },
+		0, WHITE
+	);
+
+	//DrawRectangle(
 	//	static_cast<int>(positionWindow.x),
-	//	static_cast<int>(positionWindow.y), WHITE);
+	//		static_cast<int>(positionWindow.y), 800, 400, GREEN);
 }
 
-void Paralax::UpdateParalax()
+void Paralax::UpdateParalax(float velocityObstacles)
 {
-	UpdateFloor();
-	UpdateWall();
+	velocityFloors = velocityObstacles;
+	velocityWalls = velocityFloors / 4;
+	velocityWindow = velocityWalls / 2;
+
 	UpdateWindow();
+	UpdateWall();
+	UpdateFloor();
 }
 
 void Paralax::UpdateFloor()
 {
-	positionFloor1.x -= velocityFloors * GetFrameTime();
-	if (positionFloor1.x + 150 < 0)
+	ScrollingFloor -= velocityFloors * GetFrameTime();
+	if (ScrollingFloor <= -(textureFloor.width * 6.25f))
 	{
-		positionFloor1.x = GetPercentageScreenWidth(100);
-	}
-
-	positionFloor2.x -= velocityFloors * GetFrameTime();
-	if (positionFloor2.x + 150 < 0)
-	{
-		positionFloor2.x = GetPercentageScreenWidth(100);
+		ScrollingFloor = 0;
 	}
 }
 
 void Paralax::UpdateWall()
 {
-	positionWall1.x -= velocityWalls * GetFrameTime();
-	if (positionWall1.x + textureWall1.width < 0)
+	ScrollingWall1 -= velocityWalls * GetFrameTime();
+	if (ScrollingWall1 <= -(textureWall1.width * 6.25f))
 	{
-		positionWall1.x = GetPercentageScreenWidth(100);
+		ScrollingWall1 = ScrollingWall2 + (textureWall2.width * 6.25f);
+		positionWindow.x = ScrollingWall2 + (textureWall2.width * 6.25f) + GetPercentageScreenWidth(12);
 	}
 
-	positionWall2.x -= velocityWalls * GetFrameTime();
-	if (positionWall2.x + textureWall1.width < 0)
+	ScrollingWall2 -= velocityWalls * GetFrameTime();
+	if (ScrollingWall2 <= -(textureWall2.width * 6.25f))
 	{
-		positionWall2.x = GetPercentageScreenWidth(100);
+		ScrollingWall2 = ScrollingWall1 + (textureWall1.width * 6.25f);
 	}
 }
 
 void Paralax::UpdateWindow()
 {
-	positionWindow.x -= velocityWindow * GetFrameTime();
-	if (positionWindow.x + textureWindow1.width < 0)
-	{
-		positionWindow.x = GetPercentageScreenWidth(100);
-	}
+	positionWindow.x -= velocityWalls * GetFrameTime();
 }

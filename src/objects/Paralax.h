@@ -1,16 +1,21 @@
 #pragma once
+#include <iostream>
+
 #include "raylib.h"
 #include "tools/tools.h"
+
+using namespace std;
 
 class Paralax
 {
 private:
-	Vector2 positionFloor1;
-	Vector2 positionFloor2;
+	float positionFloorY;
+	float ScrollingFloor;
 	float velocityFloors;
 
-	Vector2 positionWall1;
-	Vector2 positionWall2;
+	float positionWallY;
+	float ScrollingWall1;
+	float ScrollingWall2;
 	float velocityWalls;
 
 	int tipeWindow;
@@ -21,7 +26,7 @@ private:
 	Texture2D textureFloor;
 
 	Texture2D textureWall1;
-	//Texture2D textureWall2;
+	Texture2D textureWall2;
 
 	Texture2D textureWindow1;
 	//Texture2D textureWindow2;
@@ -36,6 +41,7 @@ public:
 		float velocityFloors,
 		Texture2D textureFloor,
 		Texture2D textureWall1,
+		Texture2D textureWall2,
 		Texture2D textureWindow1);
 
 	~Paralax();
@@ -48,7 +54,7 @@ public:
 	void DrawWindow();
 
 	//update
-	void UpdateParalax();
+	void UpdateParalax(float velocityObstacles);
 
 	void UpdateFloor();
 	void UpdateWall();
