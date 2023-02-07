@@ -17,6 +17,8 @@ static Texture2D texturePlayer;
 static Texture2D textureTimer;
 static Texture2D textureObstacle;
 static Texture2D textureBullet;
+static Texture2D textureFloor;
+static Texture2D textureWall1;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -35,7 +37,7 @@ enum class ObjectsPatterns
 	MidLine,
 };
 
-
+Paralax* paralax1;
 Player* player1;
 TimerItem* itemTimer;
 PowerUp* itemPowerUp;
@@ -70,6 +72,8 @@ void InitGameLoop()
 	{
 		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60, textureObstacle);
 	}
+
+	paralax1 = new Paralax(300, textureFloor, textureWall1, textureWall1);
 
 	isGamePause = false;
 
@@ -365,8 +369,11 @@ void GameplayUpdate()
 {
 	AccelerateGame();
 
+	//paralax1->UpdateParalax();
+
 	player1->IsPlayerGround();
 	player1->Movement();
+	player1->UpdateDraw();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
 	//item logic
@@ -403,6 +410,7 @@ void GameplayUpdate()
 
 	for (int i = 0; i < maxObstacles; i++)
 	{
+		arrayObstacle[i]->UpdateDraw();
 		arrayObstacle[i]->Movement();
 	}
 
@@ -437,12 +445,21 @@ void GameplayDraw()
 {
 	ClearBackground(BLACK);
 
+	//DrawRectangle(0,
+	//	static_cast<int>(GetPercentageScreenHeight(85.0f)),
+	//	GetScreenWidth(),
+	//	static_cast<int>(GetPercentageScreenHeight(15.0f)),
+	//	GREEN
+	//);
+
+	paralax1->DrawParalax();
+
 	if (itemPowerUp->IsPicked())
 	{
 		DrawCircle(
 			static_cast<int>(player1->GetX() + player1->GetWidth() / 2),
 			static_cast<int>(player1->GetY() + player1->GetHeight() / 2),
-			static_cast<float>(player1->GetWidth()/2), RED);
+			static_cast<float>(player1->GetWidth() / 2), RED);
 	}
 
 	player1->Draw();
@@ -480,13 +497,6 @@ void GameplayDraw()
 		}
 	}
 
-	DrawRectangle(0,
-		static_cast<int>(GetPercentageScreenHeight(85.0f)),
-		GetScreenWidth(),
-		static_cast<int>(GetPercentageScreenHeight(15.0f)),
-		GREEN
-	);
-
 	DrawHud();
 }
 
@@ -508,6 +518,8 @@ void PauseUpdate()
 
 void PauseDraw()
 {
+	paralax1->DrawParalax();
+
 	DrawRectangle(
 		static_cast<int>(GetPercentageScreenWidth(15)),
 		static_cast<int>(GetPercentageScreenHeight(15)),
@@ -549,6 +561,8 @@ void DeathScreenUpdate()
 
 void DeathScreenDraw()
 {
+	paralax1->DrawParalax();
+
 	DrawRectangle(
 		static_cast<int>(GetPercentageScreenWidth(15)),
 		static_cast<int>(GetPercentageScreenHeight(15)),
@@ -775,6 +789,8 @@ void LoadResources()
 		textureTimer = LoadTexture("res/textures/Timer-Item.png");
 		textureObstacle = LoadTexture("res/textures/ObstacleTexture.png");
 		textureBullet = LoadTexture("res/textures/bullet.png");
+		textureFloor = LoadTexture("res/textures/floor.png");
+		textureWall1 = LoadTexture("res/textures/wall1.png");
 	}
 
 	isResoucesLoad = true;
@@ -787,5 +803,7 @@ void UnloadResources()
 	UnloadTexture(textureTimer);
 	UnloadTexture(textureObstacle);
 	UnloadTexture(textureBullet);
+	UnloadTexture(textureFloor);
+	UnloadTexture(textureWall1);
 	isResoucesLoad = false;
 }

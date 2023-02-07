@@ -7,6 +7,7 @@
 
 #include "scenes/SceneSetter.h"
 
+#include "objects/Paralax.h"
 #include "objects/Player.h"
 #include "objects/Obstacle.h"
 #include "objects/TimerItem.h"
