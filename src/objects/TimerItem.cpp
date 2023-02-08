@@ -29,7 +29,7 @@ TimerItem::~TimerItem()
 
 void TimerItem::Draw()
 {
-	DrawRectangle(static_cast<int>(position.x),static_cast<int>(position.y),width, height, YELLOW);
+	//DrawRectangle(static_cast<int>(position.x),static_cast<int>(position.y),width, height, YELLOW);
 	DrawTexturePro(textureTimer,
 		{ 0, 0, 64, 64 },
 		{ position.x,position.y, 64, 64 },

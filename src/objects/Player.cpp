@@ -34,7 +34,7 @@ Player::~Player()
 void Player::Draw()
 {
 	float sumSource = static_cast<float>(0 + (64 * actualFrame));
-	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
+	//DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
 	DrawTexturePro(texturePlayer,
 		{ sumSource, 0, 64, 64 },
 		{ position.x - (texturePlayer.width / 72),position.y, 64, 64 },
@@ -45,7 +45,6 @@ void Player::Draw()
 void Player::UpdateDraw()
 {
 	changeFrame->UpdateTimer();
-	cout << changeFrame->GetTimer() << endl;
 
 	if (ground)
 	{

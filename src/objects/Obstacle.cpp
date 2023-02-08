@@ -6,8 +6,8 @@ Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height, Te
 	this->velocity = velocity;
 
 	this->textureObstacle = textureObstacle;
-	this->width = textureObstacle.width / 6;
-	this->height = textureObstacle.height;
+	this->width = textureObstacle.width / 8;
+	this->height = textureObstacle.height - textureObstacle.height/10;
 
 	this->destroyed = false;
 	this->actualFrame = 0;
@@ -24,10 +24,10 @@ Obstacle::~Obstacle()
 void Obstacle::Draw()
 {
 	float sumSource = static_cast<float>(0 + (64 * actualFrame));
-	DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), WHITE);
+	//DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), WHITE);
 	DrawTexturePro(textureObstacle,
 		{ sumSource, 0, 64, 64 },
-		{ position.x - (textureObstacle.width / 70),position.y, 64, 64 },
+		{ position.x - textureObstacle.width/5 /5,position.y, 64, 64 },
 		{ 0,	0, },
 		0, WHITE);
 }
