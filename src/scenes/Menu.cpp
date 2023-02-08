@@ -1,19 +1,16 @@
 #include "scenes/Menu.h"
 
 Buttons* buttonPlay;
-
 Buttons* buttonRules;
-
 Buttons* buttonOptions;
-
 Buttons* buttonCredits;
-
 Buttons* buttonExit;
 
 void MenuScene()
 {
 	if (!isButtonsCreated)
 	{
+		LoadResourcesMouse();
 		CreateButtons();
 		isButtonsCreated = true;
 	}
@@ -65,6 +62,8 @@ void DrawMenu()
 	buttonExit->DrawButton();
 
 	DrawText("0.5", GetScreenWidth() - MeasureText("0.5", 40), GetScreenHeight() - MeasureText("0.5", 20), 20, WHITE);
+
+	DrawMouse();
 
 	EndDrawing();
 }

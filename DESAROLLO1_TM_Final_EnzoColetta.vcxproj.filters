@@ -70,6 +70,9 @@
     <ClCompile Include="src\objects\Bullet.cpp">
       <Filter>src\objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\tools\Cursor.cpp">
+      <Filter>src\tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="src\objects\Bullet.h">
       <Filter>src\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\Cursor.h">
+      <Filter>src\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

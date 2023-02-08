@@ -43,6 +43,7 @@ void DrawCredits()
 	DrawText("Press Esc to back to Menu", 0, static_cast<int>(GetPercentageScreenHeight(95)), 30, RED);
 
 	DrawText("0.5", GetScreenWidth() - MeasureText("0.5", 40), GetScreenHeight() - MeasureText("0.5", 20), 20, WHITE);
+	DrawMouse();
 
 	EndDrawing();
 }

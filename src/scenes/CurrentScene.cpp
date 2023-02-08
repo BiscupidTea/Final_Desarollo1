@@ -11,6 +11,7 @@ void InitGame()
 
 	InitWindow(DefaultScreenWidth, DefaultScreenHeight, "WHERE IS MY TIME!?");
 	SetExitKey(NULL);
+	HideCursor();
 
 	setGameScene(GameScene::Menu);
 

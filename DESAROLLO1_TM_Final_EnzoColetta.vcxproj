@@ -187,6 +187,7 @@
     <ClCompile Include="src\scenes\SceneSetter.cpp" />
     <ClCompile Include="src\scenes\Store.cpp" />
     <ClCompile Include="src\tools\Buttons.cpp" />
+    <ClCompile Include="src\tools\Cursor.cpp" />
     <ClCompile Include="src\tools\Timer.cpp" />
     <ClCompile Include="src\tools\Tools.cpp" />
   </ItemGroup>
@@ -207,6 +208,7 @@
     <ClInclude Include="src\scenes\SceneSetter.h" />
     <ClInclude Include="src\scenes\Store.h" />
     <ClInclude Include="src\tools\Buttons.h" />
+    <ClInclude Include="src\tools\Cursor.h" />
     <ClInclude Include="src\tools\Timer.h" />
     <ClInclude Include="src\tools\Tools.h" />
   </ItemGroup>

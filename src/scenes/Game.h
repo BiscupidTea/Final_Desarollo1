@@ -4,6 +4,7 @@
 #include "tools/tools.h"
 #include "tools/Buttons.h"
 #include "tools/Timer.h"
+#include "tools/Cursor.h"
 
 #include "scenes/SceneSetter.h"
 

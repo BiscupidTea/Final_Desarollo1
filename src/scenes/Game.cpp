@@ -12,6 +12,7 @@ static int highScore = 0;
 static int totalDistance = 0;
 static bool isResoucesLoad = false;
 
+static Texture2D textureMouse;
 static Texture2D textureShieldItem;
 static Texture2D texturePlayer;
 static Texture2D textureTimer;
@@ -49,6 +50,8 @@ Obstacle* arrayObstacle[maxObstacles];
 void InitGameLoop()
 {
 	LoadResources();
+
+	HideCursor();
 
 	if (LoadStorageValue(0) != 0)
 	{
@@ -115,14 +118,17 @@ void DrawGame()
 	if (isGamePause && player1->IsAlive())
 	{
 		PauseDraw();
+		DrawMouse();
 	}
 
 	if (!player1->IsAlive())
 	{
 		DeathScreenDraw();
+		DrawMouse();
 	}
 
 	DrawText("0.5", GetScreenWidth() - MeasureText("0.5", 40), GetScreenHeight() - MeasureText("0.5", 20), 20, WHITE);
+
 	EndDrawing();
 }
 
