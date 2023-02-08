@@ -8,19 +8,28 @@ class PowerUp :	public Entity
 {
 private:
 	bool picked;
-	Texture2D shieldTexture;
+	Texture2D shieldTextureItem;
+	Texture2D shieldTexturePicked;
+	Rectangle playerSpec;
+	Timer* changeFrame;
+	int actualFrame;
 
 public:
 	Timer* spawnItem;
 	PowerUp(Vector2 position, Vector2 velocity, 
 		int width, int height, 
 		float spawnTime, 
-		Texture2D shieldTexture);
+		Rectangle playerSpec,
+		Texture2D shieldTextureItem,
+		Texture2D shieldTexturePicked
+		);
 	~PowerUp();
 
 	void Draw();
 
 	void UpdateItem();
+	void UpdatePositionPicked(Vector2 playerUpdateXY);
+	void UpdateDraw();
 
 	bool OutOfLimits();
 	void ResetRandPosition();

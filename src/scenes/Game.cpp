@@ -14,6 +14,7 @@ static bool isResoucesLoad = false;
 
 static Texture2D textureMouse;
 static Texture2D textureShieldItem;
+static Texture2D textureShieldPicked;
 static Texture2D texturePlayer;
 static Texture2D textureTimer;
 static Texture2D textureObstacle;
@@ -91,7 +92,10 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5, textureTimer);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 30, textureShieldItem);
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 5, 
+		{player1->GetX(), player1->GetY(), static_cast<float>(player1->GetWidth()), static_cast<float>(player1->GetHeight()) },
+		textureShieldItem, textureShieldPicked);
+
 	itemPowerUp->ResetRandPosition();
 
 	deathTimer = new Timer(30);
@@ -385,7 +389,7 @@ void GameplayUpdate()
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
 
 	//item logic
-	if (itemTimer->holdTimer->GetTimer() <= 0)
+	if (itemTimer->holdTimer->GetIsTimeEnd())
 	{
 		itemTimer->UpdateItem();
 
@@ -399,7 +403,7 @@ void GameplayUpdate()
 		itemTimer->holdTimer->UpdateTimer();
 	}
 
-	if (itemPowerUp->spawnItem->GetTimer() <= 0)
+	if (itemPowerUp->spawnItem->GetIsTimeEnd())
 	{
 		itemPowerUp->UpdateItem();
 
@@ -412,6 +416,9 @@ void GameplayUpdate()
 	{
 		itemPowerUp->spawnItem->UpdateTimer();
 	}
+
+	itemPowerUp->UpdatePositionPicked(player1->GetPosition());
+	itemPowerUp->UpdateDraw();
 
 	//obstacles logic
 	ResetObstacleOutOfLimits();
@@ -453,25 +460,9 @@ void GameplayDraw()
 {
 	ClearBackground(Color{ 71,70,70, 255 });
 
-	//DrawRectangle(0,
-	//	static_cast<int>(GetPercentageScreenHeight(85.0f)),
-	//	GetScreenWidth(),
-	//	static_cast<int>(GetPercentageScreenHeight(15.0f)),
-	//	GREEN
-	//);
-
 	paralax1->DrawParalax();
 
-	if (itemPowerUp->IsPicked())
-	{
-		DrawCircle(
-			static_cast<int>(player1->GetX() + player1->GetWidth() / 2),
-			static_cast<int>(player1->GetY() + player1->GetHeight() / 2),
-			static_cast<float>(player1->GetWidth() / 2), RED);
-	}
-
 	player1->Draw();
-
 
 	//draw items
 	itemTimer->Draw();
@@ -794,6 +785,7 @@ void LoadResources()
 	{
 		texturePlayer = LoadTexture("res/textures/PlayerTexture.png");
 		textureShieldItem = LoadTexture("res/textures/shield-item.png");
+		textureShieldPicked = LoadTexture("res/textures/shield-picked.png");
 		textureTimer = LoadTexture("res/textures/Timer-Item.png");
 		textureObstacle = LoadTexture("res/textures/ObstacleTexture.png");
 		textureBullet = LoadTexture("res/textures/bullet.png");
@@ -809,7 +801,8 @@ void LoadResources()
 void UnloadResources()
 {
 	UnloadTexture(texturePlayer);
-	UnloadTexture(textureShieldItem);
+	UnloadTexture(textureShieldItem);	
+	UnloadTexture(textureShieldPicked);
 	UnloadTexture(textureTimer);
 	UnloadTexture(textureObstacle);
 	UnloadTexture(textureBullet);
