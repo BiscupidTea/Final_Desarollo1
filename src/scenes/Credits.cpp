@@ -1,7 +1,15 @@
 #include "Credits.h"
 
+Buttons* buttonExitCredits;
+
 void CreditsScene()
 {
+	if (!isCreditsButtonsCreated)
+	{
+		CreateButtonsCredits();
+		isCreditsButtonsCreated = true;
+	}
+
 	UpdateCredits();
 
 	DrawCredits();
@@ -9,7 +17,7 @@ void CreditsScene()
 
 void UpdateCredits()
 {
-	if (IsKeyPressed(KEY_ESCAPE))
+	if (buttonExitCredits->IsButtonPressed())
 	{
 		setGameScene(GameScene::Menu);
 	}
@@ -40,10 +48,19 @@ void DrawCredits()
 		static_cast<int>(GetPercentageScreenHeight(50)),
 		30, GREEN);
 
-	DrawText("Press Esc to back to Menu", 0, static_cast<int>(GetPercentageScreenHeight(95)), 30, RED);
+	buttonExitCredits->DrawButton();
 
 	DrawText("0.5", GetScreenWidth() - MeasureText("0.5", 40), GetScreenHeight() - MeasureText("0.5", 20), 20, WHITE);
 	DrawMouse();
 
 	EndDrawing();
+}
+
+void CreateButtonsCredits()
+{
+	buttonExitCredits = new Buttons(
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(85),
+		GetPercentageScreenWidth(10), GetPercentageScreenHeight(10) },
+		RED, "Exit", 30);
+	cout << "exit created" << endl;
 }
