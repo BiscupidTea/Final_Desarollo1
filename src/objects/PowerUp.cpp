@@ -11,6 +11,7 @@ PowerUp::PowerUp(Vector2 position, Vector2 velocity, int width, int height, floa
 	this->velocity = velocity;
 
 	this->picked = false;
+	this->destroyed = true;
 
 	this->spawnItem = new Timer(spawnTime);
 
@@ -50,7 +51,10 @@ void PowerUp::Draw()
 
 void PowerUp::UpdateItem()
 {
-	position.x -= velocity.x * GetFrameTime();
+	if (!IsPicked())
+	{
+		position.x -= velocity.x * GetFrameTime();
+	}
 }
 
 void PowerUp::UpdatePositionPicked(Vector2 playerUpdateXY)
@@ -86,16 +90,6 @@ bool PowerUp::OutOfLimits()
 	return false;
 }
 
-void PowerUp::SetPicked(bool setter)
-{
-	picked = setter;
-}
-
-bool PowerUp::IsPicked()
-{
-	return picked;
-}
-
 void PowerUp::ResetRandPosition()
 {
 	float midPlayableScreen = GetPercentageScreenHeight(42.5);
@@ -111,4 +105,25 @@ void PowerUp::ResetRandPosition()
 	}
 
 	spawnItem->ResetTime();
+	picked = false;
+}
+
+void PowerUp::SetPicked(bool setter)
+{
+	picked = setter;
+}
+
+bool PowerUp::IsPicked()
+{
+	return picked;
+}
+
+void PowerUp::SetDestroyed(bool setter)
+{
+	destroyed = setter;
+}
+
+bool PowerUp::IsDestroyed()
+{
+	return destroyed;
 }

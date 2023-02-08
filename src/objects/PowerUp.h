@@ -8,6 +8,7 @@ class PowerUp :	public Entity
 {
 private:
 	bool picked;
+	bool destroyed;
 	Texture2D shieldTextureItem;
 	Texture2D shieldTexturePicked;
 	Rectangle playerSpec;
@@ -36,5 +37,8 @@ public:
 
 	void SetPicked(bool setter);
 	bool IsPicked();
+
+	void SetDestroyed(bool setter);
+	bool IsDestroyed();
 };
 

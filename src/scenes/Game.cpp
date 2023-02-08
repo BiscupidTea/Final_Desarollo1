@@ -289,6 +289,8 @@ void CheckColitions()
 				if (itemPowerUp->IsPicked())
 				{
 					itemPowerUp->SetPicked(false);
+					itemPowerUp->SetDestroyed(true);
+					itemPowerUp->ResetRandPosition();
 					arrayObstacle[i]->SetDestroyed(true);
 				}
 				else
@@ -325,9 +327,8 @@ void CheckColitions()
 	{
 		if (player1->CheckColition(itemPowerUp->GetPosition(), itemPowerUp->GetWidth(), itemPowerUp->GetHeight()))
 		{
-			itemPowerUp->ResetRandPosition();
-			itemPowerUp->spawnItem->ResetTime();
 			itemPowerUp->SetPicked(true);
+			itemPowerUp->spawnItem->ResetTime();
 		}
 	}
 }
@@ -403,7 +404,16 @@ void GameplayUpdate()
 		itemTimer->holdTimer->UpdateTimer();
 	}
 
-	if (itemPowerUp->spawnItem->GetIsTimeEnd())
+	if (itemPowerUp->IsDestroyed())
+	{
+		itemPowerUp->spawnItem->UpdateTimer();
+
+		if (itemPowerUp->spawnItem->GetIsTimeEnd())
+		{
+			itemPowerUp->SetDestroyed(false);
+		}
+	}
+	else
 	{
 		itemPowerUp->UpdateItem();
 
@@ -411,10 +421,6 @@ void GameplayUpdate()
 		{
 			itemPowerUp->ResetRandPosition();
 		}
-	}
-	else
-	{
-		itemPowerUp->spawnItem->UpdateTimer();
 	}
 
 	itemPowerUp->UpdatePositionPicked(player1->GetPosition());
