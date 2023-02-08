@@ -19,6 +19,7 @@ static Texture2D texturePlayer;
 static Texture2D textureTimer;
 static Texture2D textureObstacle;
 static Texture2D textureBullet;
+static Texture2D textureExplotion;
 static Texture2D textureFloor;
 static Texture2D textureWall1;
 static Texture2D textureWall2;
@@ -76,7 +77,7 @@ void InitGameLoop()
 
 	for (int i = 0; i < maxObstacles; i++)
 	{
-		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60, textureObstacle);
+		arrayObstacle[i] = new Obstacle({ -10, 0 }, { 300, 0 }, 40, 60, textureObstacle, textureExplotion);
 	}
 
 	paralax1 = new Paralax(300, textureFloor, textureWall1, textureWall2, textureWindow1);
@@ -310,6 +311,7 @@ void CheckColitions()
 				if (player1->arrayBullets[i]->CheckColition(arrayObstacle[j]->GetPosition(),
 					arrayObstacle[j]->GetWidth(), arrayObstacle[j]->GetHeight()))
 				{
+					arrayObstacle[j]->setDeathAnimation();
 					arrayObstacle[j]->SetDestroyed(true);
 				}
 			}
@@ -477,11 +479,8 @@ void GameplayDraw()
 	//draw obstacles
 	for (int i = 0; i < maxObstacles; i++)
 	{
-		if (!arrayObstacle[i]->IsDestroyed())
-		{
-			arrayObstacle[i]->Draw();
-		}
-		else
+		arrayObstacle[i]->Draw();
+		if (arrayObstacle[i]->IsDestroyed())
 		{
 			DrawRectangleLines(
 				static_cast<int>(arrayObstacle[i]->GetX()),
@@ -795,6 +794,7 @@ void LoadResources()
 		textureTimer = LoadTexture("res/textures/Timer-Item.png");
 		textureObstacle = LoadTexture("res/textures/ObstacleTexture.png");
 		textureBullet = LoadTexture("res/textures/bullet.png");
+		textureExplotion = LoadTexture("res/textures/Explotion.png");
 		textureFloor = LoadTexture("res/textures/floor.png");
 		textureWall1 = LoadTexture("res/textures/wall1.png");
 		textureWall2 = LoadTexture("res/textures/wall2.png");
@@ -812,6 +812,7 @@ void UnloadResources()
 	UnloadTexture(textureTimer);
 	UnloadTexture(textureObstacle);
 	UnloadTexture(textureBullet);
+	UnloadTexture(textureExplotion);
 	UnloadTexture(textureFloor);
 	UnloadTexture(textureWall1);
 	UnloadTexture(textureWall2);

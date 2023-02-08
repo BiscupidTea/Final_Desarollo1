@@ -171,7 +171,6 @@ void Player::Input(bool& isPaused)
 				if (arrayBullets[i]->IsPickedNow())
 				{
 					arrayBullets[i]->ShootBullet(GetPosition());
-					cout << "fire" << endl;
 					break;
 				}
 			}
