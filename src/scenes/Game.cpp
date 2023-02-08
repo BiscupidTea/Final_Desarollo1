@@ -132,7 +132,7 @@ void DrawGame()
 		DrawMouse();
 	}
 
-	DrawText("0.5", GetScreenWidth() - MeasureText("0.5", 40), GetScreenHeight() - MeasureText("0.5", 20), 20, WHITE);
+	DrawText("0.6", GetScreenWidth() - MeasureText("0.6", 40), GetScreenHeight() - MeasureText("0.6", 20), 20, WHITE);
 
 	EndDrawing();
 }
