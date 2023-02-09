@@ -51,7 +51,7 @@ Obstacle* arrayObstacle[maxObstacles];
 
 void InitGameLoop()
 {
-	LoadResources();
+	LoadResourcesGame();
 
 	HideCursor();
 
@@ -553,7 +553,7 @@ void DeathScreenUpdate()
 
 	if (buttonBackToMenu->IsButtonPressed())
 	{
-		UnloadResources();
+		UnloadResourcesGame();
 		setGameScene(GameScene::Menu);
 	}
 
@@ -784,7 +784,7 @@ void KillPlayer()
 	SaveStorageValue(1, totalDistance);
 }
 
-void LoadResources()
+void LoadResourcesGame()
 {
 	if (!isResoucesLoad)
 	{
@@ -804,7 +804,7 @@ void LoadResources()
 	isResoucesLoad = true;
 }
 
-void UnloadResources()
+void UnloadResourcesGame()
 {
 	UnloadTexture(texturePlayer);
 	UnloadTexture(textureShieldItem);	

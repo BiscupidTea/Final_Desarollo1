@@ -6,6 +6,8 @@ Buttons* buttonOptions;
 Buttons* buttonCredits;
 Buttons* buttonExit;
 
+static Texture2D textureMenuBackground;
+
 void MenuScene()
 {
 	if (!isButtonsCreated)
@@ -13,6 +15,11 @@ void MenuScene()
 		LoadResourcesMouse();
 		CreateButtons();
 		isButtonsCreated = true;
+	}
+
+	if (!menuRosurcesLoaded)
+	{
+		LoadResourcesMenu();
 	}
 
 	UpdateMenu();
@@ -26,22 +33,27 @@ void UpdateMenu()
 	{
 		setGameScene(GameScene::GameLoop);
 		InitGameLoop();
+		UnloadResourcesMenu();
 	}
-	else if(buttonRules->IsButtonPressed())
+	else if (buttonRules->IsButtonPressed())
 	{
 		setGameScene(GameScene::Rules);
+		UnloadResourcesMenu();
 	}
 	else if (buttonOptions->IsButtonPressed())
 	{
 		setGameScene(GameScene::Options);
+		UnloadResourcesMenu();
 	}
 	else if (buttonCredits->IsButtonPressed())
 	{
 		setGameScene(GameScene::Credits);
+		UnloadResourcesMenu();
 	}
 	else if (buttonExit->IsButtonPressed())
 	{
 		setGameScene(GameScene::Exit);
+		UnloadResourcesMenu();
 	}
 }
 
@@ -49,6 +61,13 @@ void DrawMenu()
 {
 	BeginDrawing();
 	ClearBackground(BLACK);
+
+
+	DrawTexturePro(textureMenuBackground,
+		{ 0, 0, 128,128 },
+		{ 0, 0, textureMenuBackground.width * 6.25f, textureMenuBackground.height * 6.25f },
+		{ 0,	0, },
+		0, WHITE);
 
 	DrawText("WHERE IS MY TIME!?",
 		static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("WHERE IS MY TIME!?", 50)) / 2),
@@ -94,4 +113,16 @@ void CreateButtons()
 		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(85),
 		GetPercentageScreenWidth(10), GetPercentageScreenHeight(10) },
 		RED, "Exit", 30);
+}
+
+void LoadResourcesMenu()
+{
+	textureMenuBackground = LoadTexture("res/textures/menuBackground.png");
+	menuRosurcesLoaded = true;
+}
+
+void UnloadResourcesMenu()
+{
+	UnloadTexture(textureMenuBackground);
+	menuRosurcesLoaded = false;
 }

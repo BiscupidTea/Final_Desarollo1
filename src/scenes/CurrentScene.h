@@ -10,3 +10,5 @@
 void InitGame();
 
 void ScreenScene(bool& IsRunning);
+
+void UnloadResources();

@@ -20,6 +20,8 @@ void InitGame()
 		ScreenScene(IsRunning);
 	}
 
+	UnloadResources();
+
 	CloseWindow();
 }
 
@@ -53,4 +55,10 @@ void ScreenScene(bool& IsRunning) {
 	default:
 		break;
 	}
+}
+
+void UnloadResources()
+{
+	UnloadResourcesGame();
+	UnloadResourcesMenu();
 }
