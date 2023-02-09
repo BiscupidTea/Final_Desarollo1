@@ -14,7 +14,7 @@ Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height, Te
 	this->actualFrame = 0;
 
 	changeFrame = new Timer(0.2f);
-	changeFrameDeath = new Timer(0.2f);
+	changeFrameDeath = new Timer(0.1f);
 
 }
 

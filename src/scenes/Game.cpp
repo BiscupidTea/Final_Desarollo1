@@ -480,16 +480,16 @@ void GameplayDraw()
 	for (int i = 0; i < maxObstacles; i++)
 	{
 		arrayObstacle[i]->Draw();
-		if (arrayObstacle[i]->IsDestroyed())
-		{
-			DrawRectangleLines(
-				static_cast<int>(arrayObstacle[i]->GetX()),
-				static_cast<int>(arrayObstacle[i]->GetY()),
-				arrayObstacle[i]->GetWidth(),
-				arrayObstacle[i]->GetHeight(),
-				RED
-			);
-		}
+		//if (arrayObstacle[i]->IsDestroyed())
+		//{
+		//	DrawRectangleLines(
+		//		static_cast<int>(arrayObstacle[i]->GetX()),
+		//		static_cast<int>(arrayObstacle[i]->GetY()),
+		//		arrayObstacle[i]->GetWidth(),
+		//		arrayObstacle[i]->GetHeight(),
+		//		RED
+		//	);
+		//}
 	}
 
 	//draw bullets
