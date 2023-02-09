@@ -14,6 +14,8 @@ private:
 	Color textColor;
 	string text;
 	int fontSize;
+	Font fontbutton;
+	Texture2D textureButton;
 
 public:
 	Buttons(
@@ -22,6 +24,8 @@ public:
 		string text,
 		int fontSize
 		);
+
+	~Buttons();
 
 	void DrawButton();
 	bool IsButtonPressed();

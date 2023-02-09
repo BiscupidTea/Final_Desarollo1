@@ -7,6 +7,7 @@ Buttons* buttonCredits;
 Buttons* buttonExit;
 
 static Texture2D textureMenuBackground;
+static Texture2D textureMenuButton;
 
 void MenuScene()
 {

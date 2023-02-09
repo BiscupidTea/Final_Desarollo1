@@ -7,6 +7,14 @@ Buttons::Buttons(Rectangle rectangle, Color baseColor, string text, int fontSize
 	this->color = baseColor;
 	this->text = text;
 	this->fontSize = fontSize;
+	this->textureButton = LoadTexture("res/textures/button.png");
+	this->fontbutton = LoadFont("res/fonts/DS-DIGI.TTF");
+}
+
+Buttons::~Buttons()
+{
+	UnloadTexture(textureButton);
+	UnloadFont(fontbutton);
 }
 
 void Buttons::DrawButton()
@@ -21,12 +29,16 @@ void Buttons::DrawButton()
 		color = baseColor;
 	}
 
-	DrawRectangleRec(rectangle, color);
+	DrawTexturePro(textureButton,
+		{ 0, 0, 64,64 },
+		{ rectangle.x, rectangle.y, rectangle.width, rectangle.height },
+		{ 0,	0, },
+		0, WHITE);
 
-	DrawText(text.c_str(),
-		static_cast<int>(rectangle.x + (rectangle.width / 2) - ((MeasureText(text.c_str(), fontSize)) / 2)),
-		static_cast<int>(rectangle.y + (rectangle.height / 2) - (fontSize / 2)),
-		fontSize, GREEN);
+	DrawTextEx(fontbutton, text.c_str(),
+		{ (rectangle.x + (rectangle.width / 2) - ((MeasureText(text.c_str(), fontSize)) / 2)),
+		(rectangle.y + (rectangle.height / 2) - (fontSize / 2)), }, 
+		static_cast<float>(fontSize), GetPercentageScreenWidth(0.3f), color);
 }
 
 bool Buttons::IsButtonPressed()
