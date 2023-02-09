@@ -19,7 +19,7 @@ Bullet::~Bullet()
 
 void Bullet::Draw()
 {
-	DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), width, height, BROWN);
+	//DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), width, height, BROWN);
 	DrawTexturePro(textureBullet,
 		{ 0, 0, 64, 64 },
 		{ position.x,position.y-height/2, 64, 64 },
