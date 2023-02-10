@@ -20,10 +20,13 @@ static Texture2D textureTimer;
 static Texture2D textureObstacle;
 static Texture2D textureBullet;
 static Texture2D textureExplotion;
+static Texture2D textureClock;
 static Texture2D textureFloor;
 static Texture2D textureWall1;
 static Texture2D textureWall2;
 static Texture2D textureWindow1;
+
+Font gameFont;
 
 Buttons* buttonResume;
 Buttons* buttonRestart;
@@ -93,8 +96,8 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5, textureTimer);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 5, 
-		{player1->GetX(), player1->GetY(), static_cast<float>(player1->GetWidth()), static_cast<float>(player1->GetHeight()) },
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 5,
+		{ player1->GetX(), player1->GetY(), static_cast<float>(player1->GetWidth()), static_cast<float>(player1->GetHeight()) },
 		textureShieldItem, textureShieldPicked);
 
 	itemPowerUp->ResetRandPosition();
@@ -690,37 +693,42 @@ void AccelerateGame()
 void DrawHud()
 {
 	//timer
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(9) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(3)),
-		static_cast<int>(GetPercentageScreenWidth(9)),
-		static_cast<int>(GetPercentageScreenHeight(6)),
-		WHITE
-	);
+	DrawTexturePro(textureClock,
+		{ 0, 0, 63, 63 },
+		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(11) / 2),
+		0,GetPercentageScreenWidth(11),GetPercentageScreenHeight(11) },
+		{ 0,	0, },
+		0, WHITE);
+
+	//DrawRectangle(
+	//	static_cast<int>(GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(9) / 2)),
+	//	static_cast<int>(GetPercentageScreenHeight(3)),
+	//	static_cast<int>(GetPercentageScreenWidth(9)),
+	//	static_cast<int>(GetPercentageScreenHeight(6)),
+	//	WHITE
+	//);
 
 	if (deathTimer->GetTimer() > 20)
 	{
-		DrawText(
-			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
-			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("00", 50) / 2)),
-			static_cast<int>(GetPercentageScreenHeight(3)),
-			50, GREEN);
+		DrawTextEx(
+			gameFont, TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			{ GetPercentageScreenWidth(50) - (MeasureText("00", 50) / 2),
+			GetPercentageScreenHeight(3), }, 50, GetPercentageScreenWidth(1), RED);
 	}
 	else if (deathTimer->GetTimer() > 10)
 	{
-		DrawText(
-			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
-			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("10", 50) / 2)),
-			static_cast<int>(GetPercentageScreenHeight(3)),
-			50, GREEN);
+		DrawTextEx(
+			gameFont, TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			{ GetPercentageScreenWidth(50) - (MeasureText("10", 50) / 2),
+			GetPercentageScreenHeight(3), }, 50, GetPercentageScreenWidth(1), RED);
 	}
 	else
 	{
-		DrawText(
-			TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
-			static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("0", 50) / 2)),
-			static_cast<int>(GetPercentageScreenHeight(3)),
-			50, GREEN);
+
+		DrawTextEx(
+			gameFont, TextFormat("%01i", static_cast<int>(deathTimer->GetTimer())),
+			{ GetPercentageScreenWidth(50) - (MeasureText("0", 50) / 2),
+			GetPercentageScreenHeight(3), }, 50, GetPercentageScreenWidth(1), RED);
 	}
 
 	//meters
@@ -795,10 +803,13 @@ void LoadResourcesGame()
 		textureObstacle = LoadTexture("res/textures/ObstacleTexture.png");
 		textureBullet = LoadTexture("res/textures/bullet.png");
 		textureExplotion = LoadTexture("res/textures/Explotion.png");
+		textureClock = LoadTexture("res/textures/clock-timer.png");
 		textureFloor = LoadTexture("res/textures/floor.png");
 		textureWall1 = LoadTexture("res/textures/wall1.png");
 		textureWall2 = LoadTexture("res/textures/wall2.png");
 		textureWindow1 = LoadTexture("res/textures/window1.png");
+
+		gameFont = LoadFont("res/fonts/DS-DIGI.TTF");
 	}
 
 	isResoucesLoad = true;
@@ -807,15 +818,19 @@ void LoadResourcesGame()
 void UnloadResourcesGame()
 {
 	UnloadTexture(texturePlayer);
-	UnloadTexture(textureShieldItem);	
+	UnloadTexture(textureShieldItem);
 	UnloadTexture(textureShieldPicked);
 	UnloadTexture(textureTimer);
 	UnloadTexture(textureObstacle);
 	UnloadTexture(textureBullet);
 	UnloadTexture(textureExplotion);
+	UnloadTexture(textureClock);
 	UnloadTexture(textureFloor);
 	UnloadTexture(textureWall1);
 	UnloadTexture(textureWall2);
 	UnloadTexture(textureWindow1);
+
+	UnloadFont(gameFont);
+
 	isResoucesLoad = false;
 }
