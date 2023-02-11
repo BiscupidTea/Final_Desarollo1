@@ -21,6 +21,7 @@ static Texture2D textureObstacle;
 static Texture2D textureBullet;
 static Texture2D textureExplotion;
 static Texture2D textureClock;
+static Texture2D textureBlock;
 static Texture2D textureFloor;
 static Texture2D textureWall1;
 static Texture2D textureWall2;
@@ -96,7 +97,7 @@ void InitGameLoop()
 		{ 150 , 400 }, 15, 15, 10, GetPercentageScreenHeight(42.5), 5, textureTimer);
 
 	itemPowerUp = new PowerUp(
-		{ 0, 0 }, { 150 , 0 }, 15, 15, 5,
+		{ 0, 0 }, { 150 , 0 }, 15, 15, 30,
 		{ player1->GetX(), player1->GetY(), static_cast<float>(player1->GetWidth()), static_cast<float>(player1->GetHeight()) },
 		textureShieldItem, textureShieldPicked);
 
@@ -700,14 +701,6 @@ void DrawHud()
 		{ 0,	0, },
 		0, WHITE);
 
-	//DrawRectangle(
-	//	static_cast<int>(GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(9) / 2)),
-	//	static_cast<int>(GetPercentageScreenHeight(3)),
-	//	static_cast<int>(GetPercentageScreenWidth(9)),
-	//	static_cast<int>(GetPercentageScreenHeight(6)),
-	//	WHITE
-	//);
-
 	if (deathTimer->GetTimer() > 20)
 	{
 		DrawTextEx(
@@ -732,57 +725,58 @@ void DrawHud()
 	}
 
 	//meters
-	DrawText(
-		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
-		static_cast<int>(GetPercentageScreenWidth(3)),
-		static_cast<int>(GetPercentageScreenHeight(3)),
-		30, WHITE
-	);
-
-	DrawText(
-		"m",
-		static_cast<int>(GetPercentageScreenWidth(4) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30))),
-		static_cast<int>(GetPercentageScreenHeight(3)),
-		30, WHITE
-	);
-
-	//bullets
-	//DrawRectangle(
-	//	static_cast<int>(GetPercentageScreenWidth(3)),
-	//	static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-	//	player1->arrayBullets[0]->GetWidth(), player1->arrayBullets[0]->GetHeight(), BROWN
-	//);
-
-	DrawTexturePro(textureBullet,
+	DrawTexturePro(textureBlock,
 		{ 0, 0, 64, 64 },
-		{ GetPercentageScreenWidth(3),
-		GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight() / 2,
-		64, 64 },
+		{ GetPercentageScreenWidth(3), GetPercentageScreenHeight(90)
+		,GetPercentageScreenWidth(40),GetPercentageScreenHeight(8) },
 		{ 0,	0, },
 		0, WHITE);
 
-	DrawText(
-		" = ",
-		static_cast<int>(GetPercentageScreenWidth(3) + player1->arrayBullets[0]->GetWidth()),
-		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-		30, WHITE
-	);
+	DrawTextEx(
+		gameFont, TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
+		{ GetPercentageScreenWidth(5),	GetPercentageScreenHeight(91), },
+		50, GetPercentageScreenWidth(1), RED);
 
-	int bulletsPicked = 0;
-	for (int i = 0; i < maxBullets; i++)
-	{
-		if (player1->arrayBullets[i]->IsPickedNow())
+	DrawTextEx(
+		gameFont, "m",
+		{ GetPercentageScreenWidth(35),	GetPercentageScreenHeight(91) },
+		50, GetPercentageScreenWidth(1), RED);
+
+		//bullets
+
+	DrawTexturePro(textureBlock,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(65), GetPercentageScreenHeight(90)
+		,GetPercentageScreenWidth(30),GetPercentageScreenHeight(8) },
+		{ 0,	0, },
+		0, WHITE);
+
+		DrawTexturePro(textureBullet,
+			{ 0, 0, 64, 64 },
+			{ GetPercentageScreenWidth(70), GetPercentageScreenHeight(90),
+			64, 64 },
+			{ 0,	0, },
+			0, RED);
+
+		DrawTextEx(
+			gameFont, " = ",
+			{ GetPercentageScreenWidth(70) + player1->arrayBullets[0]->GetWidth(), GetPercentageScreenHeight(91), },
+			50, GetPercentageScreenWidth(1), RED);
+
+		int bulletsPicked = 0;
+		for (int i = 0; i < maxBullets; i++)
 		{
-			bulletsPicked += 1;
+			if (player1->arrayBullets[i]->IsPickedNow())
+			{
+				bulletsPicked += 1;
+			}
 		}
-	}
 
-	DrawText(
-		TextFormat("%01i", static_cast<int>(bulletsPicked)),
-		static_cast<int>(GetPercentageScreenWidth(3) + player1->arrayBullets[0]->GetWidth() + (MeasureText(" = ", 30))),
-		static_cast<int>(GetPercentageScreenHeight(6) + player1->arrayBullets[0]->GetHeight()),
-		30, WHITE
-	);
+		DrawTextEx(
+			gameFont, TextFormat("%01i", static_cast<int>(bulletsPicked)),
+			{ GetPercentageScreenWidth(70) + player1->arrayBullets[0]->GetWidth() + (MeasureText(" = ", 50)),
+			GetPercentageScreenHeight(91), },
+			50, GetPercentageScreenWidth(1), RED);
 }
 
 void KillPlayer()
@@ -804,6 +798,7 @@ void LoadResourcesGame()
 		textureBullet = LoadTexture("res/textures/bullet.png");
 		textureExplotion = LoadTexture("res/textures/Explotion.png");
 		textureClock = LoadTexture("res/textures/clock-timer.png");
+		textureBlock = LoadTexture("res/textures/button.png");
 		textureFloor = LoadTexture("res/textures/floor.png");
 		textureWall1 = LoadTexture("res/textures/wall1.png");
 		textureWall2 = LoadTexture("res/textures/wall2.png");
@@ -825,6 +820,7 @@ void UnloadResourcesGame()
 	UnloadTexture(textureBullet);
 	UnloadTexture(textureExplotion);
 	UnloadTexture(textureClock);
+	UnloadTexture(textureBlock);
 	UnloadTexture(textureFloor);
 	UnloadTexture(textureWall1);
 	UnloadTexture(textureWall2);
