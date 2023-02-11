@@ -529,16 +529,8 @@ void PauseDraw()
 {
 	paralax1->DrawParalax();
 
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(12)),
-		static_cast<int>(GetPercentageScreenHeight(12)),
-		static_cast<int>(GetPercentageScreenWidth(76)),
-		static_cast<int>(GetPercentageScreenHeight(76)),
-		BLACK
-	);
-
 	DrawTexturePro(texturePauseBack,
-		{ 0, 0, 64, 64 },
+		{ 0, 0, 128, 128 },
 		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(15)
 		,GetPercentageScreenWidth(70),GetPercentageScreenHeight(70) },
 		{ 0,	0, },
@@ -822,7 +814,7 @@ void LoadResourcesGame()
 		textureWall1 = LoadTexture("res/textures/wall1.png");
 		textureWall2 = LoadTexture("res/textures/wall2.png");
 		textureWindow1 = LoadTexture("res/textures/window1.png");
-		texturePauseBack = LoadTexture("res/textures/metalBackground.png");
+		texturePauseBack = LoadTexture("res/textures/pauseBackground.png");
 
 		gameFont = LoadFont("res/fonts/DS-DIGI.TTF");
 	}
