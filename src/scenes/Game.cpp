@@ -11,6 +11,7 @@ static bool cheats = false;
 static int highScore = 0;
 static int totalDistance = 0;
 static bool isResoucesLoad = false;
+static bool isButtonsCreated = false;
 
 static Texture2D textureMouse;
 static Texture2D textureShieldItem;
@@ -57,6 +58,8 @@ Obstacle* arrayObstacle[maxObstacles];
 void InitGameLoop()
 {
 	LoadResourcesGame();
+	
+	isButtonsCreated = false;
 
 	HideCursor();
 
@@ -544,9 +547,10 @@ void PauseDraw()
 
 void DeathScreenUpdate()
 {
-	if (!aliveButtons)
+	if (!aliveButtons && !isButtonsCreated)
 	{
 		CreateGameButtons();
+		isButtonsCreated = true;
 	}
 
 	if (static_cast<int>(player1->GetDistanceMade()) > highScore)
@@ -839,7 +843,6 @@ void UnloadResourcesGame()
 	UnloadTexture(textureWindow1);
 	UnloadTexture(texturePauseBack);
 
-	UnloadFont(gameFont);
-
 	isResoucesLoad = false;
+	isButtonsCreated = false;
 }
