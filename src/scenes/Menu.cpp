@@ -9,6 +9,8 @@ Buttons* buttonExit;
 static Texture2D textureMenuBackground;
 static Texture2D textureMenuButton;
 
+static Font titleFontMenu;
+
 void MenuScene()
 {
 	if (!isButtonsCreated)
@@ -70,10 +72,14 @@ void DrawMenu()
 		{ 0,	0, },
 		0, WHITE);
 
-	DrawText("WHERE IS MY TIME!?",
-		static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("WHERE IS MY TIME!?", 50)) / 2),
-		static_cast<int>(GetPercentageScreenHeight(10)),
-		50, GREEN);
+	DrawTextEx(titleFontMenu, "WHERE IS MY TIME!?",
+		{ (GetPercentageScreenWidth(50) - (MeasureText("WHERE IS MY TIME!?", 60)) / 2), GetPercentageScreenHeight(10) },
+		50, GetPercentageScreenWidth(1), RED);
+
+	//DrawText("WHERE IS MY TIME!?",
+	//	static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("WHERE IS MY TIME!?", 50)) / 2),
+	//	static_cast<int>(GetPercentageScreenHeight(10)),
+	//	50, GREEN);
 
 	buttonPlay->DrawButton();
 	buttonRules->DrawButton();
@@ -119,11 +125,14 @@ void CreateButtons()
 void LoadResourcesMenu()
 {
 	textureMenuBackground = LoadTexture("res/textures/menuBackground.png");
+	titleFontMenu = LoadFont("res/fonts/NEONLEDLight.otf");
+
 	menuRosurcesLoaded = true;
 }
 
 void UnloadResourcesMenu()
 {
 	UnloadTexture(textureMenuBackground);
+
 	menuRosurcesLoaded = false;
 }
