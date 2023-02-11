@@ -26,6 +26,7 @@ static Texture2D textureFloor;
 static Texture2D textureWall1;
 static Texture2D textureWall2;
 static Texture2D textureWindow1;
+static Texture2D texturePauseBack;
 
 Font gameFont;
 
@@ -529,12 +530,19 @@ void PauseDraw()
 	paralax1->DrawParalax();
 
 	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(15)),
-		static_cast<int>(GetPercentageScreenHeight(15)),
-		static_cast<int>(GetPercentageScreenWidth(70)),
-		static_cast<int>(GetPercentageScreenHeight(70)),
-		WHITE
+		static_cast<int>(GetPercentageScreenWidth(12)),
+		static_cast<int>(GetPercentageScreenHeight(12)),
+		static_cast<int>(GetPercentageScreenWidth(76)),
+		static_cast<int>(GetPercentageScreenHeight(76)),
+		BLACK
 	);
+
+	DrawTexturePro(texturePauseBack,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(15)
+		,GetPercentageScreenWidth(70),GetPercentageScreenHeight(70) },
+		{ 0,	0, },
+		0, WHITE);
 
 	buttonResume->DrawButton();
 	buttonBackToMenu->DrawButton();
@@ -742,7 +750,7 @@ void DrawHud()
 		{ GetPercentageScreenWidth(35),	GetPercentageScreenHeight(91) },
 		50, GetPercentageScreenWidth(1), RED);
 
-		//bullets
+	//bullets
 
 	DrawTexturePro(textureBlock,
 		{ 0, 0, 64, 64 },
@@ -751,32 +759,43 @@ void DrawHud()
 		{ 0,	0, },
 		0, WHITE);
 
-		DrawTexturePro(textureBullet,
-			{ 0, 0, 64, 64 },
-			{ GetPercentageScreenWidth(70), GetPercentageScreenHeight(90),
-			64, 64 },
-			{ 0,	0, },
-			0, RED);
+	DrawTexturePro(textureBullet,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(70), GetPercentageScreenHeight(90),
+		64, 64 },
+		{ 0,	0, },
+		0, RED);
 
-		DrawTextEx(
-			gameFont, " = ",
-			{ GetPercentageScreenWidth(70) + player1->arrayBullets[0]->GetWidth(), GetPercentageScreenHeight(91), },
-			50, GetPercentageScreenWidth(1), RED);
+	DrawTextEx(
+		gameFont, " = ",
+		{ GetPercentageScreenWidth(70) + player1->arrayBullets[0]->GetWidth(), GetPercentageScreenHeight(91), },
+		50, GetPercentageScreenWidth(1), RED);
 
-		int bulletsPicked = 0;
-		for (int i = 0; i < maxBullets; i++)
+	int bulletsPicked = 0;
+	for (int i = 0; i < maxBullets; i++)
+	{
+		if (player1->arrayBullets[i]->IsPickedNow())
 		{
-			if (player1->arrayBullets[i]->IsPickedNow())
-			{
-				bulletsPicked += 1;
-			}
+			bulletsPicked += 1;
 		}
+	}
 
+	if (bulletsPicked != 0)
+	{
 		DrawTextEx(
 			gameFont, TextFormat("%01i", static_cast<int>(bulletsPicked)),
 			{ GetPercentageScreenWidth(70) + player1->arrayBullets[0]->GetWidth() + (MeasureText(" = ", 50)),
 			GetPercentageScreenHeight(91), },
 			50, GetPercentageScreenWidth(1), RED);
+	}
+	else
+	{
+		DrawTextEx(
+			gameFont, "X",
+			{ GetPercentageScreenWidth(70) + player1->arrayBullets[0]->GetWidth() + (MeasureText(" = ", 50)),
+			GetPercentageScreenHeight(91), },
+			50, GetPercentageScreenWidth(1), RED);
+	}
 }
 
 void KillPlayer()
@@ -803,6 +822,7 @@ void LoadResourcesGame()
 		textureWall1 = LoadTexture("res/textures/wall1.png");
 		textureWall2 = LoadTexture("res/textures/wall2.png");
 		textureWindow1 = LoadTexture("res/textures/window1.png");
+		texturePauseBack = LoadTexture("res/textures/metalBackground.png");
 
 		gameFont = LoadFont("res/fonts/DS-DIGI.TTF");
 	}
@@ -825,6 +845,7 @@ void UnloadResourcesGame()
 	UnloadTexture(textureWall1);
 	UnloadTexture(textureWall2);
 	UnloadTexture(textureWindow1);
+	UnloadTexture(texturePauseBack);
 
 	UnloadFont(gameFont);
 
