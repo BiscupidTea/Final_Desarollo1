@@ -28,6 +28,7 @@ static Texture2D textureWall1;
 static Texture2D textureWall2;
 static Texture2D textureWindow1;
 static Texture2D texturePauseBack;
+static Texture2D textureDeathScreen;
 
 Font gameFont;
 
@@ -58,7 +59,7 @@ Obstacle* arrayObstacle[maxObstacles];
 void InitGameLoop()
 {
 	LoadResourcesGame();
-	
+
 	isButtonsCreated = false;
 
 	HideCursor();
@@ -575,78 +576,84 @@ void DeathScreenDraw()
 {
 	paralax1->DrawParalax();
 
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(15)),
-		static_cast<int>(GetPercentageScreenHeight(15)),
-		static_cast<int>(GetPercentageScreenWidth(70)),
-		static_cast<int>(GetPercentageScreenHeight(70)),
-		WHITE
-	);
+	DrawTexturePro(textureDeathScreen,
+		{ 0, 0, 128, 128 },
+		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(15)
+		,GetPercentageScreenWidth(70),GetPercentageScreenHeight(70) },
+		{ 0,	0, },
+		0, WHITE);
 
-	DrawText("Game Over",
-		static_cast<int>(GetPercentageScreenWidth(50)) - (MeasureText("Game Over", 40) / 2),
-		static_cast<int>(GetPercentageScreenHeight(20)), 40, RED);
+
+	DrawTexturePro(textureBlock,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(17), GetPercentageScreenHeight(17)
+		,GetPercentageScreenWidth(66),GetPercentageScreenHeight(50) },
+		{ 0,	0, },
+		0, WHITE);
+
+	DrawTextEx(
+		gameFont, "Game Over",
+		{ GetPercentageScreenWidth(50) - (MeasureText("Game Over", 40)) / 2, GetPercentageScreenHeight(20) },
+		40, GetPercentageScreenWidth(1), RED);
 
 	float high1 = 35;
 	float high2 = 45;
 	float high3 = 55;
 
 	//total distance made
-	DrawText("Distance Runned :",
-		static_cast<int>(GetPercentageScreenWidth(20)),
-		static_cast<int>(GetPercentageScreenHeight(high1)), 30, RED);
+	DrawTextEx(
+		gameFont, "Distance Runned :",
+		{ GetPercentageScreenWidth(20), GetPercentageScreenHeight(high1) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
-	DrawText(
-		TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
-		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(high1)),
-		30, RED
-	);
+	DrawTextEx(
+		gameFont, TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())),
+		{ GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 30) / 2),
+		GetPercentageScreenHeight(high1) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
-	DrawText(
-		"m",
-		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 40) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(high1)),
-		30, RED
-	);
+	DrawTextEx(
+		gameFont, "m",
+		{ GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 50) / 2), 
+		GetPercentageScreenHeight(high1) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
 	//high score
-	DrawText("High score :",
-		static_cast<int>(GetPercentageScreenWidth(20)),
-		static_cast<int>(GetPercentageScreenHeight(high2)), 30, RED);
+	DrawTextEx(
+		gameFont, "High score :",
+		{ GetPercentageScreenWidth(20), GetPercentageScreenHeight(high2) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
-	DrawText(
-		TextFormat("%01i", highScore),
-		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", highScore), 30) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(high2)),
-		30, RED
-	);
+		DrawTextEx(
+		gameFont, TextFormat("%01i", highScore),
+		{ GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", highScore), 30) / 2),
+		GetPercentageScreenHeight(high2) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
-	DrawText(
-		"m",
-		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", highScore), 40) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(high2)),
-		30, RED
-	);
+	DrawTextEx(
+		gameFont, "m",
+		{ GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", highScore), 40) / 2),
+		GetPercentageScreenHeight(high2) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
 	//total distance save distance
-	DrawText("Total Distance :",
-		static_cast<int>(GetPercentageScreenWidth(20)),
-		static_cast<int>(GetPercentageScreenHeight(high3)), 30, RED);
+	DrawTextEx(
+		gameFont, "Total Distance :",
+		{ GetPercentageScreenWidth(20),
+		GetPercentageScreenHeight(high3) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
-	DrawText(
-		TextFormat("%01i", totalDistance),
-		static_cast<int>(GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", totalDistance), 30) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(high3)),
-		30, RED
-	);
+	DrawTextEx(
+		gameFont, TextFormat("%01i", totalDistance),
+		{ GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", totalDistance), 30) / 2),
+		GetPercentageScreenHeight(high3) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
-	DrawText(
-		"m",
-		static_cast<int>(GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", totalDistance), 40) / 2)),
-		static_cast<int>(GetPercentageScreenHeight(high3)),
-		30, RED
-	);
+	DrawTextEx(
+		gameFont, "m",
+		{ GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", totalDistance), 40) / 2),
+		GetPercentageScreenHeight(high3) },
+		30, GetPercentageScreenWidth(0.5), RED);
 
 	buttonRestart->DrawButton();
 	buttonBackToMenu->DrawButton();
@@ -819,6 +826,7 @@ void LoadResourcesGame()
 		textureWall2 = LoadTexture("res/textures/wall2.png");
 		textureWindow1 = LoadTexture("res/textures/window1.png");
 		texturePauseBack = LoadTexture("res/textures/pauseBackground.png");
+		textureDeathScreen = LoadTexture("res/textures/simpleBackground.png");
 
 		gameFont = LoadFont("res/fonts/DS-DIGI.TTF");
 	}
@@ -842,6 +850,7 @@ void UnloadResourcesGame()
 	UnloadTexture(textureWall2);
 	UnloadTexture(textureWindow1);
 	UnloadTexture(texturePauseBack);
+	UnloadTexture(textureDeathScreen);
 
 	isResoucesLoad = false;
 	isButtonsCreated = false;
