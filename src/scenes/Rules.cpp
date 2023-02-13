@@ -53,7 +53,7 @@ void DrawRules()
 
 	buttonExitRules->DrawButton();
 
-	DrawText("0.7", GetScreenWidth() - MeasureText("0.7", 40), GetScreenHeight() - MeasureText("0.7", 20), 20, WHITE);
+	DrawText("0.6", GetScreenWidth() - MeasureText("0.6", 40), GetScreenHeight() - MeasureText("0.6", 20), 20, WHITE);
 	DrawMouse();
 
 	EndDrawing();
@@ -69,12 +69,12 @@ void CreateButtonsRules()
 
 void LoadResourcesRules()
 {
-	texturePlayerTuto = LoadTexture("res/textures/metalBackground.png");
-	textureBulletTuto = LoadTexture("res/textures/metalBackground.png");
-	textureObstacleTuto = LoadTexture("res/textures/metalBackground.png");
-	textureTimerTuto = LoadTexture("res/textures/metalBackground.png");
-	textureTimerItemTuto = LoadTexture("res/textures/metalBackground.png");
-	textureShieldTuto = LoadTexture("res/textures/metalBackground.png");
+	texturePlayerTuto = LoadTexture("res/textures/PlayerTexture.png");
+	textureBulletTuto = LoadTexture("res/textures/bullet.png");
+	textureObstacleTuto = LoadTexture("res/textures/ObstacleTexture.png");
+	textureTimerTuto = LoadTexture("res/textures/clock-timer.png");
+	textureTimerItemTuto = LoadTexture("res/textures/Timer-item.png");
+	textureShieldTuto = LoadTexture("res/textures/shield-item.png");
 
 	textureRulesBackground = LoadTexture("res/textures/metalBackground.png");
 	textureRulesTitles = LoadTexture("res/textures/button.png");
@@ -92,6 +92,7 @@ void UnloadResourcesRules()
 	UnloadTexture(textureTimerTuto);
 	UnloadTexture(textureTimerItemTuto);
 	UnloadTexture(textureShieldTuto);
+
 	UnloadTexture(textureRulesBackground);
 	UnloadTexture(textureRulesTitles);
 
