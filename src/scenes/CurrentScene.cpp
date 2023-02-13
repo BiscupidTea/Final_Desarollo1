@@ -37,7 +37,7 @@ void ScreenScene(bool& IsRunning) {
 		break;
 
 	case GameScene::Rules:
-		setGameScene(GameScene::Menu);
+		RulesScene();
 		break;
 
 	case GameScene::Options:
