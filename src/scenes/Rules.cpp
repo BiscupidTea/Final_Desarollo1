@@ -2,12 +2,10 @@
 
 Buttons* buttonExitRules;
 
-static Texture2D texturePlayerTuto;
-static Texture2D textureBulletTuto;
 static Texture2D textureObstacleTuto;
-static Texture2D textureTimerTuto;
 static Texture2D textureTimerItemTuto;
 static Texture2D textureShieldTuto;
+static Texture2D texturePostIt;
 
 static Texture2D textureRulesBackground;
 static Texture2D textureRulesTitles;
@@ -51,6 +49,70 @@ void DrawRules()
 		{ 0,	0, },
 		0, WHITE);
 
+	DrawTextEx(fontTitles, "How to survive in Lab", 
+		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(10) },
+		40, GetPercentageScreenWidth(0.1f), BLACK);
+
+	DrawRectangle(
+		static_cast<int>(GetPercentageScreenWidth(5)), 
+		static_cast<int>(GetPercentageScreenHeight(15)), 
+		MeasureText("How to survive in Lab", 40), 
+		static_cast<int>(GetPercentageScreenHeight(1)), BLACK);
+
+	DrawTextEx( fontTitles, "1) Press SPACE to fly", 
+		{GetPercentageScreenWidth(5), GetPercentageScreenHeight(25)}, 
+		30, GetPercentageScreenWidth(0.1f), BLACK	);
+
+	DrawTextEx(fontTitles, "2) Press F to shoot (you have 5 shoots only)", 
+		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(35) },
+		30, GetPercentageScreenWidth(0.1f), BLACK);
+
+	DrawTextEx(fontTitles, "3) Dodge the obstacles (not frendly)", 
+		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(45) },
+		30, GetPercentageScreenWidth(0.1f), BLACK);
+
+	DrawTexturePro(textureObstacleTuto,
+		{ 0, 0, 64,64 },
+		{ GetPercentageScreenWidth(70), GetPercentageScreenHeight(42), GetPercentageScreenWidth(8),GetPercentageScreenHeight(8) },
+		{ 0,	0, },
+		15, WHITE);
+
+	DrawTextEx(fontTitles, "4) Pick up this to increase your time (if ends you lose)", 
+		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(55) },
+		25, GetPercentageScreenWidth(0.1f), BLACK);
+
+	DrawTexturePro(textureTimerItemTuto,
+		{ 0, 0, 64,64 },
+		{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(55), GetPercentageScreenWidth(5),GetPercentageScreenHeight(5) },
+		{ 0,	0, },
+		0, WHITE);
+
+	DrawTextEx(fontTitles, "5) Pick up Shield if you whant to survive 1 more hit", 
+		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(65) },
+		25, GetPercentageScreenWidth(0.1f), BLACK);
+
+	DrawTexturePro(textureShieldTuto,
+		{ 0, 0, 64,64 },
+		{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(65), GetPercentageScreenWidth(5),GetPercentageScreenHeight(5) },
+		{ 0,	0, },
+		0, WHITE);
+
+	DrawTextEx(fontTitles, "6) Super important, don't forget", 
+		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(75) },
+		30, GetPercentageScreenWidth(0.1f), BLACK);
+
+	DrawTexturePro(texturePostIt,
+		{ 0, 0, 64,64 },
+		{ GetPercentageScreenWidth(55), GetPercentageScreenHeight(68), GetPercentageScreenWidth(30),GetPercentageScreenHeight(25) },
+		{ 0,	0, },
+		15, WHITE);
+
+	DrawTextPro(fontTitles, "Press Esc for Pause", 
+		{ GetPercentageScreenWidth(58), GetPercentageScreenHeight(79) }, 
+		{0,0},
+		15, 20, GetPercentageScreenWidth(0.1f),BLACK);
+
+
 	buttonExitRules->DrawButton();
 
 	DrawText("0.6", GetScreenWidth() - MeasureText("0.6", 40), GetScreenHeight() - MeasureText("0.6", 20), 20, WHITE);
@@ -69,29 +131,25 @@ void CreateButtonsRules()
 
 void LoadResourcesRules()
 {
-	texturePlayerTuto = LoadTexture("res/textures/PlayerTexture.png");
-	textureBulletTuto = LoadTexture("res/textures/bullet.png");
 	textureObstacleTuto = LoadTexture("res/textures/ObstacleTexture.png");
-	textureTimerTuto = LoadTexture("res/textures/clock-timer.png");
 	textureTimerItemTuto = LoadTexture("res/textures/Timer-item.png");
 	textureShieldTuto = LoadTexture("res/textures/shield-item.png");
+	texturePostIt = LoadTexture("res/textures/postiit.png");
 
-	textureRulesBackground = LoadTexture("res/textures/metalBackground.png");
+	textureRulesBackground = LoadTexture("res/textures/simpleBackground.png");
 	textureRulesTitles = LoadTexture("res/textures/button.png");
 
-	fontTitles = LoadFont("res/fonts/DS-DIGI.TTF");
+	fontTitles = LoadFont("res/fonts/JMH Typewriter.otf");
 
 	RulesRosurcesLoaded = true;
 }
 
 void UnloadResourcesRules()
 {
-	UnloadTexture(texturePlayerTuto);
-	UnloadTexture(textureBulletTuto);
 	UnloadTexture(textureObstacleTuto);
-	UnloadTexture(textureTimerTuto);
 	UnloadTexture(textureTimerItemTuto);
 	UnloadTexture(textureShieldTuto);
+	UnloadTexture(texturePostIt);
 
 	UnloadTexture(textureRulesBackground);
 	UnloadTexture(textureRulesTitles);
