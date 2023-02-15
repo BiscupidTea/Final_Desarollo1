@@ -76,11 +76,6 @@ void DrawMenu()
 		{ (GetPercentageScreenWidth(50) - (MeasureText("WHERE IS MY TIME!?", 60)) / 2), GetPercentageScreenHeight(10) },
 		50, GetPercentageScreenWidth(1), RED);
 
-	//DrawText("WHERE IS MY TIME!?",
-	//	static_cast<int>(GetPercentageScreenWidth(50) - (MeasureText("WHERE IS MY TIME!?", 50)) / 2),
-	//	static_cast<int>(GetPercentageScreenHeight(10)),
-	//	50, GREEN);
-
 	buttonPlay->DrawButton();
 	buttonRules->DrawButton();
 	buttonOptions->DrawButton();

@@ -13,3 +13,7 @@ enum class GameScene {
 };
 
 void setGameScene(GameScene newGameScene);
+
+bool getGameIsPaused();
+
+void setGameIsPaused(bool modifier);

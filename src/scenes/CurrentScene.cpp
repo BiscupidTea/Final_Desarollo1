@@ -2,6 +2,9 @@
 
 GameScene gameScene;
 
+Music GameMusic1;
+Music MenuMusic1;
+
 void InitGame()
 {
 	int DefaultScreenWidth = 800;
@@ -10,8 +13,12 @@ void InitGame()
 	bool IsRunning = true;
 
 	InitWindow(DefaultScreenWidth, DefaultScreenHeight, "WHERE IS MY TIME!?");
+	InitAudioDevice();
 	SetExitKey(NULL);
 	HideCursor();
+
+	GameMusic1 = LoadMusicStream("res/sounds/music/GameMusic1.wav");
+	MenuMusic1 = LoadMusicStream("res/sounds/music/MenuMusic1.wav");
 
 	setGameScene(GameScene::Menu);
 
@@ -22,6 +29,7 @@ void InitGame()
 
 	UnloadResources();
 
+	CloseAudioDevice();
 	CloseWindow();
 }
 
@@ -55,6 +63,38 @@ void ScreenScene(bool& IsRunning) {
 	default:
 		break;
 	}
+
+	if (gameScene == GameScene::GameLoop)
+	{
+		StopMusicStream(MenuMusic1);
+
+		if (!IsMusicStreamPlaying(GameMusic1))
+		{
+			PlayMusicStream(GameMusic1);
+		}
+		else if (getGameIsPaused())
+		{
+			PauseMusicStream(GameMusic1);
+		}
+		else
+		{
+			UpdateMusicStream(GameMusic1);
+		}
+	}
+	else
+	{
+		StopMusicStream(GameMusic1);
+
+		if (!IsMusicStreamPlaying(MenuMusic1))
+		{
+			PlayMusicStream(MenuMusic1);
+		}
+		else
+		{
+			UpdateMusicStream(MenuMusic1);
+		}
+	}
+
 }
 
 void UnloadResources()

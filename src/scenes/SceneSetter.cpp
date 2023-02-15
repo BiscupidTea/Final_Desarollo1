@@ -2,6 +2,8 @@
 
 extern GameScene gameScene;
 
+bool gameIsPaused;
+
 void setGameScene(GameScene newGameScene)
 {
 	gameScene = newGameScene;
@@ -30,4 +32,14 @@ void setGameScene(GameScene newGameScene)
 	default:
 		break;
 	}
+}
+
+bool getGameIsPaused()
+{
+	return gameIsPaused;
+}
+
+void setGameIsPaused(bool modifier)
+{
+	gameIsPaused = modifier;
 }

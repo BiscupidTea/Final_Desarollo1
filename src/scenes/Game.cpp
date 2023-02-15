@@ -150,6 +150,15 @@ void UpdateGame()
 {
 	player1->Input(isGamePause);
 
+	if (isGamePause)
+	{
+		setGameIsPaused(true);
+	}
+	else
+	{
+		setGameIsPaused(false);
+	}
+
 	if (!isGamePause && player1->IsAlive())
 	{
 		GameplayUpdate();
