@@ -4,6 +4,9 @@ extern GameScene gameScene;
 
 bool gameIsPaused;
 
+float volumeMusic;
+float volumeSFX;
+
 void setGameScene(GameScene newGameScene)
 {
 	gameScene = newGameScene;
@@ -42,4 +45,44 @@ bool getGameIsPaused()
 void setGameIsPaused(bool modifier)
 {
 	gameIsPaused = modifier;
+}
+
+float getVolumeMusic()
+{
+	return volumeMusic;
+}
+
+void setVolumeMusic(float newValue)
+{
+	volumeMusic = newValue;
+	if (volumeMusic > 1)
+	{
+		volumeMusic = 1.0f;
+	}
+
+	if (volumeMusic < 0.1f)
+	{
+		volumeMusic = 0;
+	}
+
+	cout << volumeMusic << endl;
+}
+
+float getVolumeSFX()
+{
+	return volumeSFX;
+}
+
+void setVolumeSFX(float newValue)
+{
+	volumeSFX = newValue;
+	if (volumeSFX > 1)
+	{
+		volumeSFX = 1.0f;
+	}
+
+	if (volumeSFX < 0.1f)
+	{
+		volumeSFX = 0;
+	}
 }

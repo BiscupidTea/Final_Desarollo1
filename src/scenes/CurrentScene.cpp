@@ -14,6 +14,9 @@ void InitGame()
 
 	InitWindow(DefaultScreenWidth, DefaultScreenHeight, "WHERE IS MY TIME!?");
 	InitAudioDevice();
+	setVolumeMusic(0.5);
+	setVolumeSFX(0.5);
+
 	SetExitKey(NULL);
 	HideCursor();
 
@@ -64,6 +67,9 @@ void ScreenScene(bool& IsRunning) {
 		break;
 	}
 
+	SetMusicVolume(MenuMusic1, getVolumeMusic());
+	SetMusicVolume(GameMusic1, getVolumeMusic());
+
 	if (gameScene == GameScene::GameLoop)
 	{
 		StopMusicStream(MenuMusic1);
@@ -71,10 +77,6 @@ void ScreenScene(bool& IsRunning) {
 		if (!IsMusicStreamPlaying(GameMusic1))
 		{
 			PlayMusicStream(GameMusic1);
-		}
-		else if (getGameIsPaused())
-		{
-			PauseMusicStream(GameMusic1);
 		}
 		else
 		{

@@ -17,3 +17,11 @@ void setGameScene(GameScene newGameScene);
 bool getGameIsPaused();
 
 void setGameIsPaused(bool modifier);
+
+float getVolumeMusic();
+
+void setVolumeMusic(float newValue);
+
+float getVolumeSFX();
+
+void setVolumeSFX(float newValue);

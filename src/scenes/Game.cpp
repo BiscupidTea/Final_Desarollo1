@@ -35,8 +35,11 @@ Font gameFont;
 Buttons* buttonResume;
 Buttons* buttonRestart;
 Buttons* buttonBackToMenu;
-Buttons* buttonUpVolume;
-Buttons* buttonDownVolume;
+
+Buttons* buttonUpVolumeMusic;
+Buttons* buttonDownVolumeMusic;
+Buttons* buttonUpVolumeSFX;
+Buttons* buttonDownVolumeSFX;
 
 enum class ObjectsPatterns
 {
@@ -372,13 +375,23 @@ void CreateGameButtons()
 			GetPercentageScreenWidth(25), GetPercentageScreenHeight(10) },
 			RED, "Back to Menu", 25);
 
-		buttonDownVolume = new Buttons(
-			{ GetPercentageScreenWidth(40) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
+		buttonDownVolumeMusic = new Buttons(
+			{ GetPercentageScreenWidth(40) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(47),
 			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
 			RED, "-", 25);
 
-		buttonUpVolume = new Buttons(
-			{ GetPercentageScreenWidth(60) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(50),
+		buttonUpVolumeMusic = new Buttons(
+			{ GetPercentageScreenWidth(60) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(47),
+			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+			RED, "+", 25);
+
+		buttonDownVolumeSFX = new Buttons(
+			{ GetPercentageScreenWidth(40) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(60),
+			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+			RED, "-", 25);
+
+		buttonUpVolumeSFX = new Buttons(
+			{ GetPercentageScreenWidth(60) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(60),
 			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
 			RED, "+", 25);
 	}
@@ -534,8 +547,26 @@ void PauseUpdate()
 		setGameScene(GameScene::Menu);
 	}
 
-	//buttonUpVolume->IsButtonPressed();
-	//buttonDownVolume->IsButtonPressed();
+
+	if (buttonUpVolumeMusic->IsButtonPressed())
+	{
+		setVolumeMusic(getVolumeMusic() + 0.1f);
+	}
+	
+	if (buttonDownVolumeMusic->IsButtonPressed())
+	{
+		setVolumeMusic(getVolumeMusic() - 0.1f);
+	}
+
+	if (buttonUpVolumeSFX->IsButtonPressed())
+	{
+		setVolumeSFX(getVolumeSFX() + 0.1f);
+	}
+
+	if (buttonDownVolumeSFX->IsButtonPressed())
+	{
+		setVolumeSFX(getVolumeSFX() - 0.1f);
+	}
 }
 
 void PauseDraw()
@@ -551,8 +582,47 @@ void PauseDraw()
 
 	buttonResume->DrawButton();
 	buttonBackToMenu->DrawButton();
-	buttonUpVolume->DrawButton();
-	buttonDownVolume->DrawButton();
+
+	//music
+	int volumeMusic = static_cast<int>(getVolumeMusic() * 10);
+
+	DrawTextEx(gameFont, "Music",{GetPercentageScreenWidth(50) - MeasureText("Music", 25)/2, GetPercentageScreenHeight(43)},
+		25, GetPercentageScreenWidth(0.5), BLACK);
+
+	DrawTexturePro(textureBlock,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(47),
+			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+		{ 0,	0, },
+		0, WHITE);
+
+	DrawTextEx(gameFont, TextFormat("%i", volumeMusic),
+		{ GetPercentageScreenWidth(50) - MeasureText(TextFormat("%i", volumeMusic) , 25)/2, GetPercentageScreenHeight(49) },
+		25, GetPercentageScreenWidth(0.5), RED);
+
+	buttonUpVolumeMusic->DrawButton();
+	buttonDownVolumeMusic->DrawButton();
+
+	//sfx
+	int volumeSFX = static_cast<int>(getVolumeSFX() * 10);
+
+	DrawTextEx(gameFont, "SFX", { GetPercentageScreenWidth(50) - MeasureText("SFX", 25) / 2, GetPercentageScreenHeight(55) },
+		25, GetPercentageScreenWidth(0.5), BLACK);
+
+
+	DrawTexturePro(textureBlock,
+		{ 0, 0, 64, 64 },
+		{ GetPercentageScreenWidth(50) - (GetPercentageScreenWidth(7) / 2), GetPercentageScreenHeight(60),
+			GetPercentageScreenWidth(7), GetPercentageScreenHeight(7) },
+		{ 0,	0, },
+		0, WHITE);
+
+	DrawTextEx(gameFont, TextFormat("%i", volumeSFX),
+		{ GetPercentageScreenWidth(50) - MeasureText(TextFormat("%i", volumeSFX) , 25)/2, GetPercentageScreenHeight(62) },
+		25, GetPercentageScreenWidth(0.5), RED);
+
+	buttonUpVolumeSFX->DrawButton();
+	buttonDownVolumeSFX->DrawButton();
 }
 
 void DeathScreenUpdate()
