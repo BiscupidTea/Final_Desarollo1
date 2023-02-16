@@ -153,7 +153,7 @@ void CreateButtonsCredits()
 		RED, "Page", 30);
 
 	buttonExitCredits = new Buttons(
-		{ GetPercentageScreenWidth(15), GetPercentageScreenHeight(85),
+		{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(85),
 		GetPercentageScreenWidth(10), GetPercentageScreenHeight(10) },
 		RED, "Exit", 30);
 }
