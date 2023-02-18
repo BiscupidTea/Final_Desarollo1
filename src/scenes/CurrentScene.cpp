@@ -52,7 +52,7 @@ void ScreenScene(bool& IsRunning) {
 		break;
 
 	case GameScene::Options:
-		setGameScene(GameScene::Menu);
+		OptionsScene();
 		break;
 
 	case GameScene::Credits:
