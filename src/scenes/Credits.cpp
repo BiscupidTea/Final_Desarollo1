@@ -2,6 +2,7 @@
 
 Buttons* buttonUrlGit;
 Buttons* buttonUrlItch;
+Buttons* buttonUrlKenney;
 Buttons* buttonUrlRaylib;
 Buttons* buttonExitCredits;
 
@@ -37,6 +38,12 @@ void UpdateCredits()
 	if (buttonUrlItch->IsButtonPressed())
 	{
 		OpenURL("https://biscupidtea.itch.io/");
+	}
+
+	if (buttonUrlKenney->IsButtonPressed())
+	{
+		OpenURL("https://www.kenney.nl/assets/sci-fi-sounds");
+		OpenURL("https://www.kenney.nl/assets/interface-sounds");
 	}
 
 	if (buttonUrlRaylib->IsButtonPressed())
@@ -96,6 +103,22 @@ void DrawCredits()
 	buttonUrlItch->DrawButton();
 
 	//part3
+	Vector2 positionName2 = { GetPercentageScreenWidth(10), GetPercentageScreenHeight(35) };
+
+	DrawRectangle(
+		static_cast<int>(positionName2.x - GetPercentageScreenWidth(1)),
+		static_cast<int>(positionName2.y - GetPercentageScreenHeight(1)),
+		static_cast<int>(MeasureText("SFX By Kenney", 50)),
+		static_cast<int>(GetPercentageScreenHeight(7)), BLACK);
+
+	DrawTextEx(
+		fontTitles, "SFX By Kenney", { positionName2.x , positionName2.y },
+		40, GetPercentageScreenWidth(1), GREEN
+	);
+
+	buttonUrlKenney->DrawButton();
+
+	//part4
 	Vector2 positionTitle2 = {
 	(GetPercentageScreenWidth(50) - MeasureText("Tools Used", static_cast<int>(GetPercentageScreenWidth(7))) / 2),
 	GetPercentageScreenHeight(50) };
@@ -111,17 +134,17 @@ void DrawCredits()
 		50, GetPercentageScreenWidth(1), GREEN
 	);
 
-	//part4
-	Vector2 positionName2 = { GetPercentageScreenWidth(10), GetPercentageScreenHeight(65) };
+	//part5
+	Vector2 positionName3 = { GetPercentageScreenWidth(10), GetPercentageScreenHeight(65) };
 
 	DrawRectangle(
-		static_cast<int>(positionName2.x - GetPercentageScreenWidth(1)),
-		static_cast<int>(positionName2.y - GetPercentageScreenHeight(1)),
+		static_cast<int>(positionName3.x - GetPercentageScreenWidth(1)),
+		static_cast<int>(positionName3.y - GetPercentageScreenHeight(1)),
 		static_cast<int>(MeasureText("Raylib", 55)),
 		static_cast<int>(GetPercentageScreenHeight(7)), BLACK);
 
 	DrawTextEx(
-		fontTitles, "Raylib", { positionName2.x , positionName2.y },
+		fontTitles, "Raylib", { positionName3.x , positionName3.y },
 		40, GetPercentageScreenWidth(1), GREEN
 	);
 
@@ -146,6 +169,11 @@ void CreateButtonsCredits()
 		{ GetPercentageScreenWidth(75), GetPercentageScreenHeight(25) - GetPercentageScreenHeight(3),
 		GetPercentageScreenWidth(15), GetPercentageScreenHeight(10) },
 		RED, "Ithc.io", 30);
+
+	buttonUrlKenney = new Buttons(
+		{ GetPercentageScreenWidth(75), GetPercentageScreenHeight(35) - GetPercentageScreenHeight(3),
+		GetPercentageScreenWidth(15), GetPercentageScreenHeight(10) },
+		RED, "Page", 30);
 
 	buttonUrlRaylib = new Buttons(
 		{ GetPercentageScreenWidth(60), GetPercentageScreenHeight(65) - GetPercentageScreenHeight(3),
