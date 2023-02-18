@@ -9,6 +9,7 @@ Buttons::Buttons(Rectangle rectangle, Color baseColor, string text, int fontSize
 	this->fontSize = fontSize;
 	this->textureButton = LoadTexture("res/textures/button.png");
 	this->fontbutton = LoadFont("res/fonts/DS-DIGI.TTF");
+	this->clickSound = LoadSound("res/sounds/sfx/selected.ogg");
 }
 
 Buttons::~Buttons()
@@ -47,6 +48,8 @@ bool Buttons::IsButtonPressed()
 	{
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
+			SetSoundVolume(clickSound, getVolumeSFX());
+			PlaySound(clickSound);
 			return true;
 		}
 	}

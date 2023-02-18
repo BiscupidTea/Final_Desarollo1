@@ -3,6 +3,8 @@
 #include "tools.h"
 #include <string>
 
+#include "scenes/SceneSetter.h"
+
 using namespace std;
 
 class Buttons
@@ -16,6 +18,7 @@ private:
 	int fontSize;
 	Font fontbutton;
 	Texture2D textureButton;
+	Sound clickSound;
 
 public:
 	Buttons(
