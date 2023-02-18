@@ -125,7 +125,7 @@ void Player::Movement()
 	position.y += velocity.y * GetFrameTime();
 }
 
-void Player::IsPlayerGround()
+void Player::SetPlayerGround()
 {
 	float florDistance = GetPercentageScreenHeight(85.0f);
 
@@ -137,6 +137,11 @@ void Player::IsPlayerGround()
 	{
 		ground = true;
 	}
+}
+
+bool Player::IsPlayerGround()
+{
+	return ground;
 }
 
 void Player::Input(bool& isPaused)

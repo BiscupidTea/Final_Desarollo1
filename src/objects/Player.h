@@ -38,7 +38,8 @@ public:
 
 	void Movement();
 
-	void IsPlayerGround();
+	void SetPlayerGround();
+	bool IsPlayerGround();
 
 	void Input(bool& isPaused);
 

@@ -13,22 +13,29 @@ static int totalDistance = 0;
 static bool isResoucesLoad = false;
 static bool isButtonsCreated = false;
 
-static Texture2D textureMouse;
-static Texture2D textureShieldItem;
-static Texture2D textureShieldPicked;
-static Texture2D texturePlayer;
-static Texture2D textureTimer;
-static Texture2D textureObstacle;
-static Texture2D textureBullet;
-static Texture2D textureExplotion;
-static Texture2D textureClock;
-static Texture2D textureBlock;
-static Texture2D textureFloor;
-static Texture2D textureWall1;
-static Texture2D textureWall2;
-static Texture2D textureWindow1;
-static Texture2D texturePauseBack;
-static Texture2D textureDeathScreen;
+Texture2D textureMouse;
+Texture2D textureShieldItem;
+Texture2D textureShieldPicked;
+Texture2D texturePlayer;
+Texture2D textureTimer;
+Texture2D textureObstacle;
+Texture2D textureBullet;
+Texture2D textureExplotion;
+Texture2D textureClock;
+Texture2D textureBlock;
+Texture2D textureFloor;
+Texture2D textureWall1;
+Texture2D textureWall2;
+Texture2D textureWindow1;
+Texture2D texturePauseBack;
+Texture2D textureDeathScreen;
+
+Sound soundPlayerJump;
+Sound soundPlayerFly;
+Sound soundPlayerShoot;
+Sound soundShieldActive;
+Sound soundItemPicked;
+Sound soundExplotion;
 
 Font gameFont;
 
@@ -319,6 +326,7 @@ void CheckColitions()
 				{
 					KillPlayer();
 				}
+				PlaySound(soundExplotion);
 			}
 		}
 	}
@@ -332,6 +340,10 @@ void CheckColitions()
 				if (player1->arrayBullets[i]->CheckColition(arrayObstacle[j]->GetPosition(),
 					arrayObstacle[j]->GetWidth(), arrayObstacle[j]->GetHeight()))
 				{
+					if (!IsSoundPlaying(soundExplotion))
+					{
+						PlaySound(soundExplotion);
+					}
 					arrayObstacle[j]->setDeathAnimation();
 					arrayObstacle[j]->SetDestroyed(true);
 				}
@@ -344,6 +356,7 @@ void CheckColitions()
 		deathTimer->AddTime(itemTimer->GettimeAdd());
 		itemTimer->ResetRandPosition();
 		itemTimer->holdTimer->ResetTime();
+		PlaySound(soundItemPicked);
 	}
 
 	if (!itemPowerUp->IsPicked())
@@ -352,6 +365,7 @@ void CheckColitions()
 		{
 			itemPowerUp->SetPicked(true);
 			itemPowerUp->spawnItem->ResetTime();
+			PlaySound(soundItemPicked);
 		}
 	}
 }
@@ -415,9 +429,11 @@ void GameplayUpdate()
 {
 	AccelerateGame();
 
+	GameSoundManagment();
+
 	paralax1->UpdateParalax(arrayObstacle[0]->getVelocityX());
 
-	player1->IsPlayerGround();
+	player1->SetPlayerGround();
 	player1->Movement();
 	player1->UpdateDraw();
 	player1->AddDistanceMade(arrayObstacle[0]->getVelocityX() / 100 * GetFrameTime());
@@ -552,7 +568,7 @@ void PauseUpdate()
 	{
 		setVolumeMusic(getVolumeMusic() + 0.1f);
 	}
-	
+
 	if (buttonDownVolumeMusic->IsButtonPressed())
 	{
 		setVolumeMusic(getVolumeMusic() - 0.1f);
@@ -586,7 +602,7 @@ void PauseDraw()
 	//music
 	int volumeMusic = static_cast<int>(getVolumeMusic() * 10);
 
-	DrawTextEx(gameFont, "Music",{GetPercentageScreenWidth(50) - MeasureText("Music", 25)/2, GetPercentageScreenHeight(43)},
+	DrawTextEx(gameFont, "Music", { GetPercentageScreenWidth(50) - MeasureText("Music", 25) / 2, GetPercentageScreenHeight(43) },
 		25, GetPercentageScreenWidth(0.5), BLACK);
 
 	DrawTexturePro(textureBlock,
@@ -597,7 +613,7 @@ void PauseDraw()
 		0, WHITE);
 
 	DrawTextEx(gameFont, TextFormat("%i", volumeMusic),
-		{ GetPercentageScreenWidth(50) - MeasureText(TextFormat("%i", volumeMusic) , 25)/2, GetPercentageScreenHeight(49) },
+		{ GetPercentageScreenWidth(50) - MeasureText(TextFormat("%i", volumeMusic) , 25) / 2, GetPercentageScreenHeight(49) },
 		25, GetPercentageScreenWidth(0.5), RED);
 
 	buttonUpVolumeMusic->DrawButton();
@@ -618,7 +634,7 @@ void PauseDraw()
 		0, WHITE);
 
 	DrawTextEx(gameFont, TextFormat("%i", volumeSFX),
-		{ GetPercentageScreenWidth(50) - MeasureText(TextFormat("%i", volumeSFX) , 25)/2, GetPercentageScreenHeight(62) },
+		{ GetPercentageScreenWidth(50) - MeasureText(TextFormat("%i", volumeSFX) , 25) / 2, GetPercentageScreenHeight(62) },
 		25, GetPercentageScreenWidth(0.5), RED);
 
 	buttonUpVolumeSFX->DrawButton();
@@ -627,6 +643,8 @@ void PauseDraw()
 
 void DeathScreenUpdate()
 {
+	GameSoundManagment();
+
 	if (!aliveButtons && !isButtonsCreated)
 	{
 		CreateGameButtons();
@@ -693,7 +711,7 @@ void DeathScreenDraw()
 
 	DrawTextEx(
 		gameFont, "m",
-		{ GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 50) / 2), 
+		{ GetPercentageScreenWidth(65) + (MeasureText(TextFormat("%01i", static_cast<int>(player1->GetDistanceMade())), 50) / 2),
 		GetPercentageScreenHeight(high1) },
 		30, GetPercentageScreenWidth(0.5), RED);
 
@@ -703,7 +721,7 @@ void DeathScreenDraw()
 		{ GetPercentageScreenWidth(20), GetPercentageScreenHeight(high2) },
 		30, GetPercentageScreenWidth(0.5), RED);
 
-		DrawTextEx(
+	DrawTextEx(
 		gameFont, TextFormat("%01i", highScore),
 		{ GetPercentageScreenWidth(65) - (MeasureText(TextFormat("%01i", highScore), 30) / 2),
 		GetPercentageScreenHeight(high2) },
@@ -887,6 +905,68 @@ void KillPlayer()
 	SaveStorageValue(1, totalDistance);
 }
 
+void GameSoundManagment()
+{
+	SetSoundVolume(soundPlayerJump, getVolumeSFX());
+	SetSoundVolume(soundPlayerFly, getVolumeSFX());
+	SetSoundVolume(soundPlayerShoot, getVolumeSFX());
+	SetSoundVolume(soundShieldActive, getVolumeSFX());
+
+	if (player1->IsAlive())
+	{
+
+		if (IsKeyPressed(KEY_SPACE) && player1->IsPlayerGround())
+		{
+			PlaySound(soundPlayerJump);
+		}
+
+		if (IsKeyDown(KEY_SPACE) && !player1->IsPlayerGround())
+		{
+			if (!IsSoundPlaying(soundPlayerFly))
+			{
+				PlaySound(soundPlayerFly);
+			}
+		}
+		else
+		{
+			PauseSound(soundPlayerFly);
+		}
+
+		int bulletsPicked = 0;
+		for (int i = 0; i < maxBullets; i++)
+		{
+			if (player1->arrayBullets[i]->IsShootedNow())
+			{
+				bulletsPicked += 1;
+			}
+		}
+
+		if (IsKeyPressed(KEY_F) && bulletsPicked != 5)
+		{
+			PlaySound(soundPlayerShoot);
+		}
+
+		if (itemPowerUp->IsPicked())
+		{
+			if (!IsSoundPlaying(soundShieldActive))
+			{
+				PlaySound(soundShieldActive);
+			}
+		}
+		else
+		{
+			StopSound(soundShieldActive);
+		}
+	}
+	else
+	{
+		StopSound(soundPlayerJump);
+		StopSound(soundPlayerFly);
+		StopSound(soundPlayerShoot);
+		StopSound(soundShieldActive);
+	}
+}
+
 void LoadResourcesGame()
 {
 	if (!isResoucesLoad)
@@ -906,6 +986,13 @@ void LoadResourcesGame()
 		textureWindow1 = LoadTexture("res/textures/window1.png");
 		texturePauseBack = LoadTexture("res/textures/pauseBackground.png");
 		textureDeathScreen = LoadTexture("res/textures/simpleBackground.png");
+
+		soundPlayerJump = LoadSound("res/sounds/sfx/player-jump.wav");
+		soundPlayerFly = LoadSound("res/sounds/sfx/player-fly.ogg");
+		soundPlayerShoot = LoadSound("res/sounds/sfx/shoot-laser.ogg");
+		soundShieldActive = LoadSound("res/sounds/sfx/shield.ogg");
+		soundItemPicked = LoadSound("res/sounds/sfx/itemPicked.ogg");
+		soundExplotion = LoadSound("res/sounds/sfx/explotion.ogg");
 
 		gameFont = LoadFont("res/fonts/DS-DIGI.TTF");
 	}

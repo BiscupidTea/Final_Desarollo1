@@ -54,6 +54,8 @@ void DrawHud();
 
 void KillPlayer();
 
+void GameSoundManagment();
+
 void LoadResourcesGame();
 
 void UnloadResourcesGame();
