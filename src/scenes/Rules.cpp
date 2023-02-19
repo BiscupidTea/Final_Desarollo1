@@ -67,7 +67,7 @@ void DrawRules()
 		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(35) },
 		30, GetPercentageScreenWidth(0.1f), BLACK);
 
-	DrawTextEx(fontTitles, "3) Dodge the obstacles (not frendly)", 
+	DrawTextEx(fontTitles, "3) Dodge the obstacles (not friendly)", 
 		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(45) },
 		30, GetPercentageScreenWidth(0.1f), BLACK);
 
@@ -115,7 +115,7 @@ void DrawRules()
 
 	buttonExitRules->DrawButton();
 
-	DrawText("0.7", GetScreenWidth() - MeasureText("0.7", 40), GetScreenHeight() - MeasureText("0.7", 20), 20, WHITE);
+	DrawText("0.8", GetScreenWidth() - MeasureText("0.8", 40), GetScreenHeight() - MeasureText("0.8", 20), 20, WHITE);
 	DrawMouse();
 
 	EndDrawing();
