@@ -1,5 +1,17 @@
 #include "SplashScreen.h"
 
+#include "raylib.h"
+#include "tools/tools.h"
+#include "tools/Cursor.h"
+#include "tools/Timer.h"
+
+#include "scenes/SceneSetter.h"
+
+static bool SplashScreenRosurcesLoaded = false;
+static bool firstPhase = true;
+static Color SplashScreenColor;
+static int timesEndTimer = 0;
+
 Texture2D textureSplashScreen;
 
 Timer* timerSplashScreen;

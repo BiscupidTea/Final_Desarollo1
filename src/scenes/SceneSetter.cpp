@@ -1,5 +1,9 @@
 #include "SceneSetter.h"
 
+#include <iostream>
+
+using namespace std;
+
 extern GameScene gameScene;
 
 bool gameIsPaused;

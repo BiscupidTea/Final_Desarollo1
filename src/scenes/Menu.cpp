@@ -1,5 +1,16 @@
 #include "scenes/Menu.h"
 
+#include "raylib.h"
+#include "tools/tools.h"
+#include "tools/Buttons.h"
+#include "tools/Cursor.h"
+
+#include "scenes/SceneSetter.h"
+#include "Game.h"
+
+static bool isButtonsCreated = false;
+static bool menuRosurcesLoaded = false;
+
 Buttons* buttonPlay;
 Buttons* buttonRules;
 Buttons* buttonOptions;
