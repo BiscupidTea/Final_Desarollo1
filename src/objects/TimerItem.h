@@ -1,9 +1,6 @@
 #pragma once
 #include "Entity.h"
 #include "raylib.h"
-#include "raymath.h"
-
-#include "tools/Tools.h"
 #include "tools/Timer.h"
 
 class TimerItem : public Entity

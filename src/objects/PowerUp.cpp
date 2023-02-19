@@ -1,5 +1,7 @@
 #include "PowerUp.h"
 
+#include "tools/Tools.h"
+
 PowerUp::PowerUp(Vector2 position, Vector2 velocity, int width, int height, float spawnTime, Rectangle playerSpec, Texture2D shieldTextureItem, Texture2D shieldTexturePicked) : Entity(position, velocity, width, height)
 {
 	this->shieldTextureItem = shieldTextureItem;

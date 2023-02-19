@@ -1,8 +1,5 @@
 #pragma once
-#include <iostream>
-
 #include "raylib.h"
-#include "tools/tools.h"
 
 using namespace std;
 

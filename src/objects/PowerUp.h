@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
 
-#include "tools/Tools.h"
 #include "tools/Timer.h"
 
 class PowerUp :	public Entity

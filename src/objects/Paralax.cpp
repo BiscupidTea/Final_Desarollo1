@@ -1,5 +1,8 @@
 #include "Paralax.h"
 
+#include <iostream>
+#include "tools/tools.h"
+
 Paralax::Paralax(float velocityFloors, 
 	Texture2D textureFloor, Texture2D textureWall1, Texture2D textureWall2, Texture2D textureWindow1)
 {
@@ -40,7 +43,7 @@ void Paralax::DrawFloor()
 	DrawTexturePro(textureFloor,
 		{ 0,0, 128, 19 },
 		{ ScrollingFloor ,  positionFloorY,
-		static_cast<float>(800), static_cast<float>(120) },
+		static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(15) },
 		{ 0,0 },
 		0, WHITE
 	);
@@ -48,7 +51,7 @@ void Paralax::DrawFloor()
 	DrawTexturePro(textureFloor,
 		{ 0,0, 128, 19 },
 		{ (textureFloor.width * 6.25f)  + ScrollingFloor ,positionFloorY ,
-		static_cast<float>(800), static_cast<float>(120) },
+		static_cast<float>(GetScreenWidth()), GetPercentageScreenHeight(15) },
 		{ 0,0 },
 		0, WHITE
 	);
@@ -60,7 +63,7 @@ void Paralax::DrawWall()
 	DrawTexturePro(textureWall1,
 		{ 0,0, 128, 109 },
 		{ ScrollingWall1 ,  positionWallY,
-		textureFloor.width * 6.25f, static_cast<float>(680) },
+		textureFloor.width * 6.25f, GetPercentageScreenHeight(85) },
 		{ 0,0 },
 		0, WHITE
 	);
@@ -68,7 +71,7 @@ void Paralax::DrawWall()
 	DrawTexturePro(textureWall2,
 		{ 0,0, 128, 109 },
 		{ ScrollingWall2 ,positionWallY ,
-		textureFloor.width * 6.25f, static_cast<float>(680) },
+		textureFloor.width * 6.25f, GetPercentageScreenHeight(85) },
 		{ 0,0 },
 		0, WHITE
 	);
@@ -83,10 +86,6 @@ void Paralax::DrawWindow()
 		{ 0,0 },
 		0, WHITE
 	);
-
-	//DrawRectangle(
-	//	static_cast<int>(positionWindow.x),
-	//		static_cast<int>(positionWindow.y), 800, 400, GREEN);
 }
 
 void Paralax::UpdateParalax(float velocityObstacles)

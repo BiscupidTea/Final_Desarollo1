@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include "tools/tools.h"
 #include "tools/Timer.h"
 
 #include "Entity.h"

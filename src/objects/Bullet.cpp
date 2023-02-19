@@ -1,5 +1,7 @@
 #include "Bullet.h"
 
+#include "tools/tools.h"
+
 Bullet::Bullet(Vector2 position, Vector2 velocity, int width, int height, bool isPicked, Texture2D textureBullet) : Entity(position, velocity, width, height)
 {
 	this->textureBullet = textureBullet;

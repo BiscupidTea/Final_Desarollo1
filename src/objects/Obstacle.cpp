@@ -1,5 +1,8 @@
 #include "Obstacle.h"
 
+#include <iostream>
+#include "tools/tools.h"
+
 Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height, Texture2D textureObstacle, Texture2D textureObstacleDestroyed) : Entity(position, velocity, width, height)
 {
 	this->position = position;

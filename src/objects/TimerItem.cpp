@@ -1,5 +1,8 @@
 #include "TimerItem.h"
 
+#include "raymath.h"
+#include "tools/Tools.h"
+
 TimerItem::TimerItem(Vector2 position, Vector2 velocity, int width, int height, float timeAdd, float initPosition, float timeToSpawn, Texture2D textureTimer) : Entity(position, velocity, width, height)
 {
 	this->position = position;

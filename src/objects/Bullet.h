@@ -1,6 +1,4 @@
 #pragma once
-#include "tools/tools.h"
-
 #include "Entity.h"
 
 class Bullet : public Entity
