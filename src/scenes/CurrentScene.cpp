@@ -23,7 +23,7 @@ void InitGame()
 	GameMusic1 = LoadMusicStream("res/sounds/music/GameMusic1.wav");
 	MenuMusic1 = LoadMusicStream("res/sounds/music/MenuMusic1.wav");
 
-	setGameScene(GameScene::Menu);
+	setGameScene(GameScene::SplashScreen);
 
 	while (!WindowShouldClose() && IsRunning)
 	{
@@ -39,6 +39,10 @@ void InitGame()
 void ScreenScene(bool& IsRunning) {
 	switch (gameScene)
 	{
+	case GameScene::SplashScreen:
+		SplashScreenScene();
+		break;
+
 	case GameScene::Menu:
 		MenuScene();
 		break;

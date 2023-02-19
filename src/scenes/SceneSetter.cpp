@@ -14,6 +14,9 @@ void setGameScene(GameScene newGameScene)
 	cout << "change scene to : ";
 	switch (gameScene)
 	{
+	case GameScene::SplashScreen:
+		cout << "SplashScreen" << endl;
+		break;
 	case GameScene::Menu:
 		cout << "Menu" << endl;
 		break;

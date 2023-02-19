@@ -185,6 +185,7 @@
     <ClCompile Include="src\scenes\Options.cpp" />
     <ClCompile Include="src\scenes\Rules.cpp" />
     <ClCompile Include="src\scenes\SceneSetter.cpp" />
+    <ClCompile Include="src\scenes\SplashScreen.cpp" />
     <ClCompile Include="src\scenes\Store.cpp" />
     <ClCompile Include="src\tools\Buttons.cpp" />
     <ClCompile Include="src\tools\Cursor.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="src\scenes\Options.h" />
     <ClInclude Include="src\scenes\Rules.h" />
     <ClInclude Include="src\scenes\SceneSetter.h" />
+    <ClInclude Include="src\scenes\SplashScreen.h" />
     <ClInclude Include="src\scenes\Store.h" />
     <ClInclude Include="src\tools\Buttons.h" />
     <ClInclude Include="src\tools\Cursor.h" />

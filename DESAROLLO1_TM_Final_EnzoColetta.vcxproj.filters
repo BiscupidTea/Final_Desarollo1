@@ -73,6 +73,9 @@
     <ClCompile Include="src\tools\Cursor.cpp">
       <Filter>src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\SplashScreen.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\Entity.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="src\tools\Cursor.h">
       <Filter>src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\SplashScreen.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

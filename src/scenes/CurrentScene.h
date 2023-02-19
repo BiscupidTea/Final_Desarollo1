@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 #include "SceneSetter.h"
+#include "scenes/SplashScreen.h"
 #include "scenes/Menu.h"
 #include "scenes/Game.h"
 #include "scenes/Rules.h"

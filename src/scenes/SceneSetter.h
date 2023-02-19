@@ -4,6 +4,7 @@
 using namespace std;
 
 enum class GameScene {
+	SplashScreen,
 	Menu,
 	GameLoop,
 	Rules,
