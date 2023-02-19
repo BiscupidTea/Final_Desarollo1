@@ -1,5 +1,9 @@
 #include "Buttons.h"
 
+#include "tools.h"
+
+#include "scenes/SceneSetter.h"
+
 Buttons::Buttons(Rectangle rectangle, Color baseColor, string text, int fontSize)
 {
 	this->rectangle = rectangle;

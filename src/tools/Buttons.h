@@ -1,9 +1,6 @@
 #pragma once
 #include "raylib.h"
-#include "tools.h"
 #include <string>
-
-#include "scenes/SceneSetter.h"
 
 using namespace std;
 

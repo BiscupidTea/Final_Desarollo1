@@ -1,5 +1,7 @@
 #include "Cursor.h"
 
+#include "raylib.h"
+
 static Texture2D textureCursorUp;
 static Texture2D textureCursorDown;
 

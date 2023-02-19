@@ -1,7 +1,6 @@
 #pragma once
 #include"raylib.h"
 
-///////////////////////tools
 float GetPercentageScreenHeight(
 	float percentage
 );
@@ -13,8 +12,6 @@ float GetPercentageScreenWidth(
 void DrawLinesScreen(
 
 );
-
-///////////////////////colitions
 
 bool CheckMouseRectangleColition(
 	Rectangle rectangle

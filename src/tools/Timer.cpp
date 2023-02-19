@@ -1,5 +1,7 @@
 #include "Timer.h"
 
+#include "raylib.h"
+
 Timer::Timer(float timerValue)
 {
 	this->timerValue = timerValue;
