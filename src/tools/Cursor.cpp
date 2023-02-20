@@ -2,39 +2,42 @@
 
 #include "raylib.h"
 
-static Texture2D textureCursorUp;
-static Texture2D textureCursorDown;
-
-void LoadResourcesMouse()
+namespace Game
 {
-	textureCursorUp = LoadTexture("res/textures/cursorUp.png");
-	textureCursorDown = LoadTexture("res/textures/cursorDown.png");
-}
+	static Texture2D textureCursorUp;
+	static Texture2D textureCursorDown;
 
-void UnloadResourcesMouse()
-{
-	UnloadTexture(textureCursorUp);
-	UnloadTexture(textureCursorDown);
-}
-
-void DrawMouse()
-{
-	if (!IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+	void LoadResourcesMouse()
 	{
-		DrawTexturePro(textureCursorUp,
-			{ 0,0, 64, 64 },
-			{ static_cast<float>(GetMouseX()) ,static_cast<float>(GetMouseY()), 64, 64 },
-			{ 0,0 },
-			0, WHITE
-		);
+		textureCursorUp = LoadTexture("res/textures/cursorUp.png");
+		textureCursorDown = LoadTexture("res/textures/cursorDown.png");
 	}
-	else
+
+	void UnloadResourcesMouse()
 	{
-		DrawTexturePro(textureCursorDown,
-			{ 0,0, 64, 64 },
-			{ static_cast<float>(GetMouseX()) ,static_cast<float>(GetMouseY()), 64, 64 },
-			{ 0,0 },
-			0, WHITE
-		);
+		UnloadTexture(textureCursorUp);
+		UnloadTexture(textureCursorDown);
+	}
+
+	void DrawMouse()
+	{
+		if (!IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		{
+			DrawTexturePro(textureCursorUp,
+				{ 0,0, 64, 64 },
+				{ static_cast<float>(GetMouseX()) ,static_cast<float>(GetMouseY()), 64, 64 },
+				{ 0,0 },
+				0, WHITE
+			);
+		}
+		else
+		{
+			DrawTexturePro(textureCursorDown,
+				{ 0,0, 64, 64 },
+				{ static_cast<float>(GetMouseX()) ,static_cast<float>(GetMouseY()), 64, 64 },
+				{ 0,0 },
+				0, WHITE
+			);
+		}
 	}
 }

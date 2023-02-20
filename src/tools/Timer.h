@@ -1,27 +1,29 @@
 #pragma once
 
-class Timer
+namespace Game
 {
-private:
-	float timerValue;
-	float timerPass;
-	bool IsEnded;
-	bool IsPaused;
+	class Timer
+	{
+	private:
+		float timerValue;
+		float timerPass;
+		bool IsEnded;
+		bool IsPaused;
 
-public:
-	Timer(float timer);
-	~Timer();
+	public:
+		Timer(float timer);
+		~Timer();
 
-	void UpdateTimer();
-	float GetTimer();
+		void UpdateTimer();
+		float GetTimer();
 
-	bool GetIsTimeEnd();
+		bool GetIsTimeEnd();
 
-	void SetIsPaused(bool setPause);
-	bool GetIsPaused();
+		void SetIsPaused(bool setPause);
+		bool GetIsPaused();
 
-	void AddTime(float timeAdded);
-	void SetTime(float timeSetted);
-	void ResetTime();
-};
-
+		void AddTime(float timeAdded);
+		void SetTime(float timeSetted);
+		void ResetTime();
+	};
+}

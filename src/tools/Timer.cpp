@@ -2,68 +2,71 @@
 
 #include "raylib.h"
 
-Timer::Timer(float timerValue)
+namespace Game
 {
-	this->timerValue = timerValue;
-	this->timerPass = timerValue;
-	this->IsEnded = false;
-	this->IsPaused = false;
-}
-
-Timer::~Timer()
-{
-
-}
-
-void Timer::UpdateTimer()
-{
-	if (!IsPaused)
+	Timer::Timer(float timerValue)
 	{
-		timerPass -= GetFrameTime();
+		this->timerValue = timerValue;
+		this->timerPass = timerValue;
+		this->IsEnded = false;
+		this->IsPaused = false;
 	}
 
-	if (timerPass <= 0)
+	Timer::~Timer()
 	{
-		if (!IsEnded)
+
+	}
+
+	void Timer::UpdateTimer()
+	{
+		if (!IsPaused)
 		{
-			IsEnded = true;
-			timerPass = 0;
+			timerPass -= GetFrameTime();
+		}
+
+		if (timerPass <= 0)
+		{
+			if (!IsEnded)
+			{
+				IsEnded = true;
+				timerPass = 0;
+			}
 		}
 	}
-}
 
-float Timer::GetTimer()
-{
-	return timerPass;
-}
+	float Timer::GetTimer()
+	{
+		return timerPass;
+	}
 
-bool Timer::GetIsTimeEnd()
-{
-	return IsEnded;
-}
+	bool Timer::GetIsTimeEnd()
+	{
+		return IsEnded;
+	}
 
-void Timer::SetIsPaused(bool setPause)
-{
-	IsPaused = setPause;
-}
+	void Timer::SetIsPaused(bool setPause)
+	{
+		IsPaused = setPause;
+	}
 
-bool Timer::GetIsPaused()
-{
-	return IsPaused;
-}
+	bool Timer::GetIsPaused()
+	{
+		return IsPaused;
+	}
 
-void Timer::AddTime(float timeAdded)
-{
-	timerPass += timeAdded;
-}
+	void Timer::AddTime(float timeAdded)
+	{
+		timerPass += timeAdded;
+	}
 
-void Timer::SetTime(float timeSetted)
-{
-	timerPass = timeSetted;
-}
+	void Timer::SetTime(float timeSetted)
+	{
+		timerPass = timeSetted;
+	}
 
-void Timer::ResetTime()
-{
-	timerPass = timerValue;
-	IsEnded = false;
+	void Timer::ResetTime()
+	{
+		timerPass = timerValue;
+		IsEnded = false;
+	}
 }

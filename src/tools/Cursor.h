@@ -1,7 +1,10 @@
 #pragma once
 
-void LoadResourcesMouse();
+namespace Game
+{
+	void LoadResourcesMouse();
 
-void UnloadResourcesMouse();
+	void UnloadResourcesMouse();
 
-void DrawMouse();
+	void DrawMouse();
+}
