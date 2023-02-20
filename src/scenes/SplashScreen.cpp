@@ -1,6 +1,7 @@
 #include "SplashScreen.h"
 
 #include "raylib.h"
+
 #include "tools/tools.h"
 #include "tools/Cursor.h"
 #include "tools/Timer.h"
