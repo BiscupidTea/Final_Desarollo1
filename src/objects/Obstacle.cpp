@@ -3,115 +3,118 @@
 #include <iostream>
 #include "tools/tools.h"
 
-Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height, Texture2D textureObstacle, Texture2D textureObstacleDestroyed) : Entity(position, velocity, width, height)
+namespace Game
 {
-	this->position = position;
-	this->velocity = velocity;
-
-	this->textureObstacle = textureObstacle;
-	this->textureObstacleDestroyed = textureObstacleDestroyed;
-	this->width = textureObstacle.width / 8;
-	this->height = textureObstacle.height - textureObstacle.height / 10;
-
-	this->destroyed = false;
-	this->actualFrame = 0;
-
-	changeFrame = new Timer(0.2f);
-	changeFrameDeath = new Timer(0.1f);
-
-}
-
-Obstacle::~Obstacle()
-{
-
-}
-
-void Obstacle::Draw()
-{
-	float sumSource = static_cast<float>(0 + (64 * actualFrame));
-	//DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), WHITE);
-
-	if (!destroyed)
+	Obstacle::Obstacle(Vector2 position, Vector2 velocity, int width, int height, Texture2D textureObstacle, Texture2D textureObstacleDestroyed) : Entity(position, velocity, width, height)
 	{
-		DrawTexturePro(textureObstacle,
-			{ sumSource, 0, 64, 64 },
-			{ position.x - textureObstacle.width / 5 / 5,position.y, 64, 64 },
-			{ 0,	0, },
-			0, WHITE);
+		this->position = position;
+		this->velocity = velocity;
+
+		this->textureObstacle = textureObstacle;
+		this->textureObstacleDestroyed = textureObstacleDestroyed;
+		this->width = textureObstacle.width / 8;
+		this->height = textureObstacle.height - textureObstacle.height / 10;
+
+		this->destroyed = false;
+		this->actualFrame = 0;
+
+		changeFrame = new Timer(0.2f);
+		changeFrameDeath = new Timer(0.1f);
+
 	}
-	else
+
+	Obstacle::~Obstacle()
 	{
-		if (actualFrame < 6)
+
+	}
+
+	void Obstacle::Draw()
+	{
+		float sumSource = static_cast<float>(0 + (64 * actualFrame));
+		//DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), WHITE);
+
+		if (!destroyed)
 		{
-			DrawTexturePro(textureObstacleDestroyed,
+			DrawTexturePro(textureObstacle,
 				{ sumSource, 0, 64, 64 },
-				{ position.x - textureObstacle.width / 5 / 5 ,position.y, 64, 64 },
-				{ 0, 0, },
+				{ position.x - textureObstacle.width / 5 / 5,position.y, 64, 64 },
+				{ 0,	0, },
 				0, WHITE);
 		}
-	}
-}
-
-void Obstacle::UpdateDraw()
-{
-	if (!IsDestroyed())
-	{
-		changeFrame->UpdateTimer();
-
-		if (changeFrame->GetIsTimeEnd())
-		{
-			actualFrame += 1;
-
-			if (actualFrame > 4)
-			{
-				actualFrame = 0;
-			}
-
-			changeFrame->ResetTime();
-		}
-	}
-	else
-	{
-		changeFrameDeath->UpdateTimer();
-
-		if (changeFrameDeath->GetIsTimeEnd())
+		else
 		{
 			if (actualFrame < 6)
 			{
-				actualFrame += 1;
-				changeFrameDeath->ResetTime();
+				DrawTexturePro(textureObstacleDestroyed,
+					{ sumSource, 0, 64, 64 },
+					{ position.x - textureObstacle.width / 5 / 5 ,position.y, 64, 64 },
+					{ 0, 0, },
+					0, WHITE);
 			}
 		}
 	}
-}
 
-void Obstacle::Movement()
-{
-	position.x -= velocity.x * GetFrameTime();
-}
-
-bool Obstacle::OutOfLimits()
-{
-	if (GetX() + width < 0)
+	void Obstacle::UpdateDraw()
 	{
-		return true;
+		if (!IsDestroyed())
+		{
+			changeFrame->UpdateTimer();
+
+			if (changeFrame->GetIsTimeEnd())
+			{
+				actualFrame += 1;
+
+				if (actualFrame > 4)
+				{
+					actualFrame = 0;
+				}
+
+				changeFrame->ResetTime();
+			}
+		}
+		else
+		{
+			changeFrameDeath->UpdateTimer();
+
+			if (changeFrameDeath->GetIsTimeEnd())
+			{
+				if (actualFrame < 6)
+				{
+					actualFrame += 1;
+					changeFrameDeath->ResetTime();
+				}
+			}
+		}
 	}
 
-	return false;
-}
+	void Obstacle::Movement()
+	{
+		position.x -= velocity.x * GetFrameTime();
+	}
 
-void Obstacle::SetDestroyed(bool setter)
-{
-	destroyed = setter;
-}
+	bool Obstacle::OutOfLimits()
+	{
+		if (GetX() + width < 0)
+		{
+			return true;
+		}
 
-bool Obstacle::IsDestroyed()
-{
-	return destroyed;
-}
+		return false;
+	}
 
-void Obstacle::setDeathAnimation()
-{
-	changeFrameDeath->ResetTime();
-	actualFrame = 0;
+	void Obstacle::SetDestroyed(bool setter)
+	{
+		destroyed = setter;
+	}
+
+	bool Obstacle::IsDestroyed()
+	{
+		return destroyed;
+	}
+
+	void Obstacle::setDeathAnimation()
+	{
+		changeFrameDeath->ResetTime();
+		actualFrame = 0;
+	}
 }

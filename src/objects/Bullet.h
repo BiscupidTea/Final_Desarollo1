@@ -1,37 +1,39 @@
 #pragma once
 #include "Entity.h"
 
-class Bullet : public Entity
+namespace Game
 {
-private:
-	bool isShooted;
-	bool isPicked;
+	class Bullet : public Entity
+	{
+	private:
+		bool isShooted;
+		bool isPicked;
 
-	Texture2D textureBullet;
+		Texture2D textureBullet;
 
-public:
-	Bullet(
-		Vector2 position, Vector2 velocity, 
-		int width, int height, bool isPicked,
-		Texture2D textureBullet);
-	~Bullet();
+	public:
+		Bullet(
+			Vector2 position, Vector2 velocity,
+			int width, int height, bool isPicked,
+			Texture2D textureBullet);
+		~Bullet();
 
-	void Draw();
+		void Draw();
 
-	void UpdateBullet();
+		void UpdateBullet();
 
-	void ShootBullet(Vector2 positionsBullet);
+		void ShootBullet(Vector2 positionsBullet);
 
-	void ResetPosition();
+		void ResetPosition();
 
-	void OutOfLimits();
+		void OutOfLimits();
 
-	bool IsShootedNow();
+		bool IsShootedNow();
 
-	bool IsPickedNow();
+		bool IsPickedNow();
 
-	void SetIsPicked(bool setter);
+		void SetIsPicked(bool setter);
 
-	void SetIsShooted(bool setter);
-};
-
+		void SetIsShooted(bool setter);
+	};
+}

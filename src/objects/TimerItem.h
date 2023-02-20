@@ -3,40 +3,42 @@
 #include "raylib.h"
 #include "tools/Timer.h"
 
-class TimerItem : public Entity
+namespace Game
 {
-private:
-	float timeAdd;
-	float timeToSpawn;
-	float initPosition;
-	float minSpace;
-	float maxSpace;
+	class TimerItem : public Entity
+	{
+	private:
+		float timeAdd;
+		float timeToSpawn;
+		float initPosition;
+		float minSpace;
+		float maxSpace;
 
-	bool goingUp;
+		bool goingUp;
 
-	Texture2D textureTimer;
+		Texture2D textureTimer;
 
-public:
-	Timer* holdTimer;
+	public:
+		Timer* holdTimer;
 
-	TimerItem(
-		Vector2 position, Vector2 velocity, 
-		int width, int height,
-		float timeAdd, float initPosition, 
-		float timeToSpawn,
-		Texture2D textureTimer);
-	~TimerItem();
+		TimerItem(
+			Vector2 position, Vector2 velocity,
+			int width, int height,
+			float timeAdd, float initPosition,
+			float timeToSpawn,
+			Texture2D textureTimer);
+		~TimerItem();
 
-	void Draw();
+		void Draw();
 
-	void UpdateItem();
+		void UpdateItem();
 
-	float GettimeAdd();
-		
-	void ResetRandPosition();
+		float GettimeAdd();
 
-	float GetTimeToSpawn();
+		void ResetRandPosition();
 
-	bool OutOfLimits();
-};
+		float GetTimeToSpawn();
 
+		bool OutOfLimits();
+	};
+}

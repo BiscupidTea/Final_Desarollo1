@@ -5,36 +5,39 @@
 
 using namespace std;
 
-class Obstacle : public Entity
+namespace Game
 {
-private:
-	bool destroyed;
+	class Obstacle : public Entity
+	{
+	private:
+		bool destroyed;
 
-	Timer* changeFrame;
-	Timer* changeFrameDeath;
-	Texture2D textureObstacle;
-	Texture2D textureObstacleDestroyed;
-	int actualFrame;
+		Timer* changeFrame;
+		Timer* changeFrameDeath;
+		Texture2D textureObstacle;
+		Texture2D textureObstacleDestroyed;
+		int actualFrame;
 
-public:
-	Obstacle(
-		Vector2 position, Vector2 velocity,
-		int width, int height,
-		Texture2D textureObstacle,
-		Texture2D textureObstacleDestroyed
-	);
-	~Obstacle();
+	public:
+		Obstacle(
+			Vector2 position, Vector2 velocity,
+			int width, int height,
+			Texture2D textureObstacle,
+			Texture2D textureObstacleDestroyed
+		);
+		~Obstacle();
 
-	void Draw();
+		void Draw();
 
-	void UpdateDraw();
+		void UpdateDraw();
 
-	void Movement();
+		void Movement();
 
-	bool OutOfLimits();
+		bool OutOfLimits();
 
-	void SetDestroyed(bool setter);
-	bool IsDestroyed();
+		void SetDestroyed(bool setter);
+		bool IsDestroyed();
 
-	void setDeathAnimation();
-};
+		void setDeathAnimation();
+	};
+}

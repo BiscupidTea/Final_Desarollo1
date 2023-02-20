@@ -4,47 +4,50 @@
 #include "Entity.h"
 #include "Bullet.h"
 
-class Player : public Entity
+namespace Game
 {
-private:
-	int points;
-	float distanceMade;
-	bool alive;
-	bool ground;
-	bool jump;
-	static const int maxBullets = 5;
+	class Player : public Entity
+	{
+	private:
+		int points;
+		float distanceMade;
+		bool alive;
+		bool ground;
+		bool jump;
+		static const int maxBullets = 5;
 
-	Timer* changeFrame;
-	Texture2D texturePlayer;
-	int actualFrame;
+		Timer* changeFrame;
+		Texture2D texturePlayer;
+		int actualFrame;
 
-public:
-	Bullet* arrayBullets[maxBullets];
+	public:
+		Bullet* arrayBullets[maxBullets];
 
-	Player(
-		Vector2 position, Vector2 velocity, 
-		float distanceMade, int points, bool alive, 
-		Texture2D texturePlayer, Texture2D textureBullet);
+		Player(
+			Vector2 position, Vector2 velocity,
+			float distanceMade, int points, bool alive,
+			Texture2D texturePlayer, Texture2D textureBullet);
 
-	~Player();
+		~Player();
 
-	void Draw();
+		void Draw();
 
-	void UpdateDraw();
+		void UpdateDraw();
 
-	void Movement();
+		void Movement();
 
-	void SetPlayerGround();
-	bool IsPlayerGround();
+		void SetPlayerGround();
+		bool IsPlayerGround();
 
-	void Input(bool& isPaused);
+		void Input(bool& isPaused);
 
-	bool IsAlive();
-	void SetIsAlive(bool aliveState);
+		bool IsAlive();
+		void SetIsAlive(bool aliveState);
 
-	int GetPoints();
-	void AddPoint(int sumPoints);
+		int GetPoints();
+		void AddPoint(int sumPoints);
 
-	float GetDistanceMade();
-	void AddDistanceMade(float sumDistance);
-};
+		float GetDistanceMade();
+		void AddDistanceMade(float sumDistance);
+	};
+}

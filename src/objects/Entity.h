@@ -1,34 +1,37 @@
 #pragma once
 #include "raylib.h"
 
-class Entity
+namespace Game
 {
-protected:
-	Vector2 position;
-	Vector2 velocity;
-	int width;
-	int height;
 
-public:
-	Entity(Vector2 position, Vector2 velocity, int width, int height);
-	virtual ~Entity();
+	class Entity
+	{
+	protected:
+		Vector2 position;
+		Vector2 velocity;
+		int width;
+		int height;
 
-	virtual void Draw() = 0;
+	public:
+		Entity(Vector2 position, Vector2 velocity, int width, int height);
+		virtual ~Entity();
 
-	void SetPosition(Vector2 newPosition);
-	Vector2 GetPosition();
-	
-	void setVelocityX(float velX);
-	void setVelocityY(float velY);
-	float getVelocityX();
-	float getVelocityY();
+		virtual void Draw() = 0;
 
-	float GetX();
-	float GetY();
-	int GetWidth();
-	int GetHeight();
+		void SetPosition(Vector2 newPosition);
+		Vector2 GetPosition();
 
-	bool CheckColition(Vector2 EPosition, int Ewidth, int Eheight);
-};
+		void setVelocityX(float velX);
+		void setVelocityY(float velY);
+		float getVelocityX();
+		float getVelocityY();
 
+		float GetX();
+		float GetY();
+		int GetWidth();
+		int GetHeight();
 
+		bool CheckColition(Vector2 EPosition, int Ewidth, int Eheight);
+	};
+
+}

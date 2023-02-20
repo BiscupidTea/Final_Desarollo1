@@ -3,61 +3,61 @@
 
 using namespace std;
 
-class Paralax
+namespace Game
 {
-private:
-	float positionFloorY;
-	float ScrollingFloor;
-	float velocityFloors;
+	class Paralax
+	{
+	private:
+		float positionFloorY;
+		float ScrollingFloor;
+		float velocityFloors;
 
-	float positionWallY;
-	float ScrollingWall1;
-	float ScrollingWall2;
-	float velocityWalls;
+		float positionWallY;
+		float ScrollingWall1;
+		float ScrollingWall2;
+		float velocityWalls;
 
-	int tipeWindow;
-	Vector2 positionWindow;
-	float velocityWindow;
-
-
-	Texture2D textureFloor;
-
-	Texture2D textureWall1;
-	Texture2D textureWall2;
-
-	Texture2D textureWindow1;
-	//Texture2D textureWindow2;
-	//Texture2D textureWindow3;
-	//Texture2D textureWindow4;
-	//Texture2D textureWindow5;
-	//Texture2D textureWindow6;
+		int tipeWindow;
+		Vector2 positionWindow;
+		float velocityWindow;
 
 
-public:
-	Paralax(
-		float velocityFloors,
-		Texture2D textureFloor,
-		Texture2D textureWall1,
-		Texture2D textureWall2,
-		Texture2D textureWindow1);
+		Texture2D textureFloor;
 
-	~Paralax();
+		Texture2D textureWall1;
+		Texture2D textureWall2;
 
-	//draw
-	void DrawParalax();
-
-	void DrawFloor();
-	void DrawWall();
-	void DrawWindow();
-
-	//update
-	void UpdateParalax(float velocityObstacles);
-
-	void UpdateFloor();
-	void UpdateWall();
-	void UpdateWindow();
-
-};
+		Texture2D textureWindow1;
+		//Texture2D textureWindow2;
+		//Texture2D textureWindow3;
+		//Texture2D textureWindow4;
+		//Texture2D textureWindow5;
+		//Texture2D textureWindow6;
 
 
+	public:
+		Paralax(
+			float velocityFloors,
+			Texture2D textureFloor,
+			Texture2D textureWall1,
+			Texture2D textureWall2,
+			Texture2D textureWindow1);
 
+		~Paralax();
+
+		//draw
+		void DrawParalax();
+
+		void DrawFloor();
+		void DrawWall();
+		void DrawWindow();
+
+		//update
+		void UpdateParalax(float velocityObstacles);
+
+		void UpdateFloor();
+		void UpdateWall();
+		void UpdateWindow();
+
+	};
+}

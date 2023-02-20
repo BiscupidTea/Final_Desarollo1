@@ -5,215 +5,218 @@
 
 using namespace std;
 
-Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int points, bool alive, Texture2D texturePlayer, Texture2D textureBullet) : Entity(position, velocity, width, height)
+namespace Game
 {
-	this->position = position;
-	this->velocity = velocity;
-
-	this->texturePlayer = texturePlayer;
-
-	this->width = texturePlayer.width / 13;
-	this->height = texturePlayer.height;
-
-	this->distanceMade = distanceMade;
-	this->points = points;
-	this->alive = alive;
-	ground = false;
-	jump = false;
-
-	this->actualFrame = 0;
-
-	changeFrame = new Timer(0.2f);
-
-	for (int i = 0; i < maxBullets; i++)
+	Player::Player(Vector2 position, Vector2 velocity, float distanceMade, int points, bool alive, Texture2D texturePlayer, Texture2D textureBullet) : Entity(position, velocity, width, height)
 	{
-		arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true, textureBullet);
-	}
-}
+		this->position = position;
+		this->velocity = velocity;
 
-Player::~Player()
-{
+		this->texturePlayer = texturePlayer;
 
-}
+		this->width = texturePlayer.width / 13;
+		this->height = texturePlayer.height;
 
-void Player::Draw()
-{
-	float sumSource = static_cast<float>(0 + (64 * actualFrame));
-	//DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
-	DrawTexturePro(texturePlayer,
-		{ sumSource, 0, 64, 64 },
-		{ position.x - (texturePlayer.width / 72),position.y, 64, 64 },
-		{ 0,	0, },
-		0, WHITE);
-}
+		this->distanceMade = distanceMade;
+		this->points = points;
+		this->alive = alive;
+		ground = false;
+		jump = false;
 
-void Player::UpdateDraw()
-{
-	changeFrame->UpdateTimer();
+		this->actualFrame = 0;
 
-	if (ground)
-	{
-		if (actualFrame < 5)
+		changeFrame = new Timer(0.2f);
+
+		for (int i = 0; i < maxBullets; i++)
 		{
-			actualFrame = 5;
+			arrayBullets[i] = new Bullet({ -500, -500 }, { 400, 0 }, 20, 20, true, textureBullet);
 		}
+	}
 
-		if (changeFrame->GetIsTimeEnd())
+	Player::~Player()
+	{
+
+	}
+
+	void Player::Draw()
+	{
+		float sumSource = static_cast<float>(0 + (64 * actualFrame));
+		//DrawRectangle(static_cast<int>(GetX()), static_cast<int>(GetY()), GetWidth(), GetHeight(), BLUE);
+		DrawTexturePro(texturePlayer,
+			{ sumSource, 0, 64, 64 },
+			{ position.x - (texturePlayer.width / 72),position.y, 64, 64 },
+			{ 0,	0, },
+			0, WHITE);
+	}
+
+	void Player::UpdateDraw()
+	{
+		changeFrame->UpdateTimer();
+
+		if (ground)
 		{
-			actualFrame += 1;
-
-			if (actualFrame >= 9)
+			if (actualFrame < 5)
 			{
 				actualFrame = 5;
 			}
 
-			changeFrame->ResetTime();
+			if (changeFrame->GetIsTimeEnd())
+			{
+				actualFrame += 1;
+
+				if (actualFrame >= 9)
+				{
+					actualFrame = 5;
+				}
+
+				changeFrame->ResetTime();
+			}
 		}
-	}
 
-	if (jump)
-	{
-		if (actualFrame < 1 && actualFrame > 4)
+		if (jump)
 		{
-			actualFrame = 1;
-		}
-
-		if (changeFrame->GetIsTimeEnd())
-		{
-			actualFrame += 1;
-
-			if (actualFrame >= 5)
+			if (actualFrame < 1 && actualFrame > 4)
 			{
 				actualFrame = 1;
 			}
 
+			if (changeFrame->GetIsTimeEnd())
+			{
+				actualFrame += 1;
+
+				if (actualFrame >= 5)
+				{
+					actualFrame = 1;
+				}
+
+				changeFrame->ResetTime();
+			}
+		}
+
+		if (!jump && !ground)
+		{
+			actualFrame = 0;
 			changeFrame->ResetTime();
 		}
 	}
 
-	if (!jump && !ground)
+	void Player::Movement()
 	{
-		actualFrame = 0;
-		changeFrame->ResetTime();
-	}
-}
-
-void Player::Movement()
-{
-	if (!ground && !jump)
-	{
-		velocity.y += 500 * GetFrameTime();
-	}
-	else if (!ground && jump)
-	{
-		if (velocity.y > -300)
+		if (!ground && !jump)
 		{
-			velocity.y -= 450 * GetFrameTime();
+			velocity.y += 500 * GetFrameTime();
 		}
-	}
-	else if (ground && jump)
-	{
-		ground = false;
-		velocity.y = -200;
-	}
-	else if (ground)
-	{
-		velocity.y = 0;
-	}
-
-	if (position.y < 0)
-	{
-		velocity.y = 0;
-		position.y = 0;
-	}
-
-	position.y += velocity.y * GetFrameTime();
-}
-
-void Player::SetPlayerGround()
-{
-	float florDistance = GetPercentageScreenHeight(85.0f);
-
-	if (position.y + height < florDistance)
-	{
-		ground = false;
-	}
-	else
-	{
-		ground = true;
-	}
-}
-
-bool Player::IsPlayerGround()
-{
-	return ground;
-}
-
-void Player::Input(bool& isPaused)
-{
-	if (isPaused)
-	{
-		if (IsKeyPressed(KEY_ESCAPE))
+		else if (!ground && jump)
 		{
-			isPaused = false;
+			if (velocity.y > -300)
+			{
+				velocity.y -= 450 * GetFrameTime();
+			}
 		}
-	}
-	else
-	{
-		if (IsKeyDown(KEY_SPACE))
+		else if (ground && jump)
 		{
-			jump = true;
+			ground = false;
+			velocity.y = -200;
+		}
+		else if (ground)
+		{
+			velocity.y = 0;
+		}
+
+		if (position.y < 0)
+		{
+			velocity.y = 0;
+			position.y = 0;
+		}
+
+		position.y += velocity.y * GetFrameTime();
+	}
+
+	void Player::SetPlayerGround()
+	{
+		float florDistance = GetPercentageScreenHeight(85.0f);
+
+		if (position.y + height < florDistance)
+		{
+			ground = false;
 		}
 		else
 		{
-			jump = false;
+			ground = true;
 		}
+	}
 
-		if (IsKeyPressed(KEY_ESCAPE))
-		{
-			isPaused = true;
-		}
+	bool Player::IsPlayerGround()
+	{
+		return ground;
+	}
 
-		if (IsKeyPressed(KEY_F))
+	void Player::Input(bool& isPaused)
+	{
+		if (isPaused)
 		{
-			for (int i = 0; i < maxBullets; i++)
+			if (IsKeyPressed(KEY_ESCAPE))
 			{
-				if (arrayBullets[i]->IsPickedNow())
+				isPaused = false;
+			}
+		}
+		else
+		{
+			if (IsKeyDown(KEY_SPACE))
+			{
+				jump = true;
+			}
+			else
+			{
+				jump = false;
+			}
+
+			if (IsKeyPressed(KEY_ESCAPE))
+			{
+				isPaused = true;
+			}
+
+			if (IsKeyPressed(KEY_F))
+			{
+				for (int i = 0; i < maxBullets; i++)
 				{
-					arrayBullets[i]->ShootBullet(GetPosition());
-					break;
+					if (arrayBullets[i]->IsPickedNow())
+					{
+						arrayBullets[i]->ShootBullet(GetPosition());
+						break;
+					}
 				}
 			}
 		}
 	}
-}
 
-bool Player::IsAlive()
-{
-	return alive;
-}
+	bool Player::IsAlive()
+	{
+		return alive;
+	}
 
-void Player::SetIsAlive(bool aliveState)
-{
-	alive = aliveState;
-}
+	void Player::SetIsAlive(bool aliveState)
+	{
+		alive = aliveState;
+	}
 
-int Player::GetPoints()
-{
-	return points;
-}
+	int Player::GetPoints()
+	{
+		return points;
+	}
 
-void Player::AddPoint(int sumPoints)
-{
-	points += sumPoints;
-}
+	void Player::AddPoint(int sumPoints)
+	{
+		points += sumPoints;
+	}
 
-float Player::GetDistanceMade()
-{
-	return distanceMade;
-}
+	float Player::GetDistanceMade()
+	{
+		return distanceMade;
+	}
 
-void Player::AddDistanceMade(float sumDistance)
-{
-	distanceMade += sumDistance;
+	void Player::AddDistanceMade(float sumDistance)
+	{
+		distanceMade += sumDistance;
+	}
 }
