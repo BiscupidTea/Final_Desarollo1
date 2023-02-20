@@ -21,11 +21,13 @@ namespace Game
 
 	void DrawMouse()
 	{
+		//DrawRectangle(GetMouseX(), GetMouseY(), textureCursorUp.width, textureCursorUp.height,RED);
+
 		if (!IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
 			DrawTexturePro(textureCursorUp,
 				{ 0,0, 64, 64 },
-				{ static_cast<float>(GetMouseX()) ,static_cast<float>(GetMouseY()), 64, 64 },
+				{ static_cast<float>(GetMouseX() - 10) ,static_cast<float>(GetMouseY() - 10), 64, 64 },
 				{ 0,0 },
 				0, WHITE
 			);
