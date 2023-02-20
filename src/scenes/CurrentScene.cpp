@@ -25,6 +25,7 @@ void InitGame()
 	bool IsRunning = true;
 
 	InitWindow(DefaultScreenWidth, DefaultScreenHeight, "WHERE IS MY TIME!?");
+	SetWindowIcon(LoadImage("res/textures/Timer-Item.png"));
 	InitAudioDevice();
 	setVolumeMusic(0.5);
 	setVolumeSFX(0.5);
