@@ -7,80 +7,83 @@
 
 #include "scenes/SceneSetter.h"
 
-static bool SplashScreenRosurcesLoaded = false;
-static bool firstPhase = true;
-static Color SplashScreenColor;
-static int timesEndTimer = 0;
-
-Texture2D textureSplashScreen;
-
-Timer* timerSplashScreen;
-
-void SplashScreenScene()
+namespace Game
 {
+	static bool SplashScreenRosurcesLoaded = false;
+	static bool firstPhase = true;
+	static Color SplashScreenColor;
+	static int timesEndTimer = 0;
 
-	if (!SplashScreenRosurcesLoaded)
+	Texture2D textureSplashScreen;
+
+	Timer* timerSplashScreen;
+
+	void SplashScreenScene()
 	{
-		LoadTextureSplashScreen();
-	}
 
-	UpdateSplashScreen();
-
-	DrawSplashScreen();
-}
-
-void UpdateSplashScreen()
-{
-	timerSplashScreen->UpdateTimer();
-
-	if (timerSplashScreen->GetIsTimeEnd())
-	{
-		if (firstPhase)
+		if (!SplashScreenRosurcesLoaded)
 		{
-			SplashScreenColor.a -= 1;
-
-			if (SplashScreenColor.a == 0)
-			{
-				firstPhase = false;
-			}
-		}
-		else
-		{
-			SplashScreenColor.a += 1;
-
-			if (SplashScreenColor.a == 255)
-			{
-				setGameScene(GameScene::Menu);
-			}
+			LoadTextureSplashScreen();
 		}
 
-		timerSplashScreen->ResetTime();
-		timesEndTimer++;
+		UpdateSplashScreen();
+
+		DrawSplashScreen();
 	}
-}
 
-void DrawSplashScreen()
-{
-	BeginDrawing();
-	ClearBackground(BLACK);
+	void UpdateSplashScreen()
+	{
+		timerSplashScreen->UpdateTimer();
 
-	DrawTexturePro(textureSplashScreen,
-		{ 0,0,128,128 },
-		{ 0,0, static_cast<float>(800) , static_cast<float>(800) },
-		{}, 0, WHITE);
+		if (timerSplashScreen->GetIsTimeEnd())
+		{
+			if (firstPhase)
+			{
+				SplashScreenColor.a -= 1;
 
-	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), SplashScreenColor);
+				if (SplashScreenColor.a == 0)
+				{
+					firstPhase = false;
+				}
+			}
+			else
+			{
+				SplashScreenColor.a += 1;
 
-	EndDrawing();
-}
+				if (SplashScreenColor.a == 255)
+				{
+					setGameScene(GameScene::Menu);
+				}
+			}
 
-void LoadTextureSplashScreen()
-{
-	textureSplashScreen = LoadTexture("res/textures/splashscreen.png");
+			timerSplashScreen->ResetTime();
+			timesEndTimer++;
+		}
+	}
 
-	timerSplashScreen = new Timer(0.01f);
+	void DrawSplashScreen()
+	{
+		BeginDrawing();
+		ClearBackground(BLACK);
 
-	SplashScreenColor = { 0,0,0,255 };
+		DrawTexturePro(textureSplashScreen,
+			{ 0,0,128,128 },
+			{ 0,0, static_cast<float>(800) , static_cast<float>(800) },
+			{}, 0, WHITE);
 
-	SplashScreenRosurcesLoaded = true;
+		DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), SplashScreenColor);
+
+		EndDrawing();
+	}
+
+	void LoadTextureSplashScreen()
+	{
+		textureSplashScreen = LoadTexture("res/textures/splashscreen.png");
+
+		timerSplashScreen = new Timer(0.01f);
+
+		SplashScreenColor = { 0,0,0,255 };
+
+		SplashScreenRosurcesLoaded = true;
+	}
 }

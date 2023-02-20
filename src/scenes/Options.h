@@ -1,15 +1,18 @@
 #pragma once
 
-void OptionsScene();
+namespace Game
+{
+	void OptionsScene();
 
-void UpdateOptions();
+	void UpdateOptions();
 
-void DrawOptions();
+	void DrawOptions();
 
-void DrawVolumeOptions();
+	void DrawVolumeOptions();
 
-void CreateButtonsOptions();
+	void CreateButtonsOptions();
 
-void LoadResourcesOptions();
+	void LoadResourcesOptions();
 
-void UnloadResourcesOptions();
+	void UnloadResourcesOptions();
+}

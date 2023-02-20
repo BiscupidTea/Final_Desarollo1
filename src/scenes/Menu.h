@@ -1,13 +1,16 @@
 #pragma once
 
-void MenuScene();
+namespace Game
+{
+	void MenuScene();
 
-void UpdateMenu();
+	void UpdateMenu();
 
-void DrawMenu();
+	void DrawMenu();
 
-void CreateButtons();
+	void CreateButtons();
 
-void LoadResourcesMenu();
+	void LoadResourcesMenu();
 
-void UnloadResourcesMenu();
+	void UnloadResourcesMenu();
+}

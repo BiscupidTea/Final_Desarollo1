@@ -1,13 +1,16 @@
 #pragma once
 
-void RulesScene();
+namespace Game
+{
+	void RulesScene();
 
-void UpdateRules();
+	void UpdateRules();
 
-void DrawRules();
+	void DrawRules();
 
-void CreateButtonsRules();
+	void CreateButtonsRules();
 
-void LoadResourcesRules();
+	void LoadResourcesRules();
 
-void UnloadResourcesRules();
+	void UnloadResourcesRules();
+}

@@ -1,45 +1,48 @@
 #pragma once
 
-void InitGameLoop();
+namespace Game
+{
+	void InitGameLoop();
 
-void GameLoopScene();
+	void GameLoopScene();
 
-void DrawGame();
+	void DrawGame();
 
-void UpdateGame();
+	void UpdateGame();
 
-void InitPlayer();
+	void InitPlayer();
 
-void ResetObstacle();
+	void ResetObstacle();
 
-void ResetObstacleOutOfLimits();
+	void ResetObstacleOutOfLimits();
 
-void SetObstaclePattern();
+	void SetObstaclePattern();
 
-void CheckColitions();
+	void CheckColitions();
 
-void CreateGameButtons();
+	void CreateGameButtons();
 
-void GameplayUpdate();
+	void GameplayUpdate();
 
-void GameplayDraw();
+	void GameplayDraw();
 
-void PauseUpdate();
+	void PauseUpdate();
 
-void PauseDraw();
+	void PauseDraw();
 
-void DeathScreenUpdate();
+	void DeathScreenUpdate();
 
-void DeathScreenDraw();
+	void DeathScreenDraw();
 
-void AccelerateGame();
+	void AccelerateGame();
 
-void DrawHud();
+	void DrawHud();
 
-void KillPlayer();
+	void KillPlayer();
 
-void GameSoundManagment();
+	void GameSoundManagment();
 
-void LoadResourcesGame();
+	void LoadResourcesGame();
 
-void UnloadResourcesGame();
+	void UnloadResourcesGame();
+}

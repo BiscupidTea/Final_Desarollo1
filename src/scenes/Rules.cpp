@@ -7,162 +7,166 @@
 
 #include "scenes/SceneSetter.h"
 
-static bool isRulesButtonsCreated = false;
-static bool RulesRosurcesLoaded = false;
-
-Buttons* buttonExitRules;
-
-static Texture2D textureObstacleTuto;
-static Texture2D textureTimerItemTuto;
-static Texture2D textureShieldTuto;
-static Texture2D texturePostIt;
-
-static Texture2D textureRulesBackground;
-static Texture2D textureRulesTitles;
-static Font fontTitles;
-
-void RulesScene()
+namespace Game
 {
-	if (!isRulesButtonsCreated)
+	static bool isRulesButtonsCreated = false;
+	static bool RulesRosurcesLoaded = false;
+
+	Buttons* buttonExitRules;
+
+	static Texture2D textureObstacleTuto;
+	static Texture2D textureTimerItemTuto;
+	static Texture2D textureShieldTuto;
+	static Texture2D texturePostIt;
+
+	static Texture2D textureRulesBackground;
+	static Texture2D textureRulesTitles;
+	static Font fontTitles;
+
+	void RulesScene()
 	{
-		CreateButtonsRules();
-		isRulesButtonsCreated = true;
+		if (!isRulesButtonsCreated)
+		{
+			CreateButtonsRules();
+			isRulesButtonsCreated = true;
+		}
+
+		if (!RulesRosurcesLoaded)
+		{
+			LoadResourcesRules();
+		}
+
+		UpdateRules();
+
+		DrawRules();
 	}
 
-	if (!RulesRosurcesLoaded)
+	void UpdateRules()
 	{
-		LoadResourcesRules();
+		if (buttonExitRules->IsButtonPressed())
+		{
+			setGameScene(GameScene::Menu);
+			UnloadResourcesRules();
+		}
 	}
 
-	UpdateRules();
-
-	DrawRules();
-}
-
-void UpdateRules()
-{
-	if (buttonExitRules->IsButtonPressed())
+	void DrawRules()
 	{
-		setGameScene(GameScene::Menu);
-		UnloadResourcesRules();
+		BeginDrawing();
+		ClearBackground(BLACK);
+
+		DrawTexturePro(textureRulesBackground,
+			{ 0, 0, 128,128 },
+			{ 0, 0, textureRulesBackground.width * 6.25f, textureRulesBackground.height * 6.25f },
+			{ 0,	0, },
+			0, WHITE);
+
+		DrawTextEx(fontTitles, "How to survive in Lab",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(10) },
+			40, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawRectangle(
+			static_cast<int>(GetPercentageScreenWidth(5)),
+			static_cast<int>(GetPercentageScreenHeight(15)),
+			MeasureText("How to survive in Lab", 40),
+			static_cast<int>(GetPercentageScreenHeight(1)), BLACK);
+
+		DrawTextEx(fontTitles, "1) Press SPACE to fly",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(25) },
+			30, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawTextEx(fontTitles, "2) Press F to shoot (you have 5 shoots only)",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(35) },
+			30, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawTextEx(fontTitles, "3) Dodge the obstacles (not friendly)",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(45) },
+			30, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawTexturePro(textureObstacleTuto,
+			{ 0, 0, 64,64 },
+			{ GetPercentageScreenWidth(70), GetPercentageScreenHeight(42), GetPercentageScreenWidth(8),GetPercentageScreenHeight(8) },
+			{ 0,	0, },
+			15, WHITE);
+
+		DrawTextEx(fontTitles, "4) Pick up this to increase your time (if ends you lose)",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(55) },
+			25, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawTexturePro(textureTimerItemTuto,
+			{ 0, 0, 64,64 },
+			{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(55), GetPercentageScreenWidth(5),GetPercentageScreenHeight(5) },
+			{ 0,	0, },
+			0, WHITE);
+
+		DrawTextEx(fontTitles, "5) Pick up Shield if you whant to survive 1 more hit",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(65) },
+			25, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawTexturePro(textureShieldTuto,
+			{ 0, 0, 64,64 },
+			{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(65), GetPercentageScreenWidth(5),GetPercentageScreenHeight(5) },
+			{ 0,	0, },
+			0, WHITE);
+
+		DrawTextEx(fontTitles, "6) Super important, don't forget",
+			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(75) },
+			30, GetPercentageScreenWidth(0.1f), BLACK);
+
+		DrawTexturePro(texturePostIt,
+			{ 0, 0, 64,64 },
+			{ GetPercentageScreenWidth(55), GetPercentageScreenHeight(68), GetPercentageScreenWidth(30),GetPercentageScreenHeight(25) },
+			{ 0,	0, },
+			15, WHITE);
+
+		DrawTextPro(fontTitles, "Press Esc for Pause",
+			{ GetPercentageScreenWidth(58), GetPercentageScreenHeight(79) },
+			{ 0,0 },
+			15, 20, GetPercentageScreenWidth(0.1f), BLACK);
+
+
+		buttonExitRules->DrawButton();
+
+		DrawText("0.9", GetScreenWidth() - MeasureText("0.9", 40), GetScreenHeight() - MeasureText("0.9", 20), 20, WHITE);
+		DrawMouse();
+
+		EndDrawing();
 	}
-}
 
-void DrawRules()
-{
-	BeginDrawing();
-	ClearBackground(BLACK);
+	void CreateButtonsRules()
+	{
+		buttonExitRules = new Buttons(
+			{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(85),
+			GetPercentageScreenWidth(10), GetPercentageScreenHeight(10) },
+			RED, "Exit", 30);
+	}
 
-	DrawTexturePro(textureRulesBackground,
-		{ 0, 0, 128,128 },
-		{ 0, 0, textureRulesBackground.width * 6.25f, textureRulesBackground.height * 6.25f },
-		{ 0,	0, },
-		0, WHITE);
+	void LoadResourcesRules()
+	{
+		textureObstacleTuto = LoadTexture("res/textures/ObstacleTexture.png");
+		textureTimerItemTuto = LoadTexture("res/textures/Timer-item.png");
+		textureShieldTuto = LoadTexture("res/textures/shield-item.png");
+		texturePostIt = LoadTexture("res/textures/postiit.png");
 
-	DrawTextEx(fontTitles, "How to survive in Lab", 
-		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(10) },
-		40, GetPercentageScreenWidth(0.1f), BLACK);
+		textureRulesBackground = LoadTexture("res/textures/simpleBackground.png");
+		textureRulesTitles = LoadTexture("res/textures/button.png");
 
-	DrawRectangle(
-		static_cast<int>(GetPercentageScreenWidth(5)), 
-		static_cast<int>(GetPercentageScreenHeight(15)), 
-		MeasureText("How to survive in Lab", 40), 
-		static_cast<int>(GetPercentageScreenHeight(1)), BLACK);
+		fontTitles = LoadFont("res/fonts/JMH Typewriter.otf");
 
-	DrawTextEx( fontTitles, "1) Press SPACE to fly", 
-		{GetPercentageScreenWidth(5), GetPercentageScreenHeight(25)}, 
-		30, GetPercentageScreenWidth(0.1f), BLACK	);
+		RulesRosurcesLoaded = true;
+	}
 
-	DrawTextEx(fontTitles, "2) Press F to shoot (you have 5 shoots only)", 
-		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(35) },
-		30, GetPercentageScreenWidth(0.1f), BLACK);
+	void UnloadResourcesRules()
+	{
+		UnloadTexture(textureObstacleTuto);
+		UnloadTexture(textureTimerItemTuto);
+		UnloadTexture(textureShieldTuto);
+		UnloadTexture(texturePostIt);
 
-	DrawTextEx(fontTitles, "3) Dodge the obstacles (not friendly)", 
-		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(45) },
-		30, GetPercentageScreenWidth(0.1f), BLACK);
+		UnloadTexture(textureRulesBackground);
+		UnloadTexture(textureRulesTitles);
 
-	DrawTexturePro(textureObstacleTuto,
-		{ 0, 0, 64,64 },
-		{ GetPercentageScreenWidth(70), GetPercentageScreenHeight(42), GetPercentageScreenWidth(8),GetPercentageScreenHeight(8) },
-		{ 0,	0, },
-		15, WHITE);
+		RulesRosurcesLoaded = false;
+	}
 
-	DrawTextEx(fontTitles, "4) Pick up this to increase your time (if ends you lose)", 
-		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(55) },
-		25, GetPercentageScreenWidth(0.1f), BLACK);
-
-	DrawTexturePro(textureTimerItemTuto,
-		{ 0, 0, 64,64 },
-		{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(55), GetPercentageScreenWidth(5),GetPercentageScreenHeight(5) },
-		{ 0,	0, },
-		0, WHITE);
-
-	DrawTextEx(fontTitles, "5) Pick up Shield if you whant to survive 1 more hit", 
-		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(65) },
-		25, GetPercentageScreenWidth(0.1f), BLACK);
-
-	DrawTexturePro(textureShieldTuto,
-		{ 0, 0, 64,64 },
-		{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(65), GetPercentageScreenWidth(5),GetPercentageScreenHeight(5) },
-		{ 0,	0, },
-		0, WHITE);
-
-	DrawTextEx(fontTitles, "6) Super important, don't forget", 
-		{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(75) },
-		30, GetPercentageScreenWidth(0.1f), BLACK);
-
-	DrawTexturePro(texturePostIt,
-		{ 0, 0, 64,64 },
-		{ GetPercentageScreenWidth(55), GetPercentageScreenHeight(68), GetPercentageScreenWidth(30),GetPercentageScreenHeight(25) },
-		{ 0,	0, },
-		15, WHITE);
-
-	DrawTextPro(fontTitles, "Press Esc for Pause", 
-		{ GetPercentageScreenWidth(58), GetPercentageScreenHeight(79) }, 
-		{0,0},
-		15, 20, GetPercentageScreenWidth(0.1f),BLACK);
-
-
-	buttonExitRules->DrawButton();
-
-	DrawText("0.9", GetScreenWidth() - MeasureText("0.9", 40), GetScreenHeight() - MeasureText("0.9", 20), 20, WHITE);
-	DrawMouse();
-
-	EndDrawing();
-}
-
-void CreateButtonsRules()
-{
-	buttonExitRules = new Buttons(
-		{ GetPercentageScreenWidth(85), GetPercentageScreenHeight(85),
-		GetPercentageScreenWidth(10), GetPercentageScreenHeight(10) },
-		RED, "Exit", 30);
-}
-
-void LoadResourcesRules()
-{
-	textureObstacleTuto = LoadTexture("res/textures/ObstacleTexture.png");
-	textureTimerItemTuto = LoadTexture("res/textures/Timer-item.png");
-	textureShieldTuto = LoadTexture("res/textures/shield-item.png");
-	texturePostIt = LoadTexture("res/textures/postiit.png");
-
-	textureRulesBackground = LoadTexture("res/textures/simpleBackground.png");
-	textureRulesTitles = LoadTexture("res/textures/button.png");
-
-	fontTitles = LoadFont("res/fonts/JMH Typewriter.otf");
-
-	RulesRosurcesLoaded = true;
-}
-
-void UnloadResourcesRules()
-{
-	UnloadTexture(textureObstacleTuto);
-	UnloadTexture(textureTimerItemTuto);
-	UnloadTexture(textureShieldTuto);
-	UnloadTexture(texturePostIt);
-
-	UnloadTexture(textureRulesBackground);
-	UnloadTexture(textureRulesTitles);
-
-	RulesRosurcesLoaded = false;
 }

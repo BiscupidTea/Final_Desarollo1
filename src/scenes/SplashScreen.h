@@ -1,9 +1,12 @@
 #pragma once
 
-void SplashScreenScene();
+namespace Game
+{
+	void SplashScreenScene();
 
-void UpdateSplashScreen();
+	void UpdateSplashScreen();
 
-void DrawSplashScreen();
+	void DrawSplashScreen();
 
-void LoadTextureSplashScreen();
+	void LoadTextureSplashScreen();
+}

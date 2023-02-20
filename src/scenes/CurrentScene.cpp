@@ -10,6 +10,8 @@
 #include "scenes/Options.h"
 #include "scenes/Credits.h"
 
+using namespace Game;
+
 GameScene gameScene;
 
 Music GameMusic1;

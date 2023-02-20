@@ -1,13 +1,16 @@
 #pragma once
 
-void CreditsScene();
+namespace Game
+{
+	void CreditsScene();
 
-void UpdateCredits();
+	void UpdateCredits();
 
-void DrawCredits();
+	void DrawCredits();
 
-void CreateButtonsCredits();
+	void CreateButtonsCredits();
 
-void LoadResourcesCredits();
+	void LoadResourcesCredits();
 
-void UnloadResourcesCredits();
+	void UnloadResourcesCredits();
+}
