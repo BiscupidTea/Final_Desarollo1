@@ -90,7 +90,7 @@ namespace Game
 
 		buttonExitOptions->DrawButton();
 
-		DrawText("0.9", GetScreenWidth() - MeasureText("0.9", 40), GetScreenHeight() - MeasureText("0.9", 20), 20, WHITE);
+		DrawText("1.0", GetScreenWidth() - MeasureText("1.0", 40), GetScreenHeight() - MeasureText("1.0", 20), 20, WHITE);
 		DrawMouse();
 
 		EndDrawing();
