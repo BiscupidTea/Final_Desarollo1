@@ -76,7 +76,7 @@ namespace Game
 			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(25) },
 			30, GetPercentageScreenWidth(0.1f), BLACK);
 
-		DrawTextEx(fontTitles, "2) Press F to shoot (you have 5 shoots only)",
+		DrawTextEx(fontTitles, "2) Press F to shoot (you have 5 shots only)",
 			{ GetPercentageScreenWidth(5), GetPercentageScreenHeight(35) },
 			30, GetPercentageScreenWidth(0.1f), BLACK);
 
